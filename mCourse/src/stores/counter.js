@@ -85,14 +85,18 @@ export const useCounterStore = defineStore("counter", {
         console.log(data);
       }
     },
-    async getCourse() {
+    async getCourse(value) {
+      console.log(value);
       try {
-        const { data } = await axios.get(originUrl + "/courses", {
+        const { data } = await axios.get(originUrl + "/courses/", {
+          params: {
+            page: value ? value.page : "",
+          },
           headers: {
             access_token: localStorage.access_token,
           },
         });
-        console.log(data);
+        // console.log(data);
         this.dataCourse = data;
       } catch (error) {
         console.log(error);
