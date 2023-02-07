@@ -1,3 +1,25 @@
+<script>
+import { mapActions, mapState } from "pinia";
+import { useCounterStore } from "../stores/counter";
+
+export default {
+  computed: {
+    ...mapState(useCounterStore, ["isLogin"]),
+  },
+
+  methods: {
+    ...mapActions(useCounterStore, ["doneLogin", "handleLogout"]),
+
+    logout() {
+      this.handleLogout();
+    },
+  },
+  created() {
+    this.doneLogin();
+  },
+};
+</script>
+
 <template>
   <div class="container-fluid bg-dark px-0">
     <div class="row gx-0">
@@ -75,8 +97,15 @@
               <a
                 href="class.html"
                 class="nav-item nav-link"
-                @click.prevent="this.$router.push('/targetMuscle')"
+                @click.prevent="this.$router.push('/exercise')"
                 >Classes</a
+              >
+              <a
+                v-if="isLogin == 'true'"
+                href="class.html"
+                class="nav-item nav-link"
+                @click.prevent="logout"
+                >Logout</a
               >
             </div>
             <a

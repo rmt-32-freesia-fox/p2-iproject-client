@@ -1,11 +1,28 @@
 <script>
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
+import CardExercise from "../components/CardExercise.vue";
+import CardBody from "../components/CardBody.vue";
+
+import { useCounterStore } from "../stores/counter";
+import { mapActions, mapState } from "pinia";
 
 export default {
   components: {
     Navbar,
     Footer,
+    CardExercise,
+    CardBody,
+  },
+
+  computed: {
+    ...mapState(useCounterStore, ["bodyParts"]),
+  },
+  methods: {
+    ...mapActions(useCounterStore, ["getBodyPart"]),
+  },
+  created() {
+    this.getBodyPart();
   },
 };
 </script>
@@ -18,48 +35,10 @@ export default {
     style="margin-bottom: 180px"
   >
     <div class="row g-5 gb-5">
-      <div class="col-lg-4 col-md-6">
-        <div class="bg-light rounded text-center p-5">
-          <i class="flaticon-six-pack display-1 text-primary"></i>
-          <h3 class="text-uppercase my-4">Body Building</h3>
-          <p>
-            Sed amet tempor amet sit kasd sea lorem dolor ipsum elitr dolor amet
-            kasd elitr duo vero amet amet stet
-          </p>
-          <a class="text-uppercase" href=""
-            >Read More <i class="bi bi-arrow-right"></i
-          ></a>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6">
-        <div class="bg-light rounded text-center p-5">
-          <i class="flaticon-barbell display-1 text-primary"></i>
-          <h3 class="text-uppercase my-4">Weight Lefting</h3>
-          <p>
-            Sed amet tempor amet sit kasd sea lorem dolor ipsum elitr dolor amet
-            kasd elitr duo vero amet amet stet
-          </p>
-          <a class="text-uppercase" href=""
-            >Read More <i class="bi bi-arrow-right"></i
-          ></a>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6">
-        <div class="bg-light rounded text-center p-5">
-          <i class="flaticon-bodybuilding display-1 text-primary"></i>
-          <h3 class="text-uppercase my-4">Muscle Building</h3>
-          <p>
-            Sed amet tempor amet sit kasd sea lorem dolor ipsum elitr dolor amet
-            kasd elitr duo vero amet amet stet
-          </p>
-          <a class="text-uppercase" href=""
-            >Read More <i class="bi bi-arrow-right"></i
-          ></a>
-        </div>
-      </div>
+      <CardBody v-for="item in bodyParts" :key="item.length" :item="item" />
       <div class="col-lg-12 col-md-6 text-center">
         <h1 class="text-uppercase text-light mb-4">
-          30% Discount For This Summer
+          subscribe if you want to see movement tutorials
         </h1>
         <a href="" class="btn btn-primary py-3 px-5">Become A Member</a>
       </div>

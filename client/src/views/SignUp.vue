@@ -122,10 +122,10 @@ export default {
 </template>
 
 <style>
-body {
+/* body {
   font: 100% / 1.414 "Open Sans", "Roboto", arial, sans-serif;
   background: url("../assets/img/carousel-1.jpg");
-}
+} */
 a,
 [type="submit"] {
   transition: all 0.25s ease-in;

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import About from "../views/About.vue";
-import TargetMuscle from "../views/TargetMuscle.vue";
+import Exercise from "../views/Exercise.vue";
 import SignUp from "../views/SignUp.vue";
 import SignIn from "../views/SignIn.vue";
 
@@ -29,9 +29,9 @@ const router = createRouter({
       component: About,
     },
     {
-      path: "/targetMuscle",
-      name: "targetMuscle",
-      component: TargetMuscle,
+      path: "/exercise",
+      name: "exercise",
+      component: Exercise,
     },
   ],
 });
@@ -39,8 +39,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const isAuthenticated = localStorage.access_token;
   if (!isAuthenticated && to.name === "about") next({ name: "login" });
-  else if (!isAuthenticated && to.name === "targetMuscle")
-    next({ name: "login" });
+  else if (!isAuthenticated && to.name === "exercise") next({ name: "login" });
   else if (
     (isAuthenticated && to.name === "login") ||
     (isAuthenticated && to.name === "register")

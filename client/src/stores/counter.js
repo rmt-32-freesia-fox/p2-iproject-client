@@ -18,9 +18,16 @@ const swalConfirm = (cb) => {
 export const useCounterStore = defineStore("counter", {
   state: () => ({
     baseurl: "http://localhost:3000",
+    bodyParts: [],
+    isLogin: "false",
   }),
 
   actions: {
+    doneLogin() {
+      if (!localStorage.access_token) this.isLogin = "false";
+      else this.isLogin = "true";
+    },
+
     async register(data) {
       try {
         const register = await axios({
@@ -54,6 +61,57 @@ export const useCounterStore = defineStore("counter", {
         localStorage.access_token = login.data.access_token;
 
         this.router.push("/");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async loginWithGoogle(response) {
+      try {
+        const google = await axios({
+          method: "post",
+          url: `${this.baseurl}/google-sign-in`,
+          headers: {
+            "google-auth-token": response.credential,
+          },
+        });
+        localStorage.access_token = google.data.access_token;
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Login Success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.isLogin = "true";
+        this.router.push("/");
+        console.log(google);
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "error from login Google",
+        });
+      }
+    },
+    async handleLogout() {
+      swalConfirm(() => {
+        localStorage.clear();
+        this.doneLogin();
+        this.router.push("/");
+      });
+    },
+    async getBodyPart() {
+      try {
+        const bodyParts = await axios({
+          method: "get",
+          url: `${this.baseurl}/bodyParts`,
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        this.bodyParts = bodyParts.data.data;
+        console.log(this.bodyParts);
       } catch (error) {
         console.log(error);
       }

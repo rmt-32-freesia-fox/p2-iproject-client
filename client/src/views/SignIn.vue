@@ -10,7 +10,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(useCounterStore, ["login", ]),
+    ...mapActions(useCounterStore, ["login", "loginWithGoogle"]),
     handleLogin() {
       const input = {
         email: this.email,
@@ -80,6 +80,7 @@ export default {
               <button @click.prevent="handleLogin" class="btn btn-dark">
                 Sign In
               </button>
+              <GoogleLogin :callback="loginWithGoogle" />
             </li>
             <li style="margin-top: 1rem;">
               <a
@@ -106,10 +107,10 @@ export default {
 
 <style>
 
-body {
+/* body {
   font: 100% / 1.414 "Open Sans", "Roboto", arial, sans-serif;
   background: url("../assets/img/carousel-1.jpg");
-}
+} */
 a,
 [type="submit"] {
   transition: all 0.25s ease-in;
