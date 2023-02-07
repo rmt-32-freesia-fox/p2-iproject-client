@@ -41,5 +41,22 @@ const router = createRouter({
     },
   ],
 });
-
+router.beforeEach((to, from, next) => {
+  let token = localStorage.access_token;
+  if (
+    (!token && to.name == "courses") ||
+    (!token && to.name == "favorite") ||
+    (!token && to.name == "DetailPage")
+  ) {
+    next({ name: "login" });
+  } else if (
+    (token && to.name == "login") ||
+    (token && to.name == "register") ||
+    (token && to.name == "home")
+  ) {
+    next({ name: "courses" });
+  } else {
+    next();
+  }
+});
 export default router;

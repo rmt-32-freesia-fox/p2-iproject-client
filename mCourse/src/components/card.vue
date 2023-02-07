@@ -1,4 +1,6 @@
-<script></script>
+<script>
+import "@splidejs/vue-splide/css";
+</script>
 <template>
   <div class="max-w-sm rounded overflow-hidden shadow-lg">
     <img
