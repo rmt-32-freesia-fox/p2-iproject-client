@@ -1,3 +1,25 @@
+<script>
+import { useAuctionStore } from "../stores/auction.js";
+import { mapActions } from "pinia";
+export default {
+  data() {
+    return {
+      user: {
+        email: "",
+        name: "",
+        password: "",
+      },
+    };
+  },
+  methods: {
+    ...mapActions(useAuctionStore, ["postRegister"]),
+    handleSubmitButton() {
+      this.postRegister(this.user);
+    },
+  },
+};
+</script>
+
 <template>
   <div>
     <section class="pb-20 relative block bg-gray-900">
@@ -15,7 +37,7 @@
           y="0"
         >
           <polygon
-            class="text-gray-900 fill-current"
+            class="text-gray-900"
             points="2560 0 2560 100 0 100"
           ></polygon>
         </svg>
@@ -44,7 +66,7 @@
                 <h4 class="text-2xl text-center font-semibold">
                   Register Form
                 </h4>
-                <form>
+                <form @submit.prevent="handleSubmitButton">
                   <div class="relative w-full mb-3 mt-8">
                     <label
                       class="block uppercase text-gray-700 text-xs font-bold mb-2"
@@ -52,6 +74,7 @@
                       >Email</label
                     ><input
                       type="email"
+                      v-model="user.email"
                       class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                       placeholder="ex: admin@hlr-auction.id"
                       style="transition: all 0.15s ease 0s"
@@ -64,6 +87,7 @@
                       >Full Name</label
                     ><input
                       type="text"
+                      v-model="user.name"
                       class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                       placeholder="ex: Hayyik Lanaa R"
                       style="transition: all 0.15s ease 0s"
@@ -76,6 +100,7 @@
                       >Password</label
                     ><input
                       type="password"
+                      v-model="user.password"
                       class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                       placeholder="ex: hLR-4ucT10N"
                       style="transition: all 0.15s ease 0s"

@@ -1,13 +1,20 @@
 <script>
+import { useAuctionStore } from "../stores/auction.js";
+import { mapState, mapActions } from "pinia";
+
 export default {
   data() {
     return {
       showMenu: false,
     };
   },
+  computed: {
+    ...mapState(useAuctionStore, ["isLogin"]),
+  },
   methods: {
-    toggleNavbar: function () {
-      this.showMenu = !this.showMenu;
+    ...mapActions(useAuctionStore, ["logout"]),
+    handleLogoutButton() {
+      this.logout();
     },
   },
 };
@@ -85,6 +92,7 @@ export default {
           <li class="flex items-center">
             <router-link
               to="/login"
+              v-if="isLogin"
               class="bg-blue-700 text-white active:bg-blue-500 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
               type="button"
               style="transition: all 0.15s ease 0s"
@@ -93,6 +101,7 @@ export default {
             </router-link>
             <router-link
               to="/login"
+              v-if="!isLogin"
               class="bg-white text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
               type="button"
               style="transition: all 0.15s ease 0s"
@@ -100,6 +109,8 @@ export default {
               <i class="fas fa-arrow-alt-circle-down"></i> Login
             </router-link>
             <a
+              v-if="isLogin"
+              @click.prevent="handleLogoutButton"
               class="bg-white text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
               type="button"
               style="transition: all 0.15s ease 0s"

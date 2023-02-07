@@ -1,9 +1,20 @@
 <script>
+import { useAuctionStore } from "../stores/auction.js";
+import { mapActions } from "pinia";
 export default {
   data() {
     return {
-      background: "../assets/img/register_bg_2.png",
+      user: {
+        email: "",
+        password: "",
+      },
     };
+  },
+  methods: {
+    ...mapActions(useAuctionStore, ["postLogin", "postLoginGoogle"]),
+    handleSubmitButton() {
+      this.postLogin(this.user);
+    },
   },
 };
 </script>
@@ -11,6 +22,7 @@ export default {
 <template>
   <div>
     <main>
+      <router-view></router-view>
       <section class="absolute w-full h-full">
         <div
           class="absolute top-0 w-full h-full bg-gray-300"
@@ -29,10 +41,10 @@ export default {
                       Sign in with
                     </h6>
                   </div>
-                  <div class="btn-wrapper text-center">
-                    <button
-                      class="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
-                      type="button"
+                  <div class="btn-wrapper text-center flex justify-center">
+                    <a
+                      href="https://github.com/login/oauth/authorize?client_id=de19d23718b971b968cc"
+                      class="bg-white active:bg-gray-100 text-gray-800 px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
                       style="transition: all 0.15s ease 0s"
                     >
                       <img
@@ -40,18 +52,7 @@ export default {
                         class="w-5 mr-1"
                         src="../assets/img/github.svg"
                       />Github
-                    </button>
-                    <button
-                      class="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
-                      type="button"
-                      style="transition: all 0.15s ease 0s"
-                    >
-                      <img
-                        alt="..."
-                        class="w-5 mr-1"
-                        src="../assets/img/google.svg"
-                      />Google
-                    </button>
+                    </a>
                   </div>
                   <hr class="mt-6 border-b-1 border-gray-400" />
                 </div>
@@ -59,13 +60,14 @@ export default {
                   <div class="text-gray-500 text-center mb-3 font-bold">
                     <small>Or sign in with credentials</small>
                   </div>
-                  <form>
+                  <form @submit.prevent="handleSubmitButton">
                     <div class="relative w-full mb-3">
                       <label
                         class="block uppercase text-gray-700 text-xs font-bold mb-2"
                         for="grid-password"
                         >Email</label
                       ><input
+                        v-model="user.email"
                         type="email"
                         class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                         placeholder="Email"
@@ -78,6 +80,7 @@ export default {
                         for="grid-password"
                         >Password</label
                       ><input
+                        v-model="user.password"
                         type="password"
                         class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                         placeholder="Password"
@@ -120,7 +123,6 @@ export default {
             </div>
           </div>
         </div>
-        <footer-component></footer-component>
       </section>
     </main>
   </div>
