@@ -6,6 +6,11 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/',
+      name: 'home',
+      component: Login
+    },
+    {
       path: '/login',
       name: 'login',
       component: Login
@@ -17,5 +22,15 @@ const router = createRouter({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.access_token
+  const isRouteAuth = ['login', 'register'].includes(to.name)
+
+  if (isRouteAuth && isAuthenticated) next({ name: 'home' })
+  else next()
+})
+
+router.beforeEach
 
 export default router
