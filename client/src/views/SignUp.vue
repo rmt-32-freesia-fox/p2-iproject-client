@@ -1,9 +1,28 @@
 <script>
-import Navbar from "../components/Navbar.vue";
+import { mapActions } from "pinia";
+import { useCounterStore } from "../stores/counter";
 
 export default {
-  components: {
-    Navbar,
+  data() {
+    return {
+      username: "",
+      email: "",
+      password: "",
+      phoneNumber: "",
+    };
+  },
+  methods: {
+    ...mapActions(useCounterStore, ["register"]),
+    handleRegister() {
+      const input = {
+        username: this.username,
+        email: this.email,
+        password: this.password,
+        phoneNumber: this.phoneNumber,
+      };
+      console.log(input);
+      this.register(input);
+    },
   },
 };
 </script>
@@ -38,11 +57,18 @@ export default {
       <form action="#">
         <div class="form-group">
           <label for="username">Username</label>
-          <input class="form-control" type="text" placeholder="Zura" required />
+          <input
+            v-model="username"
+            class="form-control"
+            type="text"
+            placeholder="Zura"
+            required
+          />
         </div>
         <div class="form-group">
           <label for="email">Email</label>
           <input
+            v-model="email"
             class="form-control"
             type="text"
             name="email"
@@ -54,6 +80,7 @@ export default {
         <div class="form-group">
           <label for="password">Password</label>
           <input
+            v-model="password"
             class="form-control"
             type="password"
             name="password"
@@ -65,6 +92,7 @@ export default {
         <div class="form-group">
           <label for="passwordRepeat">Phone Number</label>
           <input
+            v-model="phoneNumber"
             class="form-control"
             type="text"
             placeholder="081776524432"
@@ -74,9 +102,11 @@ export default {
         <div class="m-t-lg" style="margin-top: 1rem">
           <ul class="list-inline">
             <li>
-              <input class="btn btn--form" type="submit" value="Register" />
+              <button @click.prevent="handleRegister" class="btn btn-dark">
+                Sign Up
+              </button>
             </li>
-            <li>
+            <li style="margin-top: 0.5rem">
               <a
                 class="signup__link"
                 style="cursor: pointer"
@@ -92,10 +122,6 @@ export default {
 </template>
 
 <style>
-@function remy($value) {
-  @return ($value / 16px) * 1rem;
-}
-
 body {
   font: 100% / 1.414 "Open Sans", "Roboto", arial, sans-serif;
   background: url("../assets/img/carousel-1.jpg");

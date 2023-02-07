@@ -36,4 +36,16 @@ const router = createRouter({
   ],
 });
 
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.access_token;
+  if (!isAuthenticated && to.name === "about") next({ name: "login" });
+  else if (!isAuthenticated && to.name === "targetMuscle")
+    next({ name: "login" });
+  else if (
+    (isAuthenticated && to.name === "login") ||
+    (isAuthenticated && to.name === "register")
+  )
+    next({ name: "home" });
+  else next();
+});
 export default router;

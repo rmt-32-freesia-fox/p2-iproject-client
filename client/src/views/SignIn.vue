@@ -1,9 +1,23 @@
 <script>
-import Navbar from "../components/Navbar.vue";
+import { mapActions } from "pinia";
+import { useCounterStore } from "../stores/counter";
 
 export default {
-  components: {
-    Navbar,
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    ...mapActions(useCounterStore, ["login", ]),
+    handleLogin() {
+      const input = {
+        email: this.email,
+        password: this.password,
+      };
+      this.login(input);
+    },
   },
 };
 </script>
@@ -38,7 +52,8 @@ export default {
       <form action="#">
         <div class="form-group">
           <label for="email">Email</label>
-          <input
+          <input 
+          v-model="email"
             class="form-control"
             type="text"
             name="email"
@@ -49,7 +64,7 @@ export default {
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input
+          <input  v-model="password"
             class="form-control"
             type="password"
             name="password"
@@ -59,18 +74,28 @@ export default {
           />
         </div>
 
-        <div class="m-t-lg" style="margin-top: 1rem">
-          <ul class="list-inline">
-            <li>
-              <input class="btn btn--form" type="submit" value="Login" />
+        <div class="m-t-lg">
+          <ul class="list-inline" >
+            <li style="margin-top: 1rem">
+              <button @click.prevent="handleLogin" class="btn btn-dark">
+                Sign In
+              </button>
             </li>
-            <li>
+            <li style="margin-top: 1rem;">
               <a
+                class="signup__link"
+                style="cursor: pointer"
+                @click.prevent="this.$router.push('/register')"
+                >Click here if you don't have account</a
+              >
+              <li style="margin-top: 0.5rem;">
+                <a
                 class="signup__link"
                 style="cursor: pointer"
                 @click.prevent="this.$router.push('/')"
                 >back</a
               >
+              </li>
             </li>
           </ul>
         </div>
@@ -80,9 +105,6 @@ export default {
 </template>
 
 <style>
-@function remy($value) {
-  @return ($value / 16px) * 1rem;
-}
 
 body {
   font: 100% / 1.414 "Open Sans", "Roboto", arial, sans-serif;
