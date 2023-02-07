@@ -13,6 +13,11 @@ export const useCounterStore = defineStore("counter", {
     doubleCount: (state) => state.count * 2,
   },
   actions: {
+    async addCourse(value) {
+      console.log(value);
+      try {
+      } catch (error) {}
+    },
     async getVideoId(value) {
       console.log(value);
       try {
@@ -91,6 +96,7 @@ export const useCounterStore = defineStore("counter", {
         const { data } = await axios.get(originUrl + "/courses/", {
           params: {
             page: value ? value.page : "",
+            search: value ? value.search : "",
           },
           headers: {
             access_token: localStorage.access_token,

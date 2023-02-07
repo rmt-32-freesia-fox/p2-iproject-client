@@ -11,7 +11,6 @@ export default {
         search: "",
         countPage: 1,
         page: "",
-        sort: "",
       },
     };
   },
@@ -24,18 +23,21 @@ export default {
   },
   methods: {
     ...mapActions(useCounterStore, ["getCourse", "getMotivate"]),
+    search() {
+      this.getCourse(this.dataInput);
+    },
     nextPage() {
       this.dataInput.countPage += 1;
-      this.dataInput.page = this.dataCourse.nextPageToken
-        ? this.dataCourse.nextPageToken
+      this.dataInput.page = this.dataCourse.tokenNext
+        ? this.dataCourse.tokenNext
         : "";
       this.getCourse(this.dataInput);
     },
     prevPage() {
       if (this.dataInput.countPage >= 2) {
         this.dataInput.countPage -= 1;
-        this.dataInput.page = this.dataCourse.prevPageToken
-          ? this.dataCourse.prevPageToken
+        this.dataInput.page = this.dataCourse.tokenPrev
+          ? this.dataCourse.tokenPrev
           : "";
       }
       this.getCourse(this.dataInput);
@@ -43,7 +45,7 @@ export default {
   },
   created() {
     // this.getCourse();
-    this.getMotivate();
+    // this.getMotivate();
   },
 };
 </script>
@@ -55,23 +57,36 @@ export default {
     </div>
     <!---search-box-->
     <form action="">
-      <div class="mx-auto text-center">
+      <div class="mx-auto text-center flex justify-center">
         <input
+          v-model="dataInput.search"
           type="text"
           placeholder=" What do you want ?"
-          class="border border-black w-1/2 p-2"
+          class="border border-black w-1/2 p-2 border-r border-r-white"
         />
-        <select name="" id="" class="p-2">
-          <option value="">Data 1</option>
+        <select
+          name=""
+          id=""
+          v-model="dataInput.order"
+          class="p-2 border border-black border-l-2 border-l-slate-300"
+        >
+          <option value="date">Date</option>
+          <option value="rating">rating</option>
+          <option value="viewCount">viewCount</option>
         </select>
-        <button class="bg-black text-white p-2 font-bold">Search</button>
+        <button
+          @click.prevent="search"
+          class="bg-black text-white p-2 font-bold border border-black"
+        >
+          Search
+        </button>
       </div>
     </form>
     <!----tempat serach box-->
   </div>
   <div class="grid grid-cols-4 gap-3 mt-5 p-5">
     <!---Tempat Card-->
-    <!-- <card v-for="(item, i) in dataCourse.items" :key="i" :dataCard="item" /> -->
+    <card v-for="(item, i) in dataCourse.items" :key="i" :dataCard="item" />
   </div>
   <div class="mx-auto text-center gap-2 font-bold w-full">
     <a
@@ -81,8 +96,7 @@ export default {
       >Prev</a
     >
     <span class="px-2 bg-slate-500 text-white w-48"
-      >this {{ dataInput.countPage }} of
-      {{ dataCourse.pageInfo.totalResults }}</span
+      >this {{ dataInput.countPage }} of {{ dataCourse.totalPage }}</span
     >
     <a
       href=""

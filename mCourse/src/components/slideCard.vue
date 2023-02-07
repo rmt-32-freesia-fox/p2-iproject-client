@@ -20,9 +20,9 @@ export default {
     aria-label="My Favorite Images"
     class="shadow-lg rounded-md w-3/4"
   >
-    <SplideSlide v-for="(item, i) in dataPop" :key="i">
+    <SplideSlide v-for="(item, i) in dataPop.items" :key="i">
       <img
-        :src="item?.snippet.thumbnails.high.url"
+        :src="item.snippet.thumbnails.high.url"
         alt="Sample 1"
         class="object-fill w-full h-64 rounded-lg"
       />
