@@ -1,4 +1,10 @@
-<script></script>
+<script>
+export default {
+  props: {
+    dataMotivate: String,
+  },
+};
+</script>
 <template>
   <figure class="max-w-screen-md mx-auto text-center">
     <svg
@@ -15,9 +21,7 @@
     </svg>
     <blockquote>
       <p class="text-2xl italic font-medium text-gray-900 dark:text-white">
-        "Flowbite is just awesome. It contains tons of predesigned components
-        and pages starting from login screen to complex dashboard. Perfect
-        choice for your next SaaS application."
+        {{ dataMotivate }}
       </p>
     </blockquote>
     <figcaption class="flex items-center justify-center mt-6 space-x-3">
@@ -30,10 +34,10 @@
         class="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700"
       >
         <cite class="pr-3 font-medium text-gray-900 dark:text-white"
-          >Micheal Gough</cite
+          >mCourse Motivate</cite
         >
         <cite class="pl-3 text-sm font-light text-gray-500 dark:text-gray-400"
-          >CEO at Google</cite
+          >Proud Of Love For You 💝</cite
         >
       </div>
     </figcaption>

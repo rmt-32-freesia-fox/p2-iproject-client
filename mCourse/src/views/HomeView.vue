@@ -1,5 +1,7 @@
 <script>
+import { mapActions, mapState } from "pinia";
 import slidecard from "../components/slideCard.vue";
+import { useCounterStore } from "../stores/counter";
 export default {
   components: {
     slidecard,

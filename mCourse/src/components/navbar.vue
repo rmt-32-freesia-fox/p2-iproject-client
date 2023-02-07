@@ -1,14 +1,21 @@
 <script>
+import { mapActions } from "pinia";
+
 export default {
   computed: {
     getName() {
       return this.$route.name;
     },
   },
+  methods: {
+    btnLogout() {
+      localStorage.clear();
+      this.$router.push("/");
+    },
+  },
 };
 </script>
 <template>
-  {{ getName }}
   <nav class="bg-black w-full text-white p-2 sticky top-0 z-50">
     <div class="grid grid-cols-6">
       <div>
@@ -44,15 +51,15 @@ export default {
           >
             Favorite
           </RouterLink>
-          <RouterLink
-            to="/"
+          <a
+            @click.prevent="btnLogout"
             v-if="
               getName != 'login' && getName != 'register' && getName != 'home'
             "
             class="w-20 bg-white text-black p-1 px-2 font-bold hover:bg-slate-800 hover:text-white text-center"
           >
             Logout
-          </RouterLink>
+          </a>
         </div>
       </div>
       <div></div>

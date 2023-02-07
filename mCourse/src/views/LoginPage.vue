@@ -1,4 +1,24 @@
-<script></script>
+<script>
+import { mapActions } from "pinia";
+import { useCounterStore } from "../stores/counter";
+
+export default {
+  data() {
+    return {
+      dataInput: {
+        email: "",
+        password: "",
+      },
+    };
+  },
+  methods: {
+    ...mapActions(useCounterStore, ["forLogin"]),
+    formLogin() {
+      this.forLogin(this.dataInput);
+    },
+  },
+};
+</script>
 <template>
   <div class="container mx-auto">
     <div class="mx-auto">
@@ -35,17 +55,20 @@
           </p>
         </button>
         <input
+          v-model="dataInput.email"
           type="text"
           class="bg-white border border-black w-3/4 p-2 px-2 m-1 placeholder:text-black placeholder:font-semibold"
           placeholder="Email"
         />
         <input
+          v-model="dataInput.password"
           type="Password"
           class="bg-white border border-black w-3/4 p-2 px-2 m-1 placeholder:text-black placeholder:font-semibold focus:border"
           placeholder="Password"
         />
         <br />
         <button
+          @click.prevent="formLogin"
           class="bg-black p-2 border border-black text-white font-bold w-3/4 hover:bg-slate-50 hover:border hover:border-black hover:text-black"
         >
           LOGIN

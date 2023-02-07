@@ -1,21 +1,29 @@
-<script></script>
+<script>
+import "@splidejs/vue-splide/css";
+import { mapActions, mapState } from "pinia";
+import { useCounterStore } from "../stores/counter";
+export default {
+  computed: {
+    ...mapState(useCounterStore, ["dataPop"]),
+  },
+  methods: {
+    ...mapActions(useCounterStore, ["popCourse"]),
+  },
+  created() {
+    this.popCourse();
+  },
+};
+</script>
 <template>
   <Splide
     :options="{ rewind: true }"
     aria-label="My Favorite Images"
-    class="shadow-lg rounded-md"
+    class="shadow-lg rounded-md w-3/4"
   >
-    <SplideSlide>
+    <SplideSlide v-for="(item, i) in dataPop" :key="i">
       <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzTgf6bmASfhKC6Pv6nf5YwwdzNleKoM41dxkSg0s7Sg&s"
+        :src="item?.snippet.thumbnails.high.url"
         alt="Sample 1"
-        class="object-fill w-full h-64 rounded-lg"
-      />
-    </SplideSlide>
-    <SplideSlide>
-      <img
-        src="https://www.ucsfhealth.org/-/media/project/ucsf/ucsf-health/education/hero/top-ten-foods-for-health-2x.jpg"
-        alt="Sample 2"
         class="object-fill w-full h-64 rounded-lg"
       />
     </SplideSlide>

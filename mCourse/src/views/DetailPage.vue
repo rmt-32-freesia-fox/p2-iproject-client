@@ -1,45 +1,67 @@
-<script></script>
+<script>
+import { mapActions, mapState } from "pinia";
+import { useCounterStore } from "../stores/counter";
+
+export default {
+  computed: {
+    ...mapState(useCounterStore, ["detailPage"]),
+    getRoute() {
+      return this.$route.params.id;
+    },
+    location() {
+      return `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${window.location.href}`;
+    },
+  },
+  methods: {
+    ...mapActions(useCounterStore, ["getVideoId"]),
+    formatDate(data) {
+      return new Date(data).toLocaleString("id-ID", { dateStyle: "full" });
+    },
+  },
+  created() {
+    this.getVideoId(this.getRoute);
+  },
+};
+</script>
 <template>
-  <div class="container mx-auto mt-16">
-    <div class="w-3/5 mx-auto p-2 border shadow bg-white">
+  <div class="container mx-auto mt-16 w-fit">
+    <div class="mx-auto p-2 border shadow bg-white w-fit">
       <div class="grid grid-cols-2 gap-1">
         <div>
           <img
-            src="https://i.ytimg.com/vi/Blk3T1VnUN4/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDtsgZt4EQKJXcXanHmA0l5F1JtTw"
+            :src="detailPage.items[0].snippet.thumbnails.high.url"
             alt=""
             class="object-fill w-full"
           />
           <div class="grid grid-cols-3">
-            <div>
-              <img
-                src="http://t3.gstatic.com/licensed-image?q=tbn:ANd9GcSh-wrQu254qFaRcoYktJ5QmUhmuUedlbeMaQeaozAVD4lh4ICsGdBNubZ8UlMvWjKC"
-                class="object-fill w-32"
-                alt=""
-              />
+            <div class="m-3 text-center font-bold">
+              <img :src="location" alt="qrcode" class="mx-auto" />
+              <p>SCAN HERE</p>
             </div>
-            <div class="col-span-2">
-              <p>Title :</p>
-              <p>Live Status :</p>
-              <p>Publish At :</p>
+            <div class="col-span-2 font-semibold text-center">
+              <p class="text-xl m-2">{{ detailPage.items[0].snippet.title }}</p>
+              <p>
+                Total Views :
+                <span
+                  class="bg-black text-white p-1 border hover:border hover:border-red-600"
+                  >{{ detailPage.items[0].statistics.viewCount }}</span
+                >
+              </p>
+              <p>
+                Publish At :
+                {{ formatDate(detailPage.items[0].snippet.publishedAt) }}
+              </p>
+              <button
+                class="bg-black text-white p-2 m-2 mt-5 ml-2 font-bold border hover:bg-white hover:text-black hover:border hover:border-black"
+              >
+                Add Favorite
+              </button>
             </div>
           </div>
-          <button
-            class="bg-black text-white p-2 m-1 ml-2 font-bold border hover:bg-white hover:text-black hover:border hover:border-black"
-          >
-            Add Favorite
-          </button>
         </div>
-        <div class="bg-slate-100 p-2 text-justify">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi a
-          consequatur dolore doloremque excepturi libero nobis eveniet. Aut,
-          quibusdam blanditiis sint dolorem consequatur minus fuga ab iste nobis
-          praesentium recusandae? Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Eveniet asperiores adipisci corrupti qui cum tenetur
-          ad perspiciatis sit, iste quod dolor. Obcaecati facere cupiditate ex
-          odit magni nulla dicta provident. Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Totam commodi molestias dolor,
-          molestiae, recusandae minima placeat autem quo voluptatum rem quos ex.
-          Dicta recusandae porro explicabo unde veniam est perspiciatis!
+
+        <div class="bg-slate-100 p-2">
+          {{ detailPage.items[0].snippet.description }}
         </div>
       </div>
     </div>
