@@ -1,9 +1,15 @@
 <script>
+import { mapActions } from 'pinia';
+import { useUserStore } from '../stores/user';
+
 export default {
   data() {
     return {
       data: {}
     }
+  },
+  methods: {
+    ...mapActions(useUserStore, ['register'])
   }
 }
 </script>
@@ -19,7 +25,7 @@ export default {
     <div class="lg:w-1/2 p-5">
       <div class="h-full flex items-center justify-center lg:my-0 my-32">
         <div class="lg:mt-14 lg:my-0 lg:max-w-md max-w-lg  w-full ">
-          <form class="lg:shadow-none shadow	p-5 rounded-md">
+          <form @submit.prevent="register(data)" class="lg:shadow-none shadow	p-5 rounded-md">
             <h1 class="font-bold lg:text-3xl text-4xl mb-5 ">Sign Up</h1>
             <div class="space-y-4">
               <div>
@@ -31,23 +37,25 @@ export default {
                   placeholder="Phone" required />
               </div>
               <div>
-                <input v-model="data.email" type="email" class="rounded-md p-3 border shadow w-full outline-non"
+                <input v-model="data.email" type="email" class="rounded-md p-3 border shadow w-full outline-none"
                   placeholder="Email" required />
               </div>
               <div>
-                <input v-model="data.passsword" type="password" class="rounded-md p-3 border shadow w-full outline-none"
+                <input v-model="data.password" type="password" class="rounded-md p-3 border shadow w-full outline-none"
                   placeholder="Password" required />
               </div>
               <div>
-                <textarea class="rounded-md p-3 resize-none border shadow w-full outline-none " placeholder="Address"
+                <textarea v-model="data.address" class="rounded-md p-3 resize-none border shadow w-full outline-none " placeholder="Address"
                   required />
               </div>
             </div>
-            <button type="submit" class="relative bg-secondary w-full py-3 text-white rounded-md my-6 disabled:bg-slate-400">
+            <button type="submit"
+              class="relative bg-secondary w-full py-3 text-white rounded-md my-6 disabled:bg-slate-400">
               Recover Account
             </button>
             <div class="w-full text-center">
-              <RouterLink to="/login" class="text-primary underline underline-offset-4 text-center">Back To Login</RouterLink>
+              <RouterLink to="/login" class="text-primary underline underline-offset-4 text-center">Back To Login
+              </RouterLink>
             </div>
           </form>
         </div>
