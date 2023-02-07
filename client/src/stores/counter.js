@@ -1,12 +1,30 @@
-import { ref, computed } from "vue";
-import { defineStore } from "pinia";
 
-export const useCounterStore = defineStore("counter", () => {
-  const count = ref(0);
-  const doubleCount = computed(() => count.value * 2);
-  function increment() {
-    count.value++;
+import { defineStore } from 'pinia'
+import axios from 'axios'
+import { RouterLink, RouterView } from "vue-router";
+
+
+export const useDataStore = defineStore('data', {
+  state: () => ({
+	name: ''
+  }),
+  getters: {
+
+  },
+  actions: {
+    async login(code) {
+      try {
+        const req = await
+        axios({
+          method:'post',
+          data: {
+            code 
+          }
+        })
+        console.log(req);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
-
-  return { count, doubleCount, increment };
-});
+})
