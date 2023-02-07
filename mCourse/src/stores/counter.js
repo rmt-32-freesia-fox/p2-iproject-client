@@ -14,14 +14,26 @@ export const useCounterStore = defineStore("counter", {
     doubleCount: (state) => state.count * 2,
   },
   actions: {
-    async getMyCourse() {
+    async removeMyCourse(value) {
       try {
-        const { data } = await axios.get(originUrl + "/mycourses", {
+        const { data } = await axios.delete(originUrl + `/mycourses/${value}`, {
           headers: {
             access_token: localStorage.access_token,
           },
         });
         console.log(data);
+        this.getMyCourse();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getMyCourse() {
+      try {
+        const { data } = await axios.get(originUrl + "/mycourses/", {
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
         this.dataMyFavorites = data;
       } catch (error) {
         console.log(error);
