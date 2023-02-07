@@ -109,10 +109,12 @@ export default {
               >
             </div>
             <a
+              v-if="isLogin == 'false'"
               @click.prevent="this.$router.push('/register')"
               class="btn btn-primary py-md-3 px-md-5 d-none d-lg-block"
               >Sign Up</a
             ><a
+              v-if="isLogin == 'false'"
               @click.prevent="this.$router.push('/login')"
               class="btn btn-primary py-md-3 px-md-5 d-none d-lg-block"
               style="margin-left: 1rem"

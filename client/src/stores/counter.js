@@ -94,6 +94,7 @@ export const useCounterStore = defineStore("counter", {
         });
       }
     },
+
     async handleLogout() {
       swalConfirm(() => {
         localStorage.clear();

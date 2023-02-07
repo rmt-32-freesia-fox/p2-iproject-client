@@ -80,6 +80,9 @@ export default {
               <button @click.prevent="handleLogin" class="btn btn-dark">
                 Sign In
               </button>
+              
+            </li>
+            <li  style="margin-top: 1rem">
               <GoogleLogin :callback="loginWithGoogle" />
             </li>
             <li style="margin-top: 1rem;">
