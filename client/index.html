@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vite App</title>
+    <!-- @TODO: replace SET_YOUR_CLIENT_KEY_HERE with your client key -->
+    <script type="text/javascript"
+      src="https://app.sandbox.midtrans.com/snap/snap.js"
+      data-client-key="SB-Mid-client-B_2ETf165eixvZ4l"></script>
+    <!-- Note: replace with src="https://app.midtrans.com/snap/snap.js" for Production environment -->
+  </head>
+  <body>
+    
+    <button id="pay-button">Pay!</button>
+    <div id="app"></div>    
+    <script type="module" src="/src/main.js"></script>
+    <script>
+      // For example trigger on button clicked, or any time you need
+      var payButton = document.getElementById('pay-button');
+      payButton.addEventListener('click', function () {
+        // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+        window.snap.pay('39ac7c43-e48a-449e-b002-66b777432147', {
+          onSuccess: function(result){
+            /* You may add your own implementation here */
+            alert("payment success!"); console.log(result);
+          },
+          onPending: function(result){
+            /* You may add your own implementation here */
+            alert("wating your payment!"); console.log(result);
+          },
+          onError: function(result){
+            /* You may add your own implementation here */
+            alert("payment failed!"); console.log(result);
+          },
+          onClose: function(){
+            /* You may add your own implementation here */
+            alert('you closed the popup without finishing the payment');
+          }
+        })
+      });
+    </script>
+  </body>
+</html>
