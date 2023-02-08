@@ -9,7 +9,8 @@ export const useAnimeStore = defineStore('anime', {
     userId : localStorage.userId || '',
     isLogin : localStorage.isLogin || false,
     username : localStorage.username || '',
-    animeSearchResult : []
+    animeSearchResult : [],
+    playlistResult : [],
    }),
   // getters: {
   //   doubleCount: (state) => state.count * 2,
@@ -145,24 +146,67 @@ export const useAnimeStore = defineStore('anime', {
       })
      
     },
-    async createFavorite(jobId) {
+    async createPlaylist(dataAnime) {
       try {
         let { data } = await axios({
           method: "post",
-          url: `${baseUrl}/pub/customers/${this.customerId}`,
+          url: `${this.baseUrl}/animeplaylist`,
           data: {
-            jobId,
+            AnimeId : Number(dataAnime.animeId),
+            title : dataAnime.title,
+            image : dataAnime.image,
+            episodes : dataAnime.episodes,
           },
           headers: {
             access_token: localStorage.access_token,
           },
         });
         console.log(data);
-        this.swalNotification("Job succesfully added to Favorite");
-        this.router.push("/favorites");
+        this.swalNotification("Anime has been successfully added to playlist");
+        this.router.push("/playlist"); //! 
       } catch (error) {
         console.log(error);
-        this.swalError("Yu are not logged in","This feature need you to log in");
+        this.swalError("You are not logged in","This feature need you to log in");
+      }
+    },
+    async fetchPlaylist() {
+      try {
+        // console.log(this.userId);
+        let { data } = await axios({
+          method: "get",
+          url: `${this.baseUrl}/animeplaylist/${this.userId}`,
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        console.log(data);
+        this.swalNotification("Anime playlist has been loaded");
+        this.playlistResult = data 
+        this.router.push("/playlist"); //! 
+      } catch (error) {
+        console.log(error);
+        this.swalError("You are not logged in","This feature need you to log in");
+      }
+    },
+    async updatePlaylist(AnimeId,watchedEpisodes) {
+      try {
+        let { data } = await axios({
+          method: "patch",
+          url: `${this.baseUrl}/animeplaylist`,
+          data: {
+            UserId : this.userId,AnimeId,watchedEpisodes
+          },
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        console.log(data);
+        this.swalNotification("Anime has been updated");
+        this.fetchPlaylist()
+        this.router.push("/playlist"); //! 
+      } catch (error) {
+        console.log(error);
+        this.swalError("You are not logged in","This feature need you to log in");
       }
     },
   },

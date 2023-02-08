@@ -5,7 +5,7 @@ export default {
   data() {
     return {
       inputSearch: '',
-
+animeIdDetail : '',
       imageDetail: "",
       titleDetail: 'insert search data',
       synopsisDetail: 'the detail of anime youre searching for will be shown here',
@@ -14,6 +14,8 @@ export default {
   },
   methods: {
     ...mapActions(useAnimeStore, ['searchAnime']),
+    ...mapActions(useAnimeStore, ['createPlaylist']),
+
     scrollToTop() {
       window.scrollTo(0, 0);
     },
@@ -22,6 +24,15 @@ export default {
         name : this.inputSearch
       }
       this.searchAnime(data)
+    },
+    submitCreatePlaylist(){
+      let data = {
+        title : this.titleDetail,
+        animeId : this.animeIdDetail,
+        episodes : this.episodesDetail,
+        image : this.imageDetail,
+      }
+      this.createPlaylist(data)
     }
   },
   computed: {
@@ -36,7 +47,7 @@ export default {
 <template>
   <div class="bg-gray-900 px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-4">
     <div class="flex flex-col lg:flex-row">
-      <div class="w-1/3  mx-auto ">
+      <div class="w-1/2  mx-auto ">
         <div class="  py-4 px-4 pt-16 mb-4 w-full">
           <form @submit.prevent="submitSearch">
             <div class="max-w-xl">
@@ -59,6 +70,7 @@ export default {
             alt="" />
           <img v-if="imageDetail !== ''" class="object-cover w-full  rounded shadow-lg " :src="imageDetail" alt="" />
         </div>
+        <button @click.prevent="submitCreatePlaylist" class="text-white border bg-red">Add to playlist</button>
         <div class="px-4 text-white mt-2 w-full">
           <div class=" gap-12 row-gap-8 lg:grid-cols-2">
             <div class="flex flex-col justify-center">
@@ -111,16 +123,16 @@ export default {
           </div>
         </div>
       </div>
-      <div class=" w-2/3 ml-5 pt-16 sm:grid-cols-2">
+      <div class=" w-1/2 ml-5 pt-16 sm:grid-cols-2">
         <article v-for="data in animeSearchResult" :key="data.id"
           class=" w-full mb-3  rounded-xl  bg-gray-800 text-white">
-          <a @click.prevent="titleDetail = data.title, synopsisDetail = data.synopsis, imageDetail = data.image, episodesDetail = data.episodes"
+          <a @click.prevent="animeIdDetail = data._id,titleDetail = data.title, synopsisDetail = data.synopsis, imageDetail = data.image, episodesDetail = data.episodes"
             href="">
             <div @click.prevent="scrollToTop">
 
-              <div class="flex items-start p-6">
-                <a href="#" class="block shrink-0">
-                  <img alt="poster" :src="data.thumb" class="h-32 w-20 rounded-lg object-cover" />
+              <div class="flex items-start p-4">
+                <a href="#" class="">
+                  <img alt="poster" :src="data.image" class="h-full w-20 rounded-lg object-cover" />
                 </a>
                 <div class="ml-4">
                   <h3 class="font-medium sm:text-lg hover:underline mb-2">
@@ -128,9 +140,9 @@ export default {
                    
                   </h3>
 
-                  <p class="text-sm line-clamp-2">
+                  <!-- <p class="text-sm line-clamp-2">
                     {{ data.synopsis }}
-                  </p>
+                  </p> -->
 
                   <div class="mt-2 sm:flex sm:items-center sm:gap-2">
                     <div class="flex items-center">

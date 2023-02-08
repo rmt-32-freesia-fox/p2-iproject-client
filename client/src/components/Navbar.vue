@@ -40,6 +40,10 @@ export default {
             </li>
             <li>
               <a href="/" aria-label="Our product" title="Our product"
+                class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"><RouterLink to="/playlist">My Playlist</RouterLink></a>
+            </li>
+            <li>
+              <a href="/" aria-label="Our product" title="Our product"
                 class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400">News</a>
             </li>
             <li>
