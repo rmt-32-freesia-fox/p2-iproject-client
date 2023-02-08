@@ -21,7 +21,7 @@ export default {
     <div class="container">
       <div class="row" v-if="toggle">
         <div class="col-lg-10 offset-lg-1">
-          <h3 class="">Sign In As Teacher To <span class="text-primary">Sparta</span> Course</h3>
+          <h3 class="">Sign In As Student To <span class="text-primary">Sparta</span> Course</h3>
           <div class="bg-white shadow rounded">
             <div class="row">
               <div class="col-md-5 ps-0 d-none d-md-block">
@@ -37,7 +37,7 @@ export default {
               <div class="col-md-7 pe-0">
                 <div class="form-left h-100 py-5 px-5">
                   <form
-                    @submit.prevent="() => userStore.login('teachers')"
+                    @submit.prevent="() => userStore.login('students')"
                     class="row g-4"
                   >
                     <div class="col-12">
