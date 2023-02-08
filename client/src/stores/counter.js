@@ -20,6 +20,7 @@ export const useCounterStore = defineStore("counter", {
     baseurl: "http://localhost:3000",
     bodyParts: [],
     exercise: [],
+    myexercise: [],
     pagination: [],
     status: "",
     isLogin: "false",
@@ -68,6 +69,7 @@ export const useCounterStore = defineStore("counter", {
         });
         localStorage.access_token = login.data.access_token;
         localStorage.setItem("id", login.data.id);
+        localStorage.username = login.data.username;
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -79,6 +81,11 @@ export const useCounterStore = defineStore("counter", {
         this.router.push("/");
       } catch (error) {
         console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
       }
     },
 
@@ -93,6 +100,7 @@ export const useCounterStore = defineStore("counter", {
         });
         localStorage.access_token = google.data.access_token;
         localStorage.setItem("id", google.data.id);
+        localStorage.setItem("username", google.data.username);
 
         Swal.fire({
           position: "top-end",
@@ -142,10 +150,9 @@ export const useCounterStore = defineStore("counter", {
           params: {
             page: data.page ? data.page : "",
             search: data.search ? data.search : "",
-            filter: data.filter ? data.filter : "",
+            name: data.name ? data.name : "",
           },
         });
-        console.log(exercise);
         this.exercise = exercise.data.response.Exercise;
         this.pagination = exercise.data.response;
       } catch (error) {
@@ -196,6 +203,71 @@ export const useCounterStore = defineStore("counter", {
           title: "Oops...",
           text: error.response.data.message,
         });
+      }
+    },
+
+    async getMyExercise() {
+      try {
+        const myexercise = await axios({
+          method: "get",
+          url: `${this.baseurl}/myexercise`,
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        this.myexercise = myexercise.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async addMyExercise(exerciseId) {
+      try {
+        const myexercise = await axios({
+          method: "post",
+          url: `${this.baseurl}/myexercise/${exerciseId}`,
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Add Favorite Success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.getMyExercise();
+        this.router.push("/myexercise");
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
+        // console.log(error);
+      }
+    },
+
+    async destroyMyExercise(id) {
+      try {
+        const destroy = await axios({
+          method: "delete",
+          url: `${this.baseurl}/myexercise/${id}`,
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        this.getMyExercise();
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Delete Exercise Success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } catch (error) {
+        console.log(error);
       }
     },
   },

@@ -6,6 +6,11 @@ export default {
   computed: {
     ...mapState(useCounterStore, ["isLogin"]),
   },
+  data() {
+    return {
+      username: localStorage.getItem("username"),
+    };
+  },
 
   methods: {
     ...mapActions(useCounterStore, [
@@ -45,30 +50,19 @@ export default {
           <div class="col-lg-7 px-5 text-start">
             <div class="h-100 d-inline-flex align-items-center py-2 me-4">
               <i class="fa fa-envelope text-primary me-2"></i>
-              <h6 class="mb-0">info@example.com</h6>
+              <h6 class="mb-0">gymster.official1@gmail.com</h6>
             </div>
             <div class="h-100 d-inline-flex align-items-center py-2">
               <i class="fa fa-phone-alt text-primary me-2"></i>
-              <h6 class="mb-0">+012 345 6789</h6>
+              <h6 class="mb-0">02187654567</h6>
             </div>
           </div>
           <div class="col-lg-5 px-5 text-end">
             <div class="d-inline-flex align-items-center py-2">
-              <a class="btn btn-light btn-square rounded-circle me-2" href="">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-              <a class="btn btn-light btn-square rounded-circle me-2" href="">
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a class="btn btn-light btn-square rounded-circle me-2" href="">
-                <i class="fab fa-linkedin-in"></i>
-              </a>
-              <a class="btn btn-light btn-square rounded-circle me-2" href="">
-                <i class="fab fa-instagram"></i>
-              </a>
-              <a class="btn btn-light btn-square rounded-circle" href="">
-                <i class="fab fa-youtube"></i>
-              </a>
+              <h5 v-if="isLogin == 'true'">
+                hi,
+                {{ username }}
+              </h5>
             </div>
           </div>
         </div>
@@ -98,16 +92,25 @@ export default {
                 >Home</a
               >
               <a
+                v-if="this.isLogin == 'true'"
                 href="about.html"
                 class="nav-item nav-link"
                 @click.prevent="this.$router.push('/about')"
                 >About</a
               >
               <a
+                v-if="this.isLogin == 'true'"
                 href="class.html"
                 class="nav-item nav-link"
                 @click.prevent="this.$router.push('/exercise')"
                 >Classes</a
+              >
+              <a
+                v-if="this.isLogin == 'true'"
+                href="class.html"
+                class="nav-item nav-link"
+                @click.prevent="this.$router.push('/myexercise')"
+                >Favorite</a
               >
               <a
                 v-if="isLogin == 'true'"
@@ -152,7 +155,7 @@ export default {
               <a
                 v-if="isLogin == 'true'"
                 @click.prevent="handleSubscribe"
-                href=""
+                style="border-radius: 4rem"
                 class="btn btn-primary py-md-3 px-md-5 me-3"
                 >Join Us</a
               >

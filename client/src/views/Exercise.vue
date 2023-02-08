@@ -2,6 +2,7 @@
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 import CardExercise from "../components/CardExercise.vue";
+import Shorting from "../components/Shorting.vue";
 
 import { useCounterStore } from "../stores/counter";
 import { mapActions, mapState } from "pinia";
@@ -11,6 +12,7 @@ export default {
     Navbar,
     Footer,
     CardExercise,
+    Shorting,
   },
 
   data() {
@@ -31,7 +33,7 @@ export default {
       const input = {
         page: page ? page - 1 : 0,
         search: this.getRouteQuery.search,
-        filter: this.getRouteQuery.filter,
+        name: this.getRouteQuery.name,
       };
       this.getExercise(input);
       this.$router.push({
@@ -39,7 +41,7 @@ export default {
         query: {
           page,
           search: this.getRouteQuery.search,
-          filter: this.getRouteQuery.filter,
+          name: this.getRouteQuery.name,
         },
       });
     },
@@ -56,10 +58,12 @@ export default {
   <Navbar />
 
   <!-- Class Timetable Start -->
+
   <div class="container-fluid p-5">
     <div class="mb-5 text-center">
-      <h2 class="text-primary text-uppercase">List Movement Exercise</h2>
+      <h1 class="text-primary text-uppercase">List Movement Exercise</h1>
       <br />
+      <Shorting />
     </div>
     <div class="tab-class text-center">
       <div class="tab-content">
@@ -75,11 +79,11 @@ export default {
       </div>
       <vue-awesome-paginate
         class="d-flex justify-content-center"
-        :total-items="pagination.currentPage ? pagination.currentPage : 1"
+        :total-items="pagination.countPage ? pagination.countPage : 1"
         :itemsPerPage="6"
         :maxPages="6"
         v-model="currentPage"
-        @click.prevent="onClickHandler"
+        :on-click="onClickHandler"
       />
     </div>
   </div>
@@ -106,11 +110,11 @@ export default {
   background-color: #d8d8d8;
 }
 .active-page {
-  background-color: #ffbe33;
-  border: 1px solid #ffbe33;
+  background-color: #fb5b21;
+  border: 1px solid #fb5b21;
   color: white;
 }
 .active-page:hover {
-  background-color: #ffbe33;
+  background-color: #fb5b21;
 }
 </style>

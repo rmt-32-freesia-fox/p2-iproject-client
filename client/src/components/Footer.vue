@@ -80,7 +80,7 @@
       </div>
       <div class="col-lg-4 col-md-6">
         <img
-          style="max-width: 65%"
+          style="max-width: 65%; margin: 2rem 2rem"
           src="http://cdn.i0.cz/public-data/ec/61/a45ad3f532a2a0a91d48558b2cc9_w608_h606_ga6a22b76bb0b11e39ca2002590604f2e.jpg?hash=c910611e0ec8eabad6b4c5890c2e0ddb"
           alt=""
         />

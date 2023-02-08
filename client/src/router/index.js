@@ -4,6 +4,7 @@ import About from "../views/About.vue";
 import Exercise from "../views/Exercise.vue";
 import SignUp from "../views/SignUp.vue";
 import SignIn from "../views/SignIn.vue";
+import MyExercise from "../views/MyExercise.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,13 +34,22 @@ const router = createRouter({
       name: "exercise",
       component: Exercise,
     },
+    {
+      path: "/myexercise",
+      name: "myexercise",
+      component: MyExercise,
+    },
   ],
 });
 
 router.beforeEach((to, from, next) => {
   const isAuthenticated = localStorage.access_token;
   if (!isAuthenticated && to.name === "about") next({ name: "login" });
-  else if (!isAuthenticated && to.name === "exercise") next({ name: "login" });
+  else if (
+    (!isAuthenticated && to.name === "exercise") ||
+    (!isAuthenticated && to.name === "myexercise")
+  )
+    next({ name: "login" });
   else if (
     (isAuthenticated && to.name === "login") ||
     (isAuthenticated && to.name === "register")
