@@ -28,7 +28,7 @@ export default {
   <div
     @click="toggle"
     :class="
-      `fixed h-screen w-screen bg-base-200 z-50 bg-opacity-25 backdrop-blur-md flex justify-center items-center transition-all ` +
+      `fixed h-screen w-screen bg-base-200 duration-500 z-50 bg-opacity-25 backdrop-blur-md flex justify-center items-center transition-all ` +
       (!show ? '-translate-y-full' : '')
     "
   >
