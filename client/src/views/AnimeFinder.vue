@@ -8,8 +8,8 @@ export default {
 
       imageDetail: "",
       titleDetail: 'insert search data',
-      synopsisDetail: 'a',
-      episodesDetail: 'a',
+      synopsisDetail: 'the detail of anime youre searching for will be shown here',
+      episodesDetail: '',
     }
   },
   methods: {
@@ -60,7 +60,7 @@ export default {
                 <h2 class="max-w-lg mb-1  font-sans text-3xl font-bold tracking-tight  sm:text-4xl sm:leading-none">
                   {{ titleDetail }}<br class="hidden md:block" />
                 </h2>
-                <div class="mt-3 flex gap-5 items-center justify-center">
+                <div  v-if="imageDetail !== ''" class="mt-3 flex gap-5 items-center justify-center">
                   <div class="flex items-center justify-center gap-4">
                     <div class="flex items-center justify-center w-5 h-5  rounded-full bg-indigo-50">
                       <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
