@@ -11,6 +11,8 @@ export const useProfileStore = defineStore('profile', {
       loading: false,
       notFound: false,
       song: null,
+      followers: [],
+      followings: []
     }
   },
   getters: {
@@ -122,5 +124,16 @@ export const useProfileStore = defineStore('profile', {
       this.clearPolling()
       this.init()
     },
+
+
+    async getFollowers() {
+      try {
+        if(!this.profile) return
+        const { data } = await api.get(`/profile/${this.profile.username}/followers`)
+        this.followers = data.Followers
+      } catch (error) {
+        console.log(error)
+      }
+    }
   },
 })

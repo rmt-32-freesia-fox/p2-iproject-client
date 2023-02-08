@@ -7,7 +7,7 @@ export const useLinkStore = defineStore('link', {
     return { link: '', label: '', id: null, show: false }
   },
   actions: {
-    edit(link, label, id) {
+    edit({link, label, id}) {
       this.link = link
       this.label = label
       this.id = id

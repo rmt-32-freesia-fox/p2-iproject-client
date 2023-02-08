@@ -14,13 +14,13 @@ export default {
 </script>
 
 <template>
-  <div class="flex gap-7 flex-col md:flex-row">
+  <div class="flex gap-7 flex-col items-center md:items-start md:flex-row">
     <div
       :class="`avatar transition-all z-10 duration-500 ${
         song ? '' : 'md:translate-x-44'
       }`"
     >
-      <div class="w-24 rounded-full hover:-rotate-6 hover:scale-110 transition-all">
+      <div class="w-24 rounded-full hover:scale-110 transition-all">
         <img
           :src="
             profile.profilePicture ||

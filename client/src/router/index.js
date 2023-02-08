@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Callback from '../views/Callback.vue'
 import Profile from '../views/Profile.vue'
 import Home from '../views/Home.vue'
+import Followers from '../views/Followers.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -19,6 +20,11 @@ const router = createRouter({
       path: '/:username',
       name: 'profile',
       component: Profile,
+    },
+    {
+      path: '/:username/followers',
+      name: 'followers',
+      component: Followers,
     },
 
     // {
