@@ -19,13 +19,6 @@ export default {
 </script>
 
 <template>
-  <figure>
-    <figcaption>Listen to the T-Rex:</figcaption>
-    <audio
-      controls
-      src="https://img.jakpost.net/podcast/2022/ai_eta_20221216_indonesia_presidential_election_2024_128kbps.mp3"
-    ></audio>
-  </figure>
   <div class="bg-gray-50 py-6">
     <div class="xl:container mx-auto px-3 sm:px-4 xl:px-2">
       <div class="flex flex-row flex-wrap">

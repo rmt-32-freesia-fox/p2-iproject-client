@@ -5,11 +5,18 @@ export const useFunctionStore = defineStore('function', {
   state: () => ({
     baseUrl: `https://nusantaralounge-production.up.railway.app`,
     currentUser: "",
+
+    //dashboard data
     heroData: [],
     sideData: [],
-    podcastData: [],
-    podcastAllData: [],
     gamesData: [],
+    podcastData: [],
+    gamesData: [],
+
+    //podcast detail data
+    podcastAllData: [],
+    podcastDetailData: [],
+
     isLogin: localStorage.access_token
   }),
 
@@ -65,10 +72,13 @@ export const useFunctionStore = defineStore('function', {
 
     async handlePodcastDetail(url) {
       try {
-        // const { data } = await axios({
-        //   url: this.baseUrl + `/news/podcast`,
-        // })
-        console.log(`handle podcast detail`);
+        const { data } = await axios({
+          url: url,
+        })
+        this.router.push(`/podcast_detail`)
+        this.podcastDetailData = data.detail_podcast
+        localStorage.url = url
+        console.log(this.podcastDetailData);
       } catch (error) {
         console.log(error);
       }

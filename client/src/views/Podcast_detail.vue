@@ -1,23 +1,36 @@
 <script>
-export default {};
+import Navbar from "../components/Navbar.vue";
+import Footer from "../components/Footer.vue";
+import { useFunctionStore } from "../stores/counter";
+import { mapActions, mapState } from "pinia";
+export default {
+  components: {
+    Navbar,
+    Footer,
+  },
+  data() {
+    return {
+      url: localStorage.url,
+    };
+  },
+  methods: {
+    ...mapActions(useFunctionStore, ["handlePodcastDetail"]),
+  },
+  computed: {
+    ...mapState(useFunctionStore, ["podcastDetailData"]),
+  },
+  beforeMount() {
+    this.handlePodcastDetail(this.url);
+  },
+};
 </script>
 
 <template>
-  <main id="content">
-    <!-- advertisement -->
-    <div class="bg-gray-50 py-4 hidden">
-      <div class="xl:container mx-auto px-3 sm:px-4 xl:px-2">
-        <div class="mx-auto table text-center text-sm">
-          <a class="uppercase" href="#">Advertisement</a>
-          <a href="#">
-            <img src="src/img/ads/ads_728.jpg" alt="advertisement area" />
-          </a>
-        </div>
-      </div>
-    </div>
+  <Navbar />
 
+  <main id="content">
     <!-- block news -->
-    <div class="bg-gray-50 py-6">
+    <div class="bg-gray-50 py-12">
       <div class="xl:container mx-auto px-3 sm:px-4 xl:px-2">
         <div class="flex flex-row flex-wrap">
           <!-- Left -->
@@ -27,26 +40,18 @@ export default {};
                 <span
                   class="inline-block h-5 border-l-3 border-red-600 mr-2"
                 ></span>
-                About Us
+                PODCAST
               </h2>
             </div>
             <div class="flex flex-row flex-wrap -mx-3">
               <div class="max-w-full w-full px-4">
                 <!-- Post content -->
                 <div class="leading-relaxed pb-4">
-                  <p class="mb-5">
-                    Aenean sodales lacus est, at ultricies augue ele ifend sit
-                    amet. <ins>Be yourself</ins> everyone else is already taken,
-                    sem mi placerat felis, ac suscip ligula ex id metus. Vivamus
-                    aliquet sit amet nisi non faucibus. Orci varius natoque
-                    penatibus et magnis dis parturient montes.
-                  </p>
-
-                  <h2
+                  <h1
                     class="
                       w-full
                       float-left
-                      text-xl
+                      text-6xl
                       leading-normal
                       mb-2
                       font-semibold
@@ -54,22 +59,17 @@ export default {};
                       dark:text-gray-100
                     "
                   >
-                    Start your Morning with Smiles
-                  </h2>
-                  <p class="mb-5">
-                    Integer egestas ipsum eget metus sodales consectetur. Nullam
-                    ultricies posuere cursus. Duis vitae lorem porta, venenatis
-                    nibh ac, laoreet massa. Nam risus lacus, porta eu diam id,
-                    fringilla porta risus. Aenean sit amet malesuada diam.
-                  </p>
+                    <!-- {{ podcastDetailData }} -->
+                    {{ podcastDetailData?.title }}
+                  </h1>
                   <figure class="text-center mb-6">
                     <img
                       class="max-w-full h-auto"
-                      src="src/img/dummy/post1.jpg"
+                      :src="podcastDetailData?.image"
                       alt="Image description"
                     />
-                    <figcaption>Type here your description</figcaption>
                   </figure>
+
                   <h3
                     class="
                       text-2xl
@@ -80,45 +80,10 @@ export default {};
                       dark:text-gray-100
                     "
                   >
-                    Ordered and unordered list
+                    Topic :
                   </h3>
-                  <ul class="pl-8 mb-4">
-                    <li class="list-disc list-inside">
-                      At vero eos et accusamus et iusto odio dignissimos ducimus
-                      qui blanditiis praesentium
-                      <ol class="pl-8 mb-4">
-                        <li class="list-decimal list-inside">
-                          Itaque earum rerum hic tenetur a sapiente delectus
-                        </li>
-                        <li class="list-decimal list-inside">
-                          which of us ever undertakes laborious physical
-                          exercise
-                        </li>
-                      </ol>
-                    </li>
-                    <li class="list-disc list-inside">
-                      Et harum quidem rerum facilis est et expedita distinctio
-                    </li>
-                    <li class="list-disc list-inside">
-                      Itaque earum rerum hic tenetur a sapiente delectus
-                    </li>
-                    <li class="list-disc list-inside">
-                      which of us ever undertakes laborious physical exercise
-                    </li>
-                  </ul>
-                  <p class="mb-5">
-                    Cras justo velit, ultrices vel vehicula eu, viverra in
-                    turpis. Donec lobortis at lorem ac semper. Mauris malesuada
-                    ligula in interdum pharetra. Interdum et malesuada fames ac
-                    ante ipsum primis in faucibus.
-                  </p>
 
-                  <p class="mb-5">
-                    Integer egestas ipsum eget metus sodales consectetur. Nullam
-                    ultricies posuere cursus. Duis vitae lorem porta, venenatis
-                    nibh ac, laoreet massa. Nam risus lacus, porta eu diam id,
-                    fringilla porta risus. Aenean sit amet malesuada diam.
-                  </p>
+                  <p class="mb-5"></p>
                   <blockquote
                     class="
                       relative
@@ -151,113 +116,22 @@ export default {};
                       </svg>
                     </span>
                     <p class="ml-16 mb-4">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Integer posuere erat a ante.
+                      {{ podcastDetailData?.post_content }}
                     </p>
+                    <figure>
+                      <figcaption>Listen :</figcaption>
+                      <audio
+                        controls
+                        :src="podcastDetailData?.audio"
+                      ></audio>
+                    </figure>
                     <footer class="ml-16 text-base">
-                      Quote by <cite title="Source Title">Ari Budin</cite>
+                      released on :
+                      <cite title="Source Title">{{
+                        podcastDetailData?.published_at
+                      }}</cite>
                     </footer>
                   </blockquote>
-                  <p class="mb-5">
-                    Vivamus purus orci, molestie vel erat sed, consectetur
-                    posuere ligula. Vestibulum <br />
-                    iaculis dignissim laoreet. Cras tincidunt always have Paris,
-                    at lobortis ligula laoreet. Etiam eu sapien sit amet neque
-                    aliquam consequat nec in velit. Aliquam sit amet erat sed
-                    augue bibendum vehicula non at lacus. Phasellus scelerisque
-                    in elit a els.
-                  </p>
-
-                  <p class="mb-5">
-                    Cras justo velit, ultrices vel vehicula eu, viverra in
-                    turpis. Donec lobortis at lorem ac semper. Mauris malesuada
-                    ligula in interdum pharetra. Interdum et malesuada fames ac
-                    ante ipsum primis in faucibus.
-                  </p>
-                  <figure
-                    class="
-                      lg:float-left
-                      text-center
-                      lg:text-left
-                      ml-0
-                      lg:-ml-4
-                      mr-7
-                      mb-7
-                    "
-                  >
-                    <img
-                      class="max-w-full h-auto mx-auto"
-                      src="src/img/dummy/post2.jpg"
-                      alt="Image description"
-                    />
-                    <figcaption>Align left images</figcaption>
-                  </figure>
-
-                  <p class="mb-5">
-                    Morbi at lacinia risus. Donec vitae justo sed augue
-                    sollicitudin dignissim ut vitae ipsum. Proin at imperdiet
-                    ante, non blandit mauris. Nullam eu lobortis justo.
-                  </p>
-                  <p class="mb-5">
-                    Fusce vestibulum blandit justo non rhoncus. Maecenas eget
-                    felis id orci ultricies frin gilla. Aliquam suscipit enim
-                    felis. Praesent arcu dui, rutrum et molestie sed, volutpat
-                    auctor lorem. Fusce sit amet libero odio. Integer sed nisl
-                    turpis. Integer mollis sed est eget convallis. Interdum et
-                    malesuada fames ac ante ipsum primis in faucibus.
-                  </p>
-
-                  <p class="mb-5">
-                    Fusce elementum placerat tellus id. Nulla sit amet pretium
-                    enim, in vehicula ligula. Proin nec malesuada liberoque
-                    blandit. Sed condimentum neque ligula, id dapibus enim
-                    ornare id. Duis porttitor, risus vehicula convallis
-                    sagittis, ligula nisi iaculis libero, sit amet convallis
-                    nulla magna non tortor.
-                  </p>
-
-                  <h2
-                    class="
-                      w-full
-                      float-left
-                      text-xl
-                      leading-normal
-                      mb-2
-                      font-semibold
-                      text-gray-800
-                      dark:text-gray-100
-                    "
-                  >
-                    Live as if you were to die tomorrow.
-                  </h2>
-
-                  <p class="mb-5">
-                    Nullam ut tempus mauris. Class aptent taciti sociosqu ad
-                    litora torquent per conubia nostra, per inceptos himenaeos.
-                    Vivamus libero dolor, condimentum eu augue et, placerat
-                    tempus risus. Quisque massa purus, ullamcorper eget ipsum
-                    et, eleifend suscipit mi. Duis auctor tortor a dui accumsan,
-                    sed semper nunc iaculis.
-                  </p>
-
-                  <figure
-                    class="
-                      lg:float-right
-                      text-center
-                      lg:text-right
-                      mr-0
-                      lg:-mr-4
-                      ml-7
-                      mb-7
-                    "
-                  >
-                    <img
-                      class="max-w-full h-auto mx-auto"
-                      src="src/img/dummy/post3.jpg"
-                      alt="Image description"
-                    />
-                    <figcaption>Align right images</figcaption>
-                  </figure>
 
                   <p class="mb-5">
                     Mauris eget lectus et nisi commodo tristique. Aenean eget
@@ -324,7 +198,8 @@ export default {};
                         items-center
                       "
                       href="#"
-                      >Why the world would end without political polls</a
+                      >ZF plans $14 billion autonomous vehicle push, concept
+                      van</a
                     >
                   </li>
                   <li class="border-b border-gray-100 hover:bg-gray-50">
@@ -338,7 +213,8 @@ export default {};
                         items-center
                       "
                       href="#"
-                      >Meet The Man Who Designed The Ducati Monster</a
+                      >ZF plans $14 billion autonomous vehicle push, concept
+                      van</a
                     >
                   </li>
                   <li class="border-b border-gray-100 hover:bg-gray-50">
@@ -352,21 +228,8 @@ export default {};
                         items-center
                       "
                       href="#"
-                      >2020 Audi R8 Spyder spy shots release</a
-                    >
-                  </li>
-                  <li class="border-b border-gray-100 hover:bg-gray-50">
-                    <a
-                      class="
-                        text-lg
-                        font-bold
-                        px-6
-                        py-3
-                        flex flex-row
-                        items-center
-                      "
-                      href="#"
-                      >Lamborghini makes Huracán GT3 racer faster for 2019</a
+                      >ZF plans $14 billion autonomous vehicle push, concept
+                      van</a
                     >
                   </li>
                   <li class="border-b border-gray-100 hover:bg-gray-50">
@@ -405,5 +268,7 @@ export default {};
       </div>
     </div>
   </main>
+  <Footer />
+
   <!-- end main -->
 </template>

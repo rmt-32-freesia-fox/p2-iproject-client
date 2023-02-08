@@ -29,7 +29,7 @@ export default {
     "
   >
     <div class="flex flex-row sm:block hover-img">
-      <a href="#" @click.prevent="handlePodcastDetail()">
+      <a href="#" @click.prevent="handlePodcastDetail(news.link)">
         <img
           class="max-w-full w-full mx-auto"
           :src="news?.image"
