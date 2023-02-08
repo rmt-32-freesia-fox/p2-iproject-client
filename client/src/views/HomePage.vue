@@ -1,0 +1,108 @@
+<script>
+import NavBar from "../components/Navbar.vue";
+import BookCard from "../components/BookCard.vue";
+import { mapActions, mapState } from "pinia";
+import { useCounterStore } from "../stores/counter";
+
+export default {
+  components: {
+    NavBar,
+    BookCard,
+  },
+  data() {
+    return {
+      book: "",
+    };
+  },
+  computed: {
+    ...mapState(useCounterStore, ["books", "resultSearchBook"]),
+  },
+  methods: {
+    ...mapActions(useCounterStore, ["fetchBooks", "searchBook"]),
+  },
+
+  created() {
+    this.fetchBooks();
+  },
+};
+</script>
+
+<template>
+  <div>
+    <NavBar />
+
+    <!-- HEADER -->
+    <div class="bg-dark py-5">
+      <div class="container px-4 px-lg-5 m-3">
+        <div class="text-center text-white">
+          <h1 class="display-4 fw-bolder text-warning">
+            Welcome to 'Berliterasi'
+          </h1>
+          <p class="lead fw-normal mb-0">
+            Get any review on most popular books around the world and buy it
+            within 1 click!
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <br />
+
+    <!-- BOOK CARD -->
+    <div class="container">
+      <div class="row">
+        <BookCard v-for="item in books" :key="item.id" :perBook="item" />
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- SEARCH BOOK -->
+    <div class="text-align:center">
+      <form
+        class="row g-2 text-align:center justify-content-center"
+        @submit.prevent="this.searchBook(book)"
+      >
+        <div class="col-5">
+          <input
+            v-model="book"
+            type="text"
+            class="form-control"
+            placeholder="Search Your Favorite Book Here (e.g. Harry potter)"
+          />
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary mb-3">Search</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- RESULT SEARCH BOOK -->
+    <h6 class="text-center">
+      <strong> Result: </strong>{{ this.resultSearchBook.data }}
+    </h6>
+
+    <hr />
+
+    <!-- PAGE - PAGINATION -->
+    <nav aria-label="Page navigation example" class="justify-content-center">
+      <ul class="pagination justify-content-center">
+        <li class="page-item">
+          <a class="page-link" href="#" @click.prevent="">Previous</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#" @click.prevent="">1</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#" @click.prevent="">2</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#" @click.prevent="">3</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#" @click.prevent="">Next</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</template>
