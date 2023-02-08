@@ -17,7 +17,7 @@ export default {
 <template>
   <div class="lg:overflow-hidden lg:flex-row flex-col-reverse flex lg:w-screen lg:h-screen">
     <div class="w-1/2 lg:block hidden bg-blur p-5">
-      <a href="/" class="text-[1.2rem]">POS</a>
+      <a href="/" class="text-[1.2rem]">I LIKE IT</a>
       <div class="flex items-center justify-center h-[88vh]">
         <img src="../assets/register.svg" alt="" class="max-w-2xl" />
       </div>
@@ -51,7 +51,7 @@ export default {
             </div>
             <button type="submit"
               class="relative bg-secondary w-full py-3 text-white rounded-md my-6 disabled:bg-slate-400">
-              Recover Account
+              Register Account
             </button>
             <div class="w-full text-center">
               <RouterLink to="/login" class="text-primary underline underline-offset-4 text-center">Back To Login

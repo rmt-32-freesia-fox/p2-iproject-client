@@ -9,10 +9,10 @@
           <span class="text-base text-gradient font-semibold uppercase">Sign
             Up Today</span>
           <h1 class="text-[2.5rem] sm:text-5xl xl:text-6xl font-bold leading-tight capitalize sm:pr-8 xl:pr-10">
-            The World's <span>Fastest Growing</span> Crypto Web App
+            Come on! join us and learn cook together 
           </h1>
           <p class="paragraph hidden sm:block">
-            Buy and sell 200+ cryptocurrencies with 20+ flat currencies using bank transfers or your credit/debit card.
+            See more than 2000+ recipes food in the world and provide course to level up your skill cook.
           </p>
           <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mt-2">
             <button

@@ -17,7 +17,8 @@ export default {
 
 <template>
   <nav
-    class="bg-[#8fcdff71] top-0  z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg ">
+    :class="'bg-[#8fcdff71]'  "
+    class=" top-0  z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg ">
     <div class="container max-w-[80rem] px-4 mx-auto flex flex-wrap items-center justify-between">
       <div class="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
         <RouterLink to="/"
