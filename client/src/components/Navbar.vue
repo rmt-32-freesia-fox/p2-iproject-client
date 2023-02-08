@@ -1,19 +1,15 @@
 <script>
-import { mapActions, mapWritableState } from "pinia";
+import { mapActions, mapState, mapWritableState } from "pinia";
 import { useCustomerStore } from "../stores/customers";
 
 export default {
-  // data() {
-  //   return {
-  //     token: localStorage.access_token,
-  //   };
-  // },
   computed: {
     ...mapWritableState(useCustomerStore, "isLogin"),
+    ...mapState(useCustomerStore, ["timeNow"]),
   },
 
   methods: {
-    ...mapActions(useCustomerStore, ["logout"]),
+    ...mapActions(useCustomerStore, ["logout", "timezone"]),
 
     submitLogout() {
       this.logout();
@@ -22,6 +18,7 @@ export default {
   },
 
   created() {
+    this.timezone();
     if (localStorage.access_token) {
       this.isLogin = true;
     }
@@ -45,10 +42,6 @@ export default {
       </div>
 
       <div class="flex items-center justify-between flex p-12 pl-12">
-        <!-- @click.prevent="$router.push('/bookmarks')"
-          href="#"
-          class="text-gray-200 hover:text-white transition"
-          >Bookmarks -->
         <div class="flex items-center space-x-6 capitalize">
           <router-link
             class="text-gray-200 hover:text-white transition"
@@ -70,7 +63,9 @@ export default {
       <div class="flex items-center justify-between flex-grow pl-36"></div>
       <div class="flex items-center justify-between flex-grow pl-36"></div>
       <div class="flex items-center justify-between flex-grow pl-36"></div>
-      <div class="flex items-center justify-between flex-grow pl-36"></div>
+      <div class="flex items-center justify-between flex-grow pl-36 text-white">
+        {{ timeNow }}
+      </div>
       <div
         v-if="!isLogin"
         class="flex items-center justify-between flex-grow pl-12"

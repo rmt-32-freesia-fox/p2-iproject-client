@@ -6,6 +6,7 @@ export const useCustomerStore = defineStore("customers", {
   state: () => ({
     baseUrl: "http://localhost:3000",
     isLogin: false,
+    timeNow: "",
   }),
   getters: {},
   actions: {
@@ -58,7 +59,6 @@ export const useCustomerStore = defineStore("customers", {
             password: value.password,
           },
         });
-        console.log(data);
         localStorage.access_token = data.access_token;
         localStorage.idCustomer = data.id;
         localStorage.name = data.name;
@@ -97,6 +97,24 @@ export const useCustomerStore = defineStore("customers", {
       localStorage.clear();
       this.success("Success Logout");
       this.router.push("/");
+    },
+
+    async timezone() {
+      try {
+        const options = {
+          method: "GET",
+          url: "https://world-time2.p.rapidapi.com/timezone/Asia/Jakarta",
+          headers: {
+            "X-RapidAPI-Key":
+              "24d9713fbemsh08bd24814070bbap1c2baejsnc344130081b5",
+            "X-RapidAPI-Host": "world-time2.p.rapidapi.com",
+          },
+        };
+        const { data } = await axios(options);
+        this.timeNow = data.datetime.slice(0, 10);
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 });

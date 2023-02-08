@@ -48,12 +48,10 @@ export const useCartStore = defineStore("carts", {
             quantity: qty,
           },
         });
-        // this.bookmarks = data;
-        // console.log(this.bookmarks);
+
         this.success(`Success add item to your cart`);
       } catch (err) {
         this.error(err.response.data.message);
-        // console.log(err);
       }
     },
 
@@ -74,7 +72,6 @@ export const useCartStore = defineStore("carts", {
     },
 
     async fetchCartDetail(cartId) {
-      console.log(cartId);
       try {
         const { data } = await axios({
           url: this.baseUrl + "/customers/carts/" + cartId,
@@ -98,7 +95,7 @@ export const useCartStore = defineStore("carts", {
             access_token: localStorage.access_token,
           },
         });
-        this.success(`Success delete`);
+        this.success(`Success remove from carts`);
         this.router.push("/carts");
       } catch (err) {
         console.log(err);
@@ -158,7 +155,6 @@ export const useCartStore = defineStore("carts", {
           },
         });
         this.histories = data;
-        console.log(this.histories, "ini histories");
       } catch (err) {
         console.log(err);
       }

@@ -12,7 +12,6 @@ export const useItemStore = defineStore("items", {
 
   actions: {
     async fetchItems(value) {
-      //   console.log(value);
       try {
         const { data } = await axios({
           url: this.baseUrl + "/customers/items?",
@@ -46,7 +45,6 @@ export const useItemStore = defineStore("items", {
           url: this.baseUrl + "/customers/categories",
         });
         this.categories = data;
-        console.log(this.categories);
       } catch (err) {
         console.log(err);
       }
