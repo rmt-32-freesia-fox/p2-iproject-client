@@ -4,6 +4,12 @@ import { toast } from '../composables'
 const baseUrl = import.meta.env.VITE_SERVER_URL
 
 export const useEventStore = defineStore('event', {
+  state() {
+    return {
+      modal: false,
+      events: []
+    }
+  },
   actions: {
     async book() {
       try {
@@ -33,6 +39,23 @@ export const useEventStore = defineStore('event', {
       } catch (error) {
         toast('error', error.response.data.message)
       }
+    },
+    async addEvent(data) {
+      try {
+        const res = await axios.post(`${baseUrl}/events`, data,{
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+
+        this.toggleModal()
+        toast('success', res.data.message)
+      } catch (error) {
+        toast('error', error.response.data.message)
+      }
+    },
+    toggleModal() {
+      this.modal = !this.modal
     }
   }
 })
