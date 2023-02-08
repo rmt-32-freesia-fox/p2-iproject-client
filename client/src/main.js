@@ -6,6 +6,9 @@ import SocketIO from "socket.io-client";
 import App from "./App.vue";
 import router from "./router";
 
+import VueAwesomePaginate from "vue-awesome-paginate";
+import "vue-awesome-paginate/dist/style.css";
+
 import "./assets/main.css";
 
 const app = createApp(App);
@@ -16,6 +19,8 @@ const pinia = createPinia();
 pinia.use(({ store }) => {
   store.router = markRaw(router);
 });
+
+app.use(VueAwesomePaginate);
 
 app.use(
   new VueSocketIO({

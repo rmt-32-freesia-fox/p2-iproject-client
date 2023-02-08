@@ -27,10 +27,6 @@ export default {
     <td class="px-6 py-4">Rp. {{ myAuction.startPrice }}</td>
     <td class="px-6 py-4">{{ winner.User?.name }}</td>
     <td class="px-6 py-4">Rp. {{ winner.bid }}</td>
-    <td class="px-6 py-4 text-right">
-      <a href="#" class="font-medium text-blue-600 hover:underline"
-        >Send Email</a
-      >
-    </td>
+    <td class="px-6 py-4">{{ myAuction.status }}</td>
   </tr>
 </template>

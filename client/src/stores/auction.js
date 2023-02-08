@@ -19,11 +19,12 @@ export const useAuctionStore = defineStore("auction", {
     isLogin: false,
     isLoading: false,
     githubError: false,
-    auctions: [],
+    auctions: {},
     myAuctions: [],
     productList: [],
     detailAuction: {},
     recentAuction: [],
+    transactions: [],
   }),
   actions: {
     checkLogin() {
@@ -42,6 +43,10 @@ export const useAuctionStore = defineStore("auction", {
         this.isLogin = true;
         localStorage.access_token = data.access_token;
         this.router.push("/");
+        Toast.fire({
+          icon: "success",
+          title: `Welcome ${user.email}`,
+        });
       } catch (err) {
         Swal.fire({
           icon: "error",
@@ -67,6 +72,10 @@ export const useAuctionStore = defineStore("auction", {
         this.isLogin = true;
         localStorage.access_token = data.access_token;
         this.router.push("/");
+        Toast.fire({
+          icon: "success",
+          title: "Welcome",
+        });
       } catch (err) {
         this.githubError = true;
         Swal.fire({
@@ -102,12 +111,31 @@ export const useAuctionStore = defineStore("auction", {
         this.isLoading = false;
       }
     },
-    async fetchAllAuction() {
+    async fetchAllAuction(filter, page = 1) {
       try {
         this.isLoading = true;
-        const { data } = await api.get("/auctions");
-        console.log(data);
-        this.auctions = data;
+        if (filter) {
+          let filterData = {
+            search: filter.search,
+            category: filter.category,
+            page: 1,
+          };
+          if (filter.search == "") delete filterData.search;
+          if (filter.price == "") delete filterData.category;
+          console.log(filterData);
+          const { data } = await api.get("/auctions", {
+            params: filterData,
+          });
+          this.auctions = data;
+          console.log(data);
+        } else {
+          const { data } = await api.get("/auctions", {
+            params: {
+              page,
+            },
+          });
+          this.auctions = data;
+        }
       } catch (err) {
         Swal.fire({
           icon: "error",
@@ -190,8 +218,8 @@ export const useAuctionStore = defineStore("auction", {
         this.router.push("/myAuction");
         Swal.fire({
           icon: "Success",
-          title: "Oops...",
-          text: `success add ${data.name}`,
+          title: "Success",
+          text: `${data.name}`,
         });
       } catch (err) {
         Swal.fire({
@@ -206,12 +234,23 @@ export const useAuctionStore = defineStore("auction", {
     async fetchAuctionById(id) {
       try {
         this.isLoading = true;
-        const { data } = await api.get(`/auctions/${id}`, {
-          headers: {
-            access_token: localStorage.access_token,
-          },
-        });
+        const { data } = await api.get(`/auctions/detail/${id}`);
         this.detailAuction = data;
+      } catch (err) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: err.response.data.message,
+        });
+      } finally {
+        this.isLoading = false;
+      }
+    },
+    async fetchAuctionByIdWithReturn(id) {
+      try {
+        this.isLoading = true;
+        const { data } = await api.get(`/auctions/detail/${id}`);
+        return data;
       } catch (err) {
         Swal.fire({
           icon: "error",
@@ -232,6 +271,83 @@ export const useAuctionStore = defineStore("auction", {
         });
         this.recentAuction = data;
         console.log(data);
+      } catch (err) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: err.response.data.message,
+        });
+      } finally {
+        this.isLoading = false;
+      }
+    },
+    async fetchTransaction() {
+      try {
+        this.isLoading = true;
+        const { data } = await api.get("/auctions/transaction", {
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        this.transactions = data;
+      } catch (err) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: err.response.data.message,
+        });
+      } finally {
+        this.isLoading = false;
+      }
+    },
+    async changeStatus(id) {
+      try {
+        this.isLoading = true;
+        console.log(id, "<<< from change status ");
+        const { data } = await api.patch(
+          `/auctions/changestatus/${id}`,
+          {},
+          {
+            headers: {
+              access_token: localStorage.access_token,
+            },
+          }
+        );
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "payment successfully",
+        });
+        this.router.push("/myauction");
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: err.response.data.message,
+        });
+      } finally {
+        this.isLoading = false;
+      }
+    },
+    async sendInvoice(payload, id) {
+      try {
+        this.isLoading = true;
+        const { data } = await api.post(
+          `/auctions/transaction/${id}`,
+          payload,
+          {
+            headers: {
+              access_token: localStorage.access_token,
+            },
+          }
+        );
+        const cb = this.changeStatus;
+        window.snap.pay(data.token, {
+          onSuccess: function (result) {
+            /* You may add your own implementation here */
+            cb(id);
+          },
+        });
       } catch (err) {
         Swal.fire({
           icon: "error",

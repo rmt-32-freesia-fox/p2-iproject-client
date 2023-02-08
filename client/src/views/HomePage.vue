@@ -121,27 +121,21 @@
                 <i class="fas fa-user-friends text-xl"></i>
               </div>
               <h3 class="text-3xl mb-2 font-semibold leading-normal">
-                Working with us is a pleasure
+                perfection and precition
               </h3>
               <p
                 class="text-lg font-light leading-relaxed mt-4 mb-4 text-gray-700"
               >
-                Don't let your uses guess by attaching tooltips and popoves to
-                any element. Just make sure you enable them first via
-                JavaScript.
+                bidding in hlr-auction is realtime, and precition start from
+                time, step of multiple bidding, and get winner
               </p>
               <p
                 class="text-lg font-light leading-relaxed mt-0 mb-4 text-gray-700"
               >
-                The kit comes with three pre-built pages to help you get started
-                faster. You can change the text and images and you're good to
-                go. Just make sure you enable them first via JavaScript.
+                This app building with Javascript, VUE.js as front-end,
+                EXPRESS.js as backend, and POSTGRES as database
               </p>
-              <a
-                href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/presentation"
-                class="font-bold text-gray-800 mt-8"
-                >Check Tailwind Starter Kit!</a
-              >
+              <p class="font-bold">Hope You enjoying</p>
             </div>
             <div class="w-full md:w-4/12 px-4 mr-auto ml-auto">
               <div

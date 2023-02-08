@@ -178,9 +178,9 @@ export default {
           </div>
           <div class="mb-6">
             <label
-              for="images"
-              class="block mb-2 text-sm font-medium text-gray-900"
-              >images</label
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              for="file_input"
+              >Upload Images</label
             >
             <input
               type="file"

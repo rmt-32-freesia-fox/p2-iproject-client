@@ -11,92 +11,47 @@ export default {
 
 <template>
   <div
-    class="flex w-[40%] flex-col p-2 pb-5 m-2 border-4 bg-white border-gray-600 rounded-2xl shadow-2xl"
+    class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
   >
-    <div class="p-2 m-2 flex justify-center items-center">
-      <p class="my-[20px] text-md text-center">
-        {{ auction.name }}
-      </p>
+    <div class="text-green-800" v-if="auction.status == 'available'">
+      active
     </div>
-    <div
-      class="relative overflow-x-auto shadow-sm sm:rounded-lg w-[95%] rounded-2xl mx-auto"
-    >
-      <table class="w-full mt-2 text-sm text-left text-gray-500">
-        <thead class="text-xs text-gray-700 uppercase">
-          <tr>
-            <th
-              scope="col"
-              class="px-6 py-3 text-center bg-gray-700 text-white"
-            >
-              DATE
-            </th>
-            <th
-              scope="col"
-              class="px-6 py-3 text-center bg-gray-700 text-white"
-            >
-              CATEGORY
-            </th>
-            <th
-              scope="col"
-              class="px-6 py-3 text-center bg-gray-700 text-white"
-            >
-              COLOR
-            </th>
-            <th
-              scope="col"
-              class="px-6 py-3 text-center bg-gray-700 text-white"
-            >
-              OP
-            </th>
-            <th
-              scope="col"
-              class="px-6 py-3 text-center bg-gray-700 text-white"
-            >
-              MULTIPLE
-            </th>
-            <th
-              scope="col"
-              class="px-6 py-3 text-center bg-gray-700 text-white"
-            >
-              STATUS
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="bg-white border-b text-grey-900 border-gray-200">
-            <td class="px-6 py-4 text-center text-grey-900">
-              {{
-                new Date(auction.date).toLocaleDateString("id-Id", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })
-              }}
-            </td>
-            <td class="px-6 py-4 text-center text-grey-900">
-              {{ auction.category }}
-            </td>
-            <td class="px-6 py-4 text-center text-grey-900">
-              {{ auction.color }}
-            </td>
-            <td class="px-6 py-4 text-center text-grey-900">
-              Rp. {{ auction.startPrice }}
-            </td>
-            <td class="px-6 py-4 text-center text-grey-900">
-              Rp. {{ auction.multiple }}
-            </td>
-            <td class="px-6 py-4 text-center text-grey-900">
-              {{ auction.status }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div
-        @click.prevent="handleReadDetail"
-        class="my-3 flex w-[30%] mx-auto cursor-pointer justify-center items-center bg-blue-800 text-white hover:bg-blue-500 rounded-lg p-2"
+    <div class="text-red-800" v-if="auction.status == 'pending'">closed</div>
+    <div class="text-slate-800" v-if="auction.status == 'sold'">sold out</div>
+    <a>
+      <h5
+        class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
       >
-        <a> Read Detail</a>
-      </div>
-    </div>
+        {{
+          new Date(auction.date).toLocaleDateString("id-Id", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })
+        }}
+      </h5>
+    </a>
+    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+      {{ auction.name }}
+    </p>
+    <a
+      @click.prevent="handleReadDetail"
+      class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    >
+      Read more
+      <svg
+        aria-hidden="true"
+        class="w-4 h-4 ml-2 -mr-1"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+    </a>
   </div>
 </template>

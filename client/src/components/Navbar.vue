@@ -21,7 +21,7 @@ export default {
 </script>
 <template>
   <nav
-    class="top-0 z-50 w-full fixed flex flex-wrap items-center justify-between px-2 py-3 bg-slate-900"
+    class="top-0 z-50 w-full h-[90px] text-3xl fixed flex flex-wrap items-center justify-between px-2 py-3 bg-slate-900"
   >
     <div
       class="container px-4 mx-auto flex flex-wrap items-center justify-between"
@@ -31,7 +31,7 @@ export default {
       >
         <router-link
           to="/"
-          class="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
+          class="text-3l font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
           >HLR-Auction</router-link
         ><button
           class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
@@ -49,7 +49,7 @@ export default {
           <li class="flex items-center">
             <router-link
               to="/dashboard"
-              class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+              class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xl uppercase font-bold"
               href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/login"
               ><i
                 class="lg:text-gray-300 text-gray-500 far fa-file-alt text-lg leading-lg mr-2"
@@ -57,13 +57,34 @@ export default {
               Auctions</router-link
             >
           </li>
+          <li class="flex items-center">
+            <router-link
+              v-if="isLogin"
+              to="/room"
+              class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xl uppercase font-bold"
+              href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/login"
+              ><i
+                class="lg:text-gray-300 text-gray-500 far fa-file-alt text-lg leading-lg mr-2"
+              ></i>
+              ROOMS</router-link
+            >
+          </li>
         </ul>
         <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
           <li class="flex items-center">
             <router-link
+              to="/transaction"
+              v-if="isLogin"
+              class="bg-orange-700 text-white active:bg-orange-500 text-xl font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
+              type="button"
+              style="transition: all 0.15s ease 0s"
+            >
+              <i class="fas fa-arrow-alt-circle-down"></i> TRANSACTION
+            </router-link>
+            <router-link
               to="/myauction"
               v-if="isLogin"
-              class="bg-blue-700 text-white active:bg-blue-500 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
+              class="bg-blue-700 text-white active:bg-blue-500 text-xl font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
               type="button"
               style="transition: all 0.15s ease 0s"
             >
@@ -72,7 +93,7 @@ export default {
             <router-link
               to="/login"
               v-if="!isLogin"
-              class="bg-white text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
+              class="bg-white text-gray-800 active:bg-gray-100 text-xl font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
               type="button"
               style="transition: all 0.15s ease 0s"
             >
@@ -81,7 +102,7 @@ export default {
             <a
               v-if="isLogin"
               @click.prevent="handleLogoutButton"
-              class="bg-white text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
+              class="bg-white text-gray-800 active:bg-gray-100 text-xl font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
               type="button"
               style="transition: all 0.15s ease 0s"
             >

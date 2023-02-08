@@ -33,7 +33,7 @@ export default {
       <div class="w-[80%] mx-auto">
         <Carousel
           class="p-[20px] rounded-lg bg-white shadow-lg"
-          :items-to-show="4"
+          :items-to-show="3"
           :autoplay="1000"
           :wrap-around="true"
         >
@@ -53,6 +53,9 @@ export default {
         </Carousel>
       </div>
       <div class="p-[20px] w-[80%] mx-auto rounded-lg bg-white shadow-lg">
+        <div class="p-3 m-4 mx-auto text-center text-2xl">
+          {{ detailAuction.auction.name }}
+        </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table
             class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
@@ -61,36 +64,36 @@ export default {
               class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
             >
               <tr>
-                <th scope="col" class="px-6 py-3">Product name</th>
-                <th scope="col" class="px-6 py-3">Category</th>
-                <th scope="col" class="px-6 py-3">Color</th>
-                <th scope="col" class="px-6 py-3">Open Price</th>
-                <th scope="col" class="px-6 py-3">Start Price</th>
-                <th scope="col" class="px-6 py-3">Multiple</th>
-                <th scope="col" class="px-6 py-3">Status</th>
-                <th scope="col" class="px-6 py-3">
-                  <span class="sr-only">Edit</span>
-                </th>
+                <th scope="col" class="px-6 py-3 text-center">Category</th>
+                <th scope="col" class="px-6 py-3 text-center">Color</th>
+                <th scope="col" class="px-6 py-3 text-center">Open Price</th>
+                <th scope="col" class="px-6 py-3 text-center">Start Price</th>
+                <th scope="col" class="px-6 py-3 text-center">Multiple</th>
+                <th scope="col" class="px-6 py-3 text-center">Status</th>
               </tr>
             </thead>
             <tbody>
               <tr
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
               >
-                <th
-                  scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  {{ detailAuction.auction.name }}
-                </th>
-                <td class="px-6 py-4">{{ detailAuction.auction.category }}</td>
-                <td class="px-6 py-4">{{ detailAuction.auction.category }}</td>
-                <td class="px-6 py-4">{{ detailAuction.auction.color }}</td>
-                <td class="px-6 py-4">
+                <td class="px-6 py-4 text-center">
+                  {{ detailAuction.auction.category }}
+                </td>
+                <td class="px-6 py-4 text-center">
+                  {{ detailAuction.auction.category }}
+                </td>
+                <td class="px-6 py-4 text-center">
+                  {{ detailAuction.auction.color }}
+                </td>
+                <td class="px-6 py-4 text-center">
                   {{ detailAuction.auction.startPrice }}
                 </td>
-                <td class="px-6 py-4">{{ detailAuction.auction.multiple }}</td>
-                <td class="px-6 py-4">{{ detailAuction.auction.status }}</td>
+                <td class="px-6 py-4 text-center">
+                  {{ detailAuction.auction.multiple }}
+                </td>
+                <td class="px-6 py-4 text-center">
+                  {{ detailAuction.auction.status }}
+                </td>
               </tr>
             </tbody>
           </table>

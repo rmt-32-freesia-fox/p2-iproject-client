@@ -7,6 +7,7 @@ import MyAuction from "../views/MyAuction.vue";
 import FormAddAuction from "../views/FormAddAuction.vue";
 import AuctionDetail from "../views/AuctionDetail.vue";
 import AuctionRoom from "../views/AuctionRoom.vue";
+import Transaction from "../views/Transaction.vue";
 import Room from "../views/Room.vue";
 import loginGithubLoading from "../components/loginGithubLoading.vue";
 
@@ -63,6 +64,11 @@ const router = createRouter({
       path: "/room/:id",
       name: "Room",
       component: Room,
+    },
+    {
+      path: "/transaction",
+      name: "Transaction",
+      component: Transaction,
     },
   ],
 });
