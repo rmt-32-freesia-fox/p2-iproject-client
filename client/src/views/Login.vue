@@ -9,7 +9,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(useUserStore, ['login'])
+    ...mapActions(useUserStore, ['login', 'googleSign'])
   }
 }
 </script>
@@ -34,6 +34,9 @@ export default {
 
             <button type="submit" class="bg-secondary w-full py-3 text-white rounded-md my-6 disabled:bg-slate-400">
               Login</button>
+            <div class="flex mb-5 justify-center w-full items-center">
+              <GoogleLogin :callback="googleSign" />
+            </div>
             <div class="w-full text-center">
               <h4 class="w-max p-3 -ml-3">
                 Don't have an account yet ? <RouterLink to="/register" class="text-sm tracking-wide text-blue-600">

@@ -42,7 +42,7 @@ export const useEventStore = defineStore('event', {
     },
     async addEvent(data) {
       try {
-        const res = await axios.post(`${baseUrl}/events`, data,{
+        const res = await axios.post(`${baseUrl}/events`, data, {
           headers: {
             access_token: localStorage.access_token
           }
@@ -50,6 +50,19 @@ export const useEventStore = defineStore('event', {
 
         this.toggleModal()
         toast('success', res.data.message)
+      } catch (error) {
+        toast('error', error.response.data.message)
+    }
+    },
+    async fetchEvent() {
+      try {
+        const res = await axios.get(`${baseUrl}/events`, {
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+
+        this.events = res.data.rows
       } catch (error) {
         toast('error', error.response.data.message)
       }

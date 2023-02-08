@@ -12,16 +12,19 @@ export default {
     AddEvent
   },
   methods: {
-    ...mapActions(useEventStore, ['toggleModal'])
+    ...mapActions(useEventStore, ['toggleModal', 'fetchEvent'])
   },
   computed: {
-    ...mapState(useEventStore, ['modal'])
+    ...mapState(useEventStore, ['modal', 'events'])
   },
+  created() {
+    this.fetchEvent()
+  }
 }
 </script>
 
 <template>
-  <div class="pt-20 bg-[#8fcdff71]">
+  <div class="pt-20 bg-[#8fcdff71] min-h-screen">
     <AddEvent v-if="modal" />
     <div class="bg-white p-10 rounded-lg w-full  mx-auto max-w-7xl">
       <div>
@@ -34,11 +37,7 @@ export default {
         <hr class="mb-10 mt-5">
       </div>
       <div class="grid gap-7 grid-cols-4">
-        <EventCard />
-        <EventCard />
-        <EventCard />
-        <EventCard />
-        <EventCard />
+        <EventCard v-for="item in events" :key="item.id" :item="item" />
       </div>
     </div>
   </div>
