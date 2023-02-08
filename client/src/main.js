@@ -1,5 +1,6 @@
 import { createApp, markRaw } from 'vue'
 import { createPinia } from 'pinia'
+import Notifications, { notify } from 'notiwind'
 
 import App from './App.vue'
 import router from './router'
@@ -11,9 +12,11 @@ const pinia = createPinia()
 
 pinia.use(({ store }) => {
   store.$router = markRaw(router)
+  store.$notify = notify
 })
 
-app.use(createPinia())
+app.use(pinia)
+app.use(Notifications)
 app.use(router)
 
 app.mount('#app')
