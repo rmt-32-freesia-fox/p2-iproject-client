@@ -9,11 +9,26 @@ export const useCounterStore = defineStore("counter", {
     motivation: "",
     detailPage: [],
     dataMyFavorites: [],
+    dataWatch: [],
   }),
   getters: {
     doubleCount: (state) => state.count * 2,
   },
   actions: {
+    async forWatch(id) {
+      try {
+        const { data } = await axios.get(originUrl + `/mycourses/${id}`, {
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        console.log(data);
+        this.dataWatch = data;
+        this.router.push("/watch");
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async removeMyCourse(value) {
       try {
         const { data } = await axios.delete(originUrl + `/mycourses/${value}`, {
@@ -60,8 +75,10 @@ export const useCounterStore = defineStore("counter", {
           }
         );
         console.log(data);
-      } catch (error) {
-        console.log(error);
+      } catch ({ response }) {
+        toast.error(response.data.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
       }
     },
     async getVideoId(value) {

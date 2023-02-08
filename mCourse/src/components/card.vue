@@ -24,6 +24,7 @@ export default {
       "getVideoId",
       "addCourse",
       "removeMyCourse",
+      "forWatch",
     ]),
     btnDetail(value) {
       this.getVideoId(value);
@@ -36,6 +37,9 @@ export default {
     },
     deleteCourse(id) {
       this.removeMyCourse(id);
+    },
+    btnWatch(id) {
+      this.forWatch(id);
     },
   },
 };
@@ -59,7 +63,7 @@ export default {
     </div>
     <div class="px-6 pt-4 pb-2">
       <a
-        @click.prevent="btnDetail(dataCard.videoId)"
+        @click.prevent="btnWatch(dataCard.id)"
         href
         class="inline-block bg-gray-700 rounded-full px-3 py-1 text-sm font-semibold text-gray-200 mr-2 mb-2 hover:bg-gray-200 hover:text-gray-700 border border-black hover:border hover:border-black"
         >Watch Now
@@ -111,7 +115,7 @@ export default {
       </a>
       <a
         href=""
-        @click.prevent=""
+        @click.prevent="addFavorite"
         class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 hover:bg-gray-600 hover:text-white"
         >add favorite</a
       >
