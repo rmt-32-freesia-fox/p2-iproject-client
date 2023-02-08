@@ -9,12 +9,12 @@ export default {
 </script>
 
 <template>
-  <div class="flex gap-2">
+  <div class="flex gap-5">
     <button v-if="!user" @click="toggleLogin" class="btn btn-ghost">
       Login / Sign Up
     </button>
 
-    <button v-if="user" @click="myProfile">{{ user?.name }}</button>
+    <button v-if="user" @click="myProfile">My Profile</button>
     <button v-if="user" @click="logout">Logout</button>
   </div>
 </template>

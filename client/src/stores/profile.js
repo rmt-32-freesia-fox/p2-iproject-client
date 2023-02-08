@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { api } from '../helpers/axios'
 import { useUserStore } from './user'
-
+import ms from 'ms'
 
 export const useProfileStore = defineStore('profile', {
   state: () => {
@@ -12,7 +12,7 @@ export const useProfileStore = defineStore('profile', {
       notFound: false,
       song: null,
       followers: [],
-      followings: []
+      followings: [],
     }
   },
   getters: {
@@ -35,6 +35,9 @@ export const useProfileStore = defineStore('profile', {
     },
   },
   actions: {
+    convertTime(date) {
+      return ms(Date.now() - new Date(date).getTime(), { long: true })
+    },
     convert(ms) {
       const minutes = Math.floor(ms / 60000)
       const seconds = Math.floor((ms / 1000) % 60)
@@ -51,9 +54,10 @@ export const useProfileStore = defineStore('profile', {
       try {
         if (!this.$router.currentRoute._value.params.username) return
         this.loading = true
+        this.song = null
         await this.getProfileData()
 
-        this.spotifyPooling = setInterval(async () => {
+        const spotifyPooling = setInterval(async () => {
           try {
             const { data } = await api.get(
               '/profile/' + this.profile.username + '/spotify'
@@ -65,9 +69,11 @@ export const useProfileStore = defineStore('profile', {
 
             this.song = null
           } catch (error) {
-            clearInterval(this.spotifyPooling)
+            clearInterval(spotifyPooling)
+            this.clearPolling()
           }
         }, 1000)
+        this.spotifyPooling = spotifyPooling
       } catch (error) {
         console.log(error)
         if (error.status === 404) {
@@ -125,11 +131,12 @@ export const useProfileStore = defineStore('profile', {
       this.init()
     },
 
-
     async getFollowers() {
       try {
-        if(!this.profile) return
-        const { data } = await api.get(`/profile/${this.profile.username}/followers`)
+        if (!this.profile) return
+        const { data } = await api.get(
+          `/profile/${this.profile.username}/followers`
+        )
         this.followers = data.Followers
       } catch (error) {
         console.log(error)
@@ -137,12 +144,14 @@ export const useProfileStore = defineStore('profile', {
     },
     async getFollowings() {
       try {
-        if(!this.profile) return
-        const { data } = await api.get(`/profile/${this.profile.username}/followings`)
+        if (!this.profile) return
+        const { data } = await api.get(
+          `/profile/${this.profile.username}/followings`
+        )
         this.followings = data.Followings
       } catch (error) {
         console.log(error)
       }
-    }
+    },
   },
 })

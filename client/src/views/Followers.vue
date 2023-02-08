@@ -17,9 +17,9 @@ export default {
     LinkForm,
   },
   computed: mapState(useProfileStore, ['followers', 'profile']),
-  methods: mapActions(useProfileStore, ['getFollowers', 'getProfileData']),
+  methods: mapActions(useProfileStore, ['getFollowers', 'init', 'convertTime']),
   async created() {
-    await this.getProfileData()
+    await this.init()
     await this.getFollowers()
   },
   // unmounted() {
@@ -51,7 +51,7 @@ export default {
             <div class="text-xl font-bold">{{ f.name }}</div>
             <div class="text-sm opacity-50">@{{ f.username }}</div>
           </div>
-          <div>{{ f.createdAt }}</div>
+          <div>Joined {{ convertTime(f.createdAt )}} ago</div>
         </div>
       </RouterLink>
     </div>

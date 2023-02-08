@@ -4,7 +4,9 @@ import Profile from '../views/Profile.vue'
 import Home from '../views/Home.vue'
 import Followers from '../views/Followers.vue'
 import Followings from '../views/Followings.vue'
-
+import Edit from '../views/Edit.vue'
+import { useProfileStore } from '../stores/profile'
+import { api } from '../helpers/axios'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -32,6 +34,19 @@ const router = createRouter({
       path: '/:username/followings',
       name: 'followings',
       component: Followings,
+    },
+    {
+      path: '/:username/edit',
+      name: 'edit',
+      component: Edit,
+      beforeEnter: async (to) => {
+        try {
+          const { data} = await api.get('/user')
+          return data.username === to.params.username
+        } catch (error) {
+          return '/'
+        }
+      },
     },
 
     // {
