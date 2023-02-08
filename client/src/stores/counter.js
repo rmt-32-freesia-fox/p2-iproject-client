@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axios from 'axios'
+import Swal from "sweetalert2";
 
 export const useCounterStore = defineStore('counter', {
   state: () => ({
@@ -21,6 +22,22 @@ export const useCounterStore = defineStore('counter', {
   },
   actions: {
 
+    succesNotification(response) {
+      Swal.fire({
+        icon: "success",
+        title: "Success!",
+        text: response.message,
+      });
+    },
+
+    errorNotification(error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.response.data.message,
+      });
+    },
+
     async loginHandler(input) {
       console.log("Test handle login");
 
@@ -40,8 +57,16 @@ export const useCounterStore = defineStore('counter', {
 
         this.router.push('/')
 
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Successfully log in",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
       } catch (error) {
-        console.log(error, '<--- Ini errornya');
+        this.errorNotification(error);
       }
     }, //DONE
 
@@ -51,6 +76,14 @@ export const useCounterStore = defineStore('counter', {
       localStorage.removeItem("access_token");
 
       this.router.push('/')
+
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Successfully log in",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }, //DONE
 
     async signupHandler(input) {
@@ -70,8 +103,17 @@ export const useCounterStore = defineStore('counter', {
 
         this.router.push('/login')
 
+        Swal.fire({
+          title: 'Yuhuu... You get a discount!',
+          text: 'Successfully create account, please check your email for discount from us!',
+          imageUrl: 'https://media.istockphoto.com/id/1199025903/vector/congratulations-greeting-card-vector-lettering.jpg?s=612x612&w=0&k=20&c=JBjYOnkRerY0uxBrYAtKccIk6tdiBCuzwClegCucpmw=',
+          imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: 'Custom image',
+        })
+
       } catch (error) {
-        console.log(error);
+        this.errorNotification(error);
       }
     }, //DONE
 
@@ -127,8 +169,24 @@ export const useCounterStore = defineStore('counter', {
           }
         })
 
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Successfully log in",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
       } catch (error) {
         console.log(error);
+
+        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "You must log in first to add this book to My Book",
+        });
+
       }
     }, //DONE
 
