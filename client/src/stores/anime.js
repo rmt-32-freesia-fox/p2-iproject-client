@@ -209,5 +209,39 @@ export const useAnimeStore = defineStore('anime', {
         this.swalError("You are not logged in","This feature need you to log in");
       }
     },
+    async deletePlaylist(AnimeId) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "Anime data will be deleted",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Delete this Anime!'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            let { data } = await axios({
+              method: "delete",
+              url: `${this.baseUrl}/animeplaylist`,
+              data: {
+                UserId : this.userId,AnimeId
+              },
+              headers: {
+                access_token: localStorage.access_token,
+              },
+            });
+            console.log(data);
+            this.swalNotification("Anime has been deleted");
+            this.fetchPlaylist()
+            this.router.push("/playlist"); //! 
+          } catch (error) {
+            console.log(error);
+            this.swalError("You are not logged in","This feature need you to log in");
+          }
+        }
+      })
+     
+    },
   },
 })

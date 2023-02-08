@@ -38,7 +38,7 @@ export default {
                 <RouterLink to="/animefinder">Anime Finder</RouterLink>
               </a>
             </li>
-            <li>
+            <li v-if="isLogin">
               <a href="/" aria-label="Our product" title="Our product"
                 class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"><RouterLink to="/playlist">My Playlist</RouterLink></a>
             </li>
