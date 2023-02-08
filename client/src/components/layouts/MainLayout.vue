@@ -12,7 +12,7 @@ export default {
 <template>
   <Navbar />
   <div class="flex flex-col min-h-screen">
-    <div class="pt-24 p-5 md:p-10 flex-grow">
+    <div class="px-5 md:px-10 pb-10 pt-24 flex-grow">
       <slot />
     </div>
     <div
