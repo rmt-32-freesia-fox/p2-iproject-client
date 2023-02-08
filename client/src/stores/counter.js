@@ -80,7 +80,7 @@ export const useCounterStore = defineStore('counter', {
       Swal.fire({
         position: "top-end",
         icon: "success",
-        title: "Successfully log in",
+        title: "Successfully log out",
         showConfirmButton: false,
         timer: 1500,
       });
@@ -172,7 +172,7 @@ export const useCounterStore = defineStore('counter', {
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: "Successfully log in",
+          title: "Successfully add to MyBook",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -206,7 +206,7 @@ export const useCounterStore = defineStore('counter', {
       } catch (error) {
         console.log(error);
       }
-    },
+    }, //DONE
 
     async translateWord(word) {
       console.log("Test handle translate");
@@ -257,8 +257,65 @@ export const useCounterStore = defineStore('counter', {
 
       } catch (error) {
         console.log(error);
+        this.errorNotification(error);
       }
-    } //DONE
+    }, //DONE
 
+    async checkout() {
+      console.log(`test handle fitur checkout`)
+      try {
+
+        const { data } = await axios({
+          url: this.baseUrl + `/generate-midtrans-token`,
+          method: 'POST',
+          headers: { access_token: localStorage.access_token },
+        })
+
+        console.log(data);
+
+        window.snap.pay(data.token, {
+          onSuccess: function (result) {
+            /* You may add your own implementation here */
+
+            Swal.fire(
+              'Your order is successfully paid',
+              'Please check your email for confirmation order from us',
+              'success'
+            )
+          },
+          // onPending: function (result) {
+          //   /* You may add your own implementation here */
+          //   alert("wating your payment!"); console.log(result);
+          // },
+          // onError: function (result) {
+          //   /* You may add your own implementation here */
+          //   alert("payment failed!"); console.log(result);
+          // },
+          // onClose: function () {
+          //   /* You may add your own implementation here */
+          //   alert('you closed the popup without finishing the payment');
+          // }
+        })
+
+      } catch (error) {
+        console.log(error);
+      }
+    }, //DONE
+
+    async emailAfterPayment() {
+      console.log(`test handle email after payment`)
+      try {
+
+        const { data } = await axios({
+          url: this.baseUrl + `/send-email`,
+          method: 'GET',
+          headers: { access_token: localStorage.access_token },
+        })
+
+      } catch (error) {
+        console.log(error);
+      }
+
+    }
   },
 })

@@ -25,6 +25,7 @@ export default {
       "fetchBooksByID",
       "translateWord",
       "currencyConvert",
+      "addToMyBook",
     ]),
   },
   created() {
@@ -95,9 +96,7 @@ export default {
               />
             </div>
             <div class="col-auto">
-              <button type="submit" class="btn btn-primary mb-3">
-                Convert
-              </button>
+              <button type="submit" class="btn btn-danger mb-3">Convert</button>
             </div>
           </form>
         </div>
@@ -155,6 +154,7 @@ export default {
             justify-content-center
             d-flex
           "
+          @click.prevent="addToMyBook(booksById.id)"
           >Add To Cart</a
         >
       </div>

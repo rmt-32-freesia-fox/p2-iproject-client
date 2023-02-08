@@ -1,9 +1,19 @@
 <script>
+import { mapActions } from "pinia";
+import { useCounterStore } from "../stores/counter";
+
 export default {
   data() {
     return {};
   },
   props: ["perMyBook"],
+  methods: {
+    ...mapActions(useCounterStore, [
+      "fetchBooksByID",
+      "checkout",
+      "emailAfterPayment",
+    ]),
+  },
 };
 </script>
 
@@ -23,8 +33,18 @@ export default {
 
       <hr />
 
-      <a href="#" class="btn btn-primary text-light mx-1">See Details</a>
-      <a href="#" class="btn btn-success text-light mx-1">Checkout!</a>
+      <a
+        href="#"
+        class="btn btn-primary text-light mx-1"
+        @click.prevent="$router.push(`/detail/${perMyBook.Book.id}`)"
+        >See Details</a
+      >
+      <a
+        href="#"
+        class="btn btn-success text-light mx-1"
+        @click.prevent="emailAfterPayment"
+        >Checkout!</a
+      >
     </div>
   </div>
 </template>

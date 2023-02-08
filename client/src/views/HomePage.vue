@@ -62,6 +62,12 @@ export default {
 
     <!-- SEARCH BOOK -->
     <div class="text-align:center">
+      <h5 class="text-justify text-align:center text-center">
+        Search Trivia About Your Favorite Book Here
+      </h5>
+      <p class="text-justify text-align:center text-center">
+        Tips: search with combination of full title and author
+      </p>
       <form
         class="row g-2 text-align:center justify-content-center"
         @submit.prevent="searchBook(book)"
@@ -71,26 +77,26 @@ export default {
             v-model="book"
             type="text"
             class="form-control"
-            placeholder="Search Your Favorite Book Here (e.g. Harry potter)"
+            placeholder="e.g. Harry Potter J. K. Rowling"
           />
         </div>
         <div class="col-auto">
-          <button type="submit" class="btn btn-primary mb-3">Search</button>
+          <button type="submit" class="btn btn-success mb-3">Search</button>
         </div>
       </form>
     </div>
 
     <!-- RESULT SEARCH BOOK -->
-    <div class="text-left">
+    <div class="text-justify text-align:center text-center">
       <h6><strong> Title: </strong>{{ datum?.name }}</h6>
 
-      <h6><strong> GoodReads: </strong>{{ datum?.url }}</h6>
+      <h6><strong> GoodReads URL: </strong> {{ datum?.url }}</h6>
 
-      <h6><strong> Author: </strong>{{ datum?.authors[0] }}</h6>
+      <h6><strong> Author Name: </strong>{{ datum?.authors[0] }}</h6>
 
       <h6><strong> Rating: </strong>{{ datum?.rating }}</h6>
 
-      <h6><strong> Year: </strong>{{ datum?.year }}</h6>
+      <h6><strong> First Year Published: </strong>{{ datum?.year }}</h6>
     </div>
 
     <hr />

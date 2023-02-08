@@ -130,7 +130,7 @@ export default {
                   "
                 >
                   <img
-                    src="https://cdn.dribbble.com/users/140709/screenshots/9242429/media/895d8d61d8327c965ca0570c51a17b34.jpg?compress=1&resize=1000x750&vertical=top"
+                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
                     class="img-fluid"
                     alt="Sample image"
                   />
