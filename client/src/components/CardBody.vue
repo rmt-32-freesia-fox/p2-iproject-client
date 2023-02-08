@@ -9,7 +9,7 @@ export default {
     <div
       class="rounded text-center py-5 px-3"
       style="
-        background: url('https://cdn-ami-drupal.heartyhosting.com/sites/muscleandfitness.com/files/styles/full_node_image_1090x614/public/media/dumbbell-curl_2_2.jpg?itok=TGV8jtrH');
+        background: url('https://thefitnesstribe.com/wp-content/uploads/2020/02/barbell-set.jpg');
       "
     >
       <span class="material-symbols-outlined"> fitness_center </span>

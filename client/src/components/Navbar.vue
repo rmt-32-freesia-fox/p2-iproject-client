@@ -8,7 +8,16 @@ export default {
   },
 
   methods: {
-    ...mapActions(useCounterStore, ["doneLogin", "handleLogout"]),
+    ...mapActions(useCounterStore, [
+      "doneLogin",
+      "handleLogout",
+      "subscribe",
+      "patchStatus",
+    ]),
+
+    handleSubscribe() {
+      this.subscribe();
+    },
 
     logout() {
       this.handleLogout();
@@ -140,9 +149,19 @@ export default {
               <h1 class="display-2 text-white text-uppercase mb-md-4">
                 Build Your Body Strong With Gymster
               </h1>
-              <a href="" class="btn btn-primary py-md-3 px-md-5 me-3"
+              <a
+                v-if="isLogin == 'true'"
+                @click.prevent="handleSubscribe"
+                href=""
+                class="btn btn-primary py-md-3 px-md-5 me-3"
                 >Join Us</a
               >
+              <h2
+                v-if="this.status == 'Member'"
+                class="text-white text-uppercase"
+              >
+                Thanks For Subscribe
+              </h2>
             </div>
           </div>
         </div>

@@ -43,10 +43,9 @@ export default {
       </h2>
       <CardBody v-for="item in bodyParts" :key="item.id" :item="item" />
       <div class="col-lg-12 col-md-6 text-center">
-        <h1 class="text-uppercase text-light mb-4">
-          subscribe if you want to see movement tutorials
+        <h1 class="text-uppercase text-light mb-4" style="margin-top: 2rem">
+          Click the join button above if you want join the member
         </h1>
-        <a href="" class="btn btn-primary py-3 px-5">Become A Member</a>
       </div>
     </div>
   </div>

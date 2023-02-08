@@ -21,6 +21,7 @@ export const useCounterStore = defineStore("counter", {
     bodyParts: [],
     exercise: [],
     pagination: [],
+    status: "",
     isLogin: "false",
   }),
 
@@ -43,14 +44,19 @@ export const useCounterStore = defineStore("counter", {
           },
         });
         this.router.push("/login");
-        console.log(register);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Please Login",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       } catch (error) {
         console.log(error);
       }
     },
 
     async login(data) {
-      console.log("masuknibos");
       try {
         const login = await axios({
           method: "post",
@@ -61,6 +67,14 @@ export const useCounterStore = defineStore("counter", {
           },
         });
         localStorage.access_token = login.data.access_token;
+        localStorage.setItem("id", login.data.id);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Login Success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
 
         this.router.push("/");
       } catch (error) {
@@ -78,6 +92,8 @@ export const useCounterStore = defineStore("counter", {
           },
         });
         localStorage.access_token = google.data.access_token;
+        localStorage.setItem("id", google.data.id);
+
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -85,9 +101,7 @@ export const useCounterStore = defineStore("counter", {
           showConfirmButton: false,
           timer: 1500,
         });
-        this.isLogin = "true";
         this.router.push("/");
-        console.log(google);
       } catch (error) {
         Swal.fire({
           icon: "error",
@@ -121,7 +135,6 @@ export const useCounterStore = defineStore("counter", {
     },
 
     async getExercise(data) {
-      console.log(data);
       try {
         const exercise = await axios({
           method: "get",
@@ -133,10 +146,56 @@ export const useCounterStore = defineStore("counter", {
           },
         });
         console.log(exercise);
-        this.exercise = exercise.data.data;
-        this.pagination = exercise.data.currentPage;
+        this.exercise = exercise.data.response.Exercise;
+        this.pagination = exercise.data.response;
       } catch (error) {
         console.log(error);
+      }
+    },
+
+    async patchStatus() {
+      try {
+        const user = await axios({
+          method: "patch",
+          url: `${this.baseurl}/subscribe`,
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        this.router.push("/");
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Thank you, now you are a member",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async subscribe() {
+      try {
+        const midtransToken = await axios({
+          method: "post",
+          url: `${this.baseurl}/generate-midtrans-token`,
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        const cb = this.patchStatus;
+        window.snap.pay(midtransToken.data.token, {
+          onSuccess: function (result) {
+            cb();
+          },
+        });
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
       }
     },
   },

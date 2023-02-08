@@ -20,7 +20,6 @@ export default {
         password: this.password,
         phoneNumber: this.phoneNumber,
       };
-      console.log(input);
       this.register(input);
     },
   },

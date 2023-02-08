@@ -23,45 +23,39 @@ export default {
             src="../assets/img/about.jpg"
             style="object-fit: cover"
           />
+          <br />
+          <a href="#" class="btn btn-primary">Join Here</a>
         </div>
       </div>
       <div class="col-lg-7">
         <div class="mb-4">
-          <h5 class="text-primary text-uppercase">About Us</h5>
           <h1 class="display-3 text-uppercase mb-0">Welcome to Gymster</h1>
         </div>
         <h4 class="text-body mb-4">
-          Diam dolor diam ipsum tempor sit. Clita erat ipsum et lorem stet no
-          labore lorem sit clita duo justo magna dolore
+          Sejarah singkat apa itu GYMSTER yaitu berasal dari susunan kata yang
+          diawali dari kata Gym dan Diakhiri kata MASTER
         </h4>
         <p class="mb-4">
-          Nonumy erat diam duo labore clita. Sit magna ipsum dolor sed ea duo at
-          ut. Tempor sit lorem sit magna ipsum duo. Sit eos dolor ut sea rebum,
-          diam sea rebum lorem kasd ut ipsum dolor est ipsum. Et stet amet justo
-          amet clita erat, ipsum sed at ipsum eirmod labore lorem.
+          Gym sendiri merupakan akronim dari gymnasium. Secara harfiah, gym
+          dapat kita artikan sebagai tempat atau lokasi untuk melakukan kegiatan
+          latihan dan olahraga, seperti layanan senam, atletik, dan kardio.
         </p>
         <div class="rounded bg-dark p-5">
           <div class="tab-content">
             <div class="tab-pane fade show active" id="pills-1">
               <p class="text-secondary mb-0">
-                Tempor erat elitr at rebum at at clita aliquyam consetetur. Diam
-                dolor diam ipsum et, tempor voluptua sit consetetur sit.
-                Aliquyam diam amet diam et eos sadipscing labore. Clita erat
-                ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus
-                clita duo justo et tempor consetetur takimata eirmod, dolores
-                takimata consetetur invidunt magna dolores aliquyam dolores
-                dolore. Amet erat amet et magna
+                ‘ Gym ‘ adalah singkatan dari kata Gymnasium yang berarti pusat
+                kebugaran. Gym juga bisa berarti ‘fitness centre’. Sedangkan
+                ‘fitness’ berarti sebuah kondisi tubuh yang sehat dan bugar.
               </p>
             </div>
             <div class="tab-pane fade" id="pills-2">
               <p class="text-secondary mb-0">
-                Tempor erat elitr at rebum at at clita aliquyam consetetur. Diam
-                dolor diam ipsum et, tempor voluptua sit consetetur sit.
-                Aliquyam diam amet diam et eos sadipscing labore. Clita erat
-                ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus
-                clita duo justo et tempor consetetur takimata eirmod, dolores
-                takimata consetetur invidunt magna dolores aliquyam dolores
-                dolore. Amet erat amet et magna
+                Sedangkan fitness adalah sebuah gaya hidup atau lifestyle yang
+                seimbang untuk menjaga pola hidup sehat dan kebugaran tubuh.
+                Namun, kebugaran di sini lebih beragam karena ada 3 faktor
+                utama, yaitu olahraga (latihan), asupan nutrisi (makanan), dan
+                juga istirahat.
               </p>
             </div>
           </div>
@@ -83,7 +77,6 @@ export default {
           <p class="card-text">
             Get the ideal body shape as picture. if not now then when
           </p>
-          <a href="#" class="btn btn-primary">Join Here</a>
         </div>
       </div>
       <div class="col-lg-8" style="width: 18rem">
@@ -97,7 +90,6 @@ export default {
           <p class="card-text">
             Get the ideal body shape as photographed and you can improve it
           </p>
-          <a href="#" class="btn btn-primary">Join Here</a>
         </div>
       </div>
       <div class="col-lg-8" style="width: 18rem">
@@ -111,7 +103,6 @@ export default {
           <p class="card-text">
             And now you already get the result if you subscribe for one year
           </p>
-          <a href="#" class="btn btn-primary">Join Here</a>
         </div>
       </div>
     </div>
