@@ -2,11 +2,10 @@
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 
-
 export default {
   components: {
     Navbar,
-    Footer
+    Footer,
   },
 };
 </script>
@@ -66,6 +65,53 @@ export default {
               </p>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div class="row gx-7 justify-content-center" style="margin: auto">
+      <div class="col-lg-8" style="width: 18rem">
+        <img
+          class="card-img-top"
+          src="https://freedesignfile.com/upload/2017/01/Fitness-coach-to-guide-girls-fitness-movements-Stock-Photo-05.jpg"
+          alt="Card image cap"
+        />
+        <div class="card-body">
+          <h5 class="card-title">Subscription in one week</h5>
+          <p class="card-text">
+            Get the ideal body shape as picture. if not now then when
+          </p>
+          <a href="#" class="btn btn-primary">Join Here</a>
+        </div>
+      </div>
+      <div class="col-lg-8" style="width: 18rem">
+        <img
+          class="card-img-top"
+          src="https://el124.com/wp-content/uploads/2016/08/hombre-fitness-14.jpg"
+          alt="Card image cap"
+        />
+        <div class="card-body">
+          <h5 class="card-title">Subscription in one mounth</h5>
+          <p class="card-text">
+            Get the ideal body shape as photographed and you can improve it
+          </p>
+          <a href="#" class="btn btn-primary">Join Here</a>
+        </div>
+      </div>
+      <div class="col-lg-8" style="width: 18rem">
+        <img
+          class="card-img-top"
+          src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/0838fe18108113.562c3fe94fce7.jpg"
+          alt="Card image cap"
+        />
+        <div class="card-body">
+          <h5 class="card-title">Subscription in one year</h5>
+          <p class="card-text">
+            And now you already get the result if you subscribe for one year
+          </p>
+          <a href="#" class="btn btn-primary">Join Here</a>
         </div>
       </div>
     </div>

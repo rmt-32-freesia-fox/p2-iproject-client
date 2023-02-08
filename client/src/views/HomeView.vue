@@ -35,7 +35,13 @@ export default {
     style="margin-bottom: 180px"
   >
     <div class="row g-5 gb-5">
-      <CardBody v-for="item in bodyParts" :key="item.length" :item="item" />
+      <h2
+        class="text-uppercase text-bg mb-4"
+        style="text-align: center; color: black"
+      >
+        Equipment
+      </h2>
+      <CardBody v-for="item in bodyParts" :key="item.id" :item="item" />
       <div class="col-lg-12 col-md-6 text-center">
         <h1 class="text-uppercase text-light mb-4">
           subscribe if you want to see movement tutorials

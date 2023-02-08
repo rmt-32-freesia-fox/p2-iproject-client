@@ -5,29 +5,24 @@
       <div class="col-lg-8 col-md-6">
         <div class="row gx-5">
           <div class="col-lg-4 col-md-12 pt-5 mb-5">
-            <h4 class="text-uppercase text-light mb-4">Get In Touch</h4>
+            <h4 class="text-uppercase text-light mb-4">Location</h4>
             <div class="d-flex mb-2">
               <i class="bi bi-geo-alt text-primary me-2"></i>
-              <p class="mb-0">123 Street, New York, USA</p>
+              <p class="mb-0">Jakarta</p>
             </div>
             <div class="d-flex mb-2">
               <i class="bi bi-envelope-open text-primary me-2"></i>
-              <p class="mb-0">info@example.com</p>
+              <p class="mb-0">gymsterofficial1@gmail.com</p>
             </div>
             <div class="d-flex mb-2">
               <i class="bi bi-telephone text-primary me-2"></i>
-              <p class="mb-0">+012 345 67890</p>
+              <p class="mb-0">+62 877 6786</p>
             </div>
             <div class="d-flex mt-4">
               <a class="btn btn-primary btn-square rounded-circle me-2" href="#"
                 ><i class="fab fa-twitter"></i
               ></a>
-              <a class="btn btn-primary btn-square rounded-circle me-2" href="#"
-                ><i class="fab fa-facebook-f"></i
-              ></a>
-              <a class="btn btn-primary btn-square rounded-circle me-2" href="#"
-                ><i class="fab fa-linkedin-in"></i
-              ></a>
+
               <a class="btn btn-primary btn-square rounded-circle" href="#"
                 ><i class="fab fa-instagram"></i
               ></a>
@@ -50,10 +45,7 @@
                 ><i class="bi bi-arrow-right text-primary me-2"></i>Our
                 Trainers</a
               >
-              <a class="text-secondary mb-2" href="#"
-                ><i class="bi bi-arrow-right text-primary me-2"></i>Latest
-                Blog</a
-              >
+
               <a class="text-secondary" href="#"
                 ><i class="bi bi-arrow-right text-primary me-2"></i>Contact
                 Us</a
@@ -77,10 +69,7 @@
                 ><i class="bi bi-arrow-right text-primary me-2"></i>Our
                 Trainers</a
               >
-              <a class="text-secondary mb-2" href="#"
-                ><i class="bi bi-arrow-right text-primary me-2"></i>Latest
-                Blog</a
-              >
+
               <a class="text-secondary" href="#"
                 ><i class="bi bi-arrow-right text-primary me-2"></i>Contact
                 Us</a
@@ -90,27 +79,20 @@
         </div>
       </div>
       <div class="col-lg-4 col-md-6">
-        <img style="max-width: 65%" src="../assets/img/about.jpg" alt="" />
+        <img
+          style="max-width: 65%"
+          src="http://cdn.i0.cz/public-data/ec/61/a45ad3f532a2a0a91d48558b2cc9_w608_h606_ga6a22b76bb0b11e39ca2002590604f2e.jpg?hash=c910611e0ec8eabad6b4c5890c2e0ddb"
+          alt=""
+        />
       </div>
     </div>
   </div>
   <div class="container-fluid py-4 py-lg-0 px-5" style="background: #111111">
     <div class="row gx-5">
-      <div class="col-lg-8">
+      <div class="col-lg-12">
         <div class="py-lg-4 text-center">
           <p class="text-secondary mb-0">
-            &copy; <a class="text-light fw-bold" href="#">Your Site Name</a>.
-            All Rights Reserved.
-          </p>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="py-lg-4 text-center credit">
-          <p class="text-light mb-0">
-            Designed by
-            <a class="text-light fw-bold" href="https://htmlcodex.com"
-              >HTML Codex</a
-            >
+            &copy; <a class="text-light fw-bold" href="#">Gymster</a>.Official.
           </p>
         </div>
       </div>

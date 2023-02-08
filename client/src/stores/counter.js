@@ -19,6 +19,8 @@ export const useCounterStore = defineStore("counter", {
   state: () => ({
     baseurl: "http://localhost:3000",
     bodyParts: [],
+    exercise: [],
+    pagination: [],
     isLogin: "false",
   }),
 
@@ -106,13 +108,33 @@ export const useCounterStore = defineStore("counter", {
       try {
         const bodyParts = await axios({
           method: "get",
-          url: `${this.baseurl}/bodyParts`,
+          url: `${this.baseurl}/muscle`,
           headers: {
             access_token: localStorage.access_token,
           },
         });
-        this.bodyParts = bodyParts.data.data;
+        this.bodyParts = bodyParts.data;
         console.log(this.bodyParts);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async getExercise(data) {
+      console.log(data);
+      try {
+        const exercise = await axios({
+          method: "get",
+          url: `${this.baseurl}/exercise?`,
+          params: {
+            page: data.page ? data.page : "",
+            search: data.search ? data.search : "",
+            filter: data.filter ? data.filter : "",
+          },
+        });
+        console.log(exercise);
+        this.exercise = exercise.data.data;
+        this.pagination = exercise.data.currentPage;
       } catch (error) {
         console.log(error);
       }

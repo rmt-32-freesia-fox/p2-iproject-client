@@ -85,7 +85,7 @@ export default {
             <li  style="margin-top: 1rem">
               <GoogleLogin :callback="loginWithGoogle" />
             </li>
-            <li style="margin-top: 1rem;">
+            <li style="margin-top: 2rem;">
               <a
                 class="signup__link"
                 style="cursor: pointer"

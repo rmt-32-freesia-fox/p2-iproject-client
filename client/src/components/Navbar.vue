@@ -147,7 +147,11 @@ export default {
           </div>
         </div>
         <div class="carousel-item">
-          <img class="w-100" src="../assets/img/carousel-2.jpg" alt="Image" />
+          <img
+            class="w-100"
+            src="https://www.sfidn.com/image/catalog/01Fitness/sfidn-cara-membentuk-otot-dengan-program-fitness-phul-2.jpg"
+            alt="Image"
+          />
           <div
             class="carousel-caption d-flex flex-column align-items-center justify-content-center"
           >
