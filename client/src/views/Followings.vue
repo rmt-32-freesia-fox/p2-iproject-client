@@ -17,20 +17,11 @@ export default {
     LinkForm,
   },
   computed: mapState(useProfileStore, ['followers', 'profile']),
-  methods: mapActions(useProfileStore, ['getFollowers', 'getProfileData']),
+  methods: mapActions(useProfileStore, ['getFollowings', 'getProfileData']),
   async created() {
     await this.getProfileData()
-    await this.getFollowers()
+    await this.getFollowings()
   },
-  // unmounted() {
-  //   this.clearPolling()
-  // },
-  // watch: {
-  //   $route() {
-  //     this.clearPolling()
-  //     this.init()
-  //   },
-  // },
 }
 </script>
 
@@ -40,7 +31,7 @@ export default {
     <ProfileName />
     <Follow />
     <ProfileSocial />
-    <div class="text-xl font-bold">Followers</div>
+    <div class="text-xl font-bold">Followings</div>
     <div class="divider"></div>
     <div class="flex flex-wrap gap-5 w-full">
       <RouterLink v-for="f in followers" :key="f.id" :to="`/${f.username}`">

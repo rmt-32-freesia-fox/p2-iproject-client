@@ -19,6 +19,7 @@ export const useUserStore = defineStore('user', {
         const { data } = await api.get('/user')
 
         this.user = data
+        this.$router.push('/')
       } catch (error) {
         console.log(error)
       }

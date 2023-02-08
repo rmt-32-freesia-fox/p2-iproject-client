@@ -5,7 +5,7 @@
     >
       Hacktree Social Link Share
     </div>
-    <div class="hover:translate-x-32 lg:-rotate-2 hover:rotate-6 transition-all duration-500 overflow-hidden">
+    <!-- <div class="hover:translate-x-32 lg:-rotate-2 hover:rotate-6 transition-all duration-500 overflow-hidden">
       <div class="mockup-phone">
         <div class="camera"></div>
         <div class="display">
@@ -23,6 +23,6 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </section>
 </template>

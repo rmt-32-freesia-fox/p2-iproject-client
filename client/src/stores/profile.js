@@ -134,6 +134,15 @@ export const useProfileStore = defineStore('profile', {
       } catch (error) {
         console.log(error)
       }
+    },
+    async getFollowings() {
+      try {
+        if(!this.profile) return
+        const { data } = await api.get(`/profile/${this.profile.username}/followings`)
+        this.followings = data.Followings
+      } catch (error) {
+        console.log(error)
+      }
     }
   },
 })
