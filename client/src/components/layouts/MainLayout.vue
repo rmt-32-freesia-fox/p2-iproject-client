@@ -12,13 +12,12 @@ export default {
 <template>
   <Navbar />
   <div class="flex flex-col min-h-screen">
-    <div class="pt-24 p-10 flex-grow">
+    <div class="pt-24 p-5 md:p-10 flex-grow">
       <slot />
     </div>
     <div
-      class="bg-base-300 shadow-lg px-10 py-5 text-slate-500 flex justify-end items-center gap-10"
+      class="bg-base-300 shadow-lg px-10 py-5 text-slate-500 flex items-center gap-10"
     >
-      <!-- <div>2023</div> -->
       <button class="btn btn-ghost">
         <GithubIcon />
       </button>

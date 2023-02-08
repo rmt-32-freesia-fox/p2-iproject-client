@@ -5,7 +5,7 @@ import { useProfileStore } from '../../stores/profile'
 import RemoveLink from '../atoms/RemoveLink.vue'
 
 export default {
-  props: ['link'],
+  props: ['link', 'noedit'],
   computed: {
     ...mapState(useProfileStore, ['isMe']),
     bgUrl() {
@@ -34,7 +34,7 @@ export default {
         {{ link.label || link.link }}
       </button>
     </a>
-    <button v-if="isMe" @click="edit(link)" class="btn btn-ghost">
+    <button v-if="isMe && !noedit" @click="edit(link)" class="btn btn-ghost">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -49,6 +49,6 @@ export default {
         />
       </svg>
     </button>
-    <RemoveLink v-if="isMe" :id="link.id" />
+    <RemoveLink v-if="isMe && !noedit" :id="link.id" />
   </div>
 </template>
