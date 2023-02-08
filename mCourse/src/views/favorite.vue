@@ -9,19 +9,20 @@ export default {
     card,
   },
   computed: {
-    ...mapState(useCounterStore, ["dataMyFavorites"]),
+    ...mapState(useCounterStore, ["dataMyFavorites", "motivation"]),
   },
   methods: {
-    ...mapActions(useCounterStore, ["getMyCourse"]),
+    ...mapActions(useCounterStore, ["getMyCourse", "getMotivate"]),
   },
   created() {
     this.getMyCourse();
+    this.getMotivate();
   },
 };
 </script>
 <template>
   <div class="m-3">
-    <quotes />
+    <quotes :dataMotivate="motivation" />
   </div>
   <h1 class="font-bold ml-5 text-3xl w-fit border-b">Favorite List</h1>
   <div class="grid grid-cols-4 gap-3 mt-5 p-5">

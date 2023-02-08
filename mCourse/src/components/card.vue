@@ -25,6 +25,7 @@ export default {
       "addCourse",
       "removeMyCourse",
       "forWatch",
+      "toSubsribe",
     ]),
     btnDetail(value) {
       this.getVideoId(value);
@@ -40,6 +41,9 @@ export default {
     },
     btnWatch(id) {
       this.forWatch(id);
+    },
+    btnSubsribe(id) {
+      this.toSubsribe(id);
     },
   },
 };
@@ -68,14 +72,23 @@ export default {
         class="inline-block bg-gray-700 rounded-full px-3 py-1 text-sm font-semibold text-gray-200 mr-2 mb-2 hover:bg-gray-200 hover:text-gray-700 border border-black hover:border hover:border-black"
         >Watch Now
       </a>
+      <span>
+        <a
+          v-if="dataCard.isSubscribe == false"
+          href=""
+          @click.prevent="btnSubsribe(dataCard.id)"
+          class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 hover:bg-gray-600 hover:text-white"
+          >Subscribe Now</a
+        >
+        <span
+          class="px-2 font-bold text-gray-400"
+          v-if="dataCard.isSubscribe == true"
+          >isSubscribed</span
+        >
+      </span>
       <a
         href=""
-        @click.prevent=""
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 hover:bg-gray-600 hover:text-white"
-        >Subscribe Now</a
-      >
-      <a
-        href=""
+        v-if="dataCard.isSubscribe != true"
         @click.prevent="deleteCourse(dataCard.id)"
         class="rounded-full p-1 px-2.5 bg-red-600 text-white hover:bg-red-900 font-bold"
         >X</a

@@ -62,7 +62,10 @@ export default {
           </a>
         </div>
       </div>
-      <div></div>
+      <div class="flex row-auto m-2 flex-row-reverse">
+        <span class="px-2">Wahyudi</span>
+        <span class="material-symbols-outlined"> account_circle </span>
+      </div>
     </div>
   </nav>
 </template>
