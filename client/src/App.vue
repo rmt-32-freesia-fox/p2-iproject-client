@@ -9,6 +9,6 @@ export default {
 </script>
 
 <template>
-  <Navbar />
+  <Navbar v-if="!['login', 'register'].includes($route.name)" />
   <RouterView />
 </template>

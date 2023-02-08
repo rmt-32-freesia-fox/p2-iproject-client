@@ -1,47 +1,39 @@
 <script>
-import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel'
 
-import 'vue3-carousel/dist/carousel.css'
-
-
-export default {
-  data() {
-    return {
-      carousels: [
-        'https://static.vecteezy.com/system/resources/previews/001/871/553/non_2x/promotion-to-find-workers-with-the-words-look-and-find-jobs-concept-ilustration-can-use-for-landing-page-template-ui-web-mobile-poster-banner-flyer-background-website-advertisement-free-vector.jpg',
-      ]
-    }
-  },
-  components: {
-    Carousel,
-    Slide,
-    Pagination,
-    Navigation,
-  },
-}
 </script>
 <template>
-  <div >
-    <Carousel :autoplay="3000" :wrap-around="true">
-      <Slide v-for="slide in carousels" :key="slide">
-        <header class="rounded-lg flex items-center w-full overflow-hidden max-h-[80vh]">
-          <img class="w-full" :src="slide" />
-        </header>
-      </Slide>
+  <div class="w-full bg-[#8fcdff71]">
 
-      <template #addons>
-        <Navigation />
-      </template>
-    </Carousel>
+    <section id="hero" class="w-full pb-24">
+      <div class="relative max-w-screen-xl px-4 sm:px-8 mx-auto grid grid-cols-12 gap-x-6 overflow-hidden">
+        <div class="col-span-12 lg:col-span-6 mt-12 xl:mt-10 space-y-4 sm:space-y-6 px-6 text-center sm:text-left">
+          <span class="text-base text-gradient font-semibold uppercase">Sign
+            Up Today</span>
+          <h1 class="text-[2.5rem] sm:text-5xl xl:text-6xl font-bold leading-tight capitalize sm:pr-8 xl:pr-10">
+            The World's <span class="text-header-gradient">Fastest Growing</span> Crypto Web App
+          </h1>
+          <p class="paragraph hidden sm:block">
+            Buy and sell 200+ cryptocurrencies with 20+ flat currencies using bank transfers or your credit/debit card.
+          </p>
+          <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mt-2">
+            <BaseButton
+              class="max-w-full px-8 py-4 bg-gradient-to-r from-[#468ef9] to-[#0c66ee] border border-[#0c66ee] text-white">
+              Get Started
+            </BaseButton>
+            <BaseButton
+              class="max-w-full px-6 py-4 bg-inherit text-gradient border border-[#0c66ee] flex items-center justify-center">
+              <span>Download App</span>
+              <ChevronDownIcon :size="20" class="mt-1 text-[#0c66ee]" />
+            </BaseButton>
+          </div>
+        </div>
+        <div class="hidden sm:block col-span-12 lg:col-span-6">
+          <div class="w-full">
+            <img src="../assets/a.svg" class="-mt-4" alt="" />
+          </div>
+        </div>
+
+      </div>
+    </section>
   </div>
 </template>
-
-
-
-<style>
-.carousel__prev,
-.carousel__next {
-  box-sizing: content-box;
-
-}
-</style>

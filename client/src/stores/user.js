@@ -8,8 +8,8 @@ export const useUserStore = defineStore('user', {
     async login(data) {
       try {
         const res = await axios.post(`${baseUrl}/login`, data)
-        localStorage.setItem('access_token', res.data.access_token)
-
+        localStorage.setItem('access_token', res.data.data.access_token)
+        console.log(res.data)
         this.router.push('/')
 
         toast('success', res.data.message)
