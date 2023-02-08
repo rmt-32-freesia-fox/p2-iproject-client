@@ -45,7 +45,7 @@ export default {
   },
   created() {
     // this.getCourse();
-    // this.getMotivate();
+    this.getMotivate();
   },
 };
 </script>
@@ -64,16 +64,7 @@ export default {
           placeholder=" What do you want ?"
           class="border border-black w-1/2 p-2 border-r border-r-white"
         />
-        <select
-          name=""
-          id=""
-          v-model="dataInput.order"
-          class="p-2 border border-black border-l-2 border-l-slate-300"
-        >
-          <option value="date">Date</option>
-          <option value="rating">rating</option>
-          <option value="viewCount">viewCount</option>
-        </select>
+
         <button
           @click.prevent="search"
           class="bg-black text-white p-2 font-bold border border-black"

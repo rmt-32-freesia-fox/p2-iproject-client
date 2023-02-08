@@ -6,6 +6,7 @@ import CourseView from "../views/CourseView.vue";
 import DetailPage from "../views/DetailPage.vue";
 import Favorite from "../views/favorite.vue";
 import errorPage from "../components/404.vue";
+import watch from "../components/watch.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,6 +40,11 @@ const router = createRouter({
       path: "/favorites",
       name: "favorite",
       component: Favorite,
+    },
+    {
+      path: "/watch",
+      name: "watch",
+      component: watch,
     },
     {
       path: "/:catchAll(.*)",
