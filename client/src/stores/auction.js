@@ -23,6 +23,7 @@ export const useAuctionStore = defineStore("auction", {
     myAuctions: [],
     productList: [],
     detailAuction: {},
+    recentAuction: [],
   }),
   actions: {
     checkLogin() {
@@ -211,6 +212,26 @@ export const useAuctionStore = defineStore("auction", {
           },
         });
         this.detailAuction = data;
+      } catch (err) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: err.response.data.message,
+        });
+      } finally {
+        this.isLoading = false;
+      }
+    },
+    async fetchRecentAuction() {
+      try {
+        this.isLoading = true;
+        const { data } = await api.get("/auctions/recentauction", {
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        this.recentAuction = data;
+        console.log(data);
       } catch (err) {
         Swal.fire({
           icon: "error",
