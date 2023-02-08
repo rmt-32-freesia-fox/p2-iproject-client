@@ -2,6 +2,7 @@
 import { mapActions, mapState } from 'pinia'
 import { useLinkStore } from '../../stores/link'
 import { useProfileStore } from '../../stores/profile'
+import RemoveLink from '../atoms/RemoveLink.vue'
 
 export default {
   props: ['link'],
@@ -9,13 +10,12 @@ export default {
     ...mapState(useProfileStore, ['isMe']),
     bgUrl() {
       if (this.link.logo) return this.link.logo
-
       const url = new URL(this.link.link)
-
       return `https://www.google.com/s2/favicons?domain=${url.hostname}&sz=128`
     },
   },
   methods: mapActions(useLinkStore, ['edit']),
+  components: { RemoveLink },
 }
 </script>
 
@@ -49,5 +49,6 @@ export default {
         />
       </svg>
     </button>
+    <RemoveLink v-if="isMe" :id="link.id" />
   </div>
 </template>
