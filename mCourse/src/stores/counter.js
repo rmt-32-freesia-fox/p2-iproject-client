@@ -8,11 +8,50 @@ export const useCounterStore = defineStore("counter", {
     dataPop: [],
     motivation: "",
     detailPage: [],
+    dataMyFavorites: [],
   }),
   getters: {
     doubleCount: (state) => state.count * 2,
   },
   actions: {
+    async getMyCourse() {
+      try {
+        const { data } = await axios.get(originUrl + "/mycourses", {
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        console.log(data);
+        this.dataMyFavorites = data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async addCourse(value) {
+      console.log(value);
+      try {
+        const { data } = await axios.post(
+          originUrl + "/mycourses",
+          {},
+          {
+            params: {
+              idCourse: value.idCourse,
+              imgUrl: value.imgUrl,
+              description: value.description,
+              title: value.title,
+              channelTitle: value.channelTitle,
+              publishedAt: value.publishedAt,
+            },
+            headers: {
+              access_token: localStorage.access_token,
+            },
+          }
+        );
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async getVideoId(value) {
       console.log(value);
       try {
@@ -85,14 +124,19 @@ export const useCounterStore = defineStore("counter", {
         console.log(data);
       }
     },
-    async getCourse() {
+    async getCourse(value) {
+      console.log(value);
       try {
-        const { data } = await axios.get(originUrl + "/courses", {
+        const { data } = await axios.get(originUrl + "/courses/", {
+          params: {
+            page: value ? value.page : "",
+            search: value ? value.search : "",
+          },
           headers: {
             access_token: localStorage.access_token,
           },
         });
-        console.log(data);
+        // console.log(data);
         this.dataCourse = data;
       } catch (error) {
         console.log(error);
