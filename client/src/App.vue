@@ -2,13 +2,19 @@
 import Navbar from "./components/Navbar.vue";
 import { useAuctionStore } from "./stores/auction.js";
 import { RouterLink, RouterView } from "vue-router";
-import { mapState } from "pinia";
+import { mapState, mapActions } from "pinia";
 export default {
   components: {
     Navbar,
   },
   computed: {
     ...mapState(useAuctionStore, ["isLoading"]),
+  },
+  methods: {
+    ...mapActions(useAuctionStore, ["checkLogin"]),
+  },
+  created() {
+    this.checkLogin();
   },
 };
 </script>
