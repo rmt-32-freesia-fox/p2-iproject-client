@@ -20,7 +20,7 @@ export default {
     <div class="card" rounded style="width: 20rem">
       <img class="card-img-top" :src="perBook.imageUrl" alt="Job image" />
 
-      <div class="card-body">
+      <div class="card-body d-flex flex-column">
         <h5 class="card-title mb-1">{{ perBook.title }}</h5>
         <p class="card-text mt-3 mb-0">
           <strong>Author:</strong> {{ perBook.author }}
@@ -28,19 +28,19 @@ export default {
 
         <hr />
 
-        <div class="text-center">
+        <div class="d-flex flex-row justify-content-center mt-auto">
           <!-- <RouterLink to="/detail" class="btn btn-primary text-light mx-2"
             >See Details</RouterLink
           > -->
           <a
             href="#"
-            class="btn btn-primary text-light mx-2"
+            class="btn btn-primary text-light mx-2 mt-auto"
             @click.prevent="$router.push(`/detail/${perBook.id}`)"
             >See Details</a
           >
           <a
             href="#"
-            class="btn btn-warning text-light mx-2"
+            class="btn btn-warning text-light mx-2 mt-auto"
             @click.prevent="addToMyBook(perBook.id)"
             >Add To Cart</a
           >
