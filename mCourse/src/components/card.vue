@@ -20,7 +20,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions(useCounterStore, ["getVideoId", "addCourse"]),
+    ...mapActions(useCounterStore, [
+      "getVideoId",
+      "addCourse",
+      "removeMyCourse",
+    ]),
     btnDetail(value) {
       this.getVideoId(value);
     },
@@ -29,6 +33,9 @@ export default {
     },
     addFavorite() {
       this.addCourse(this.dataInput);
+    },
+    deleteCourse(id) {
+      this.removeMyCourse(id);
     },
   },
 };
@@ -65,6 +72,7 @@ export default {
       >
       <a
         href=""
+        @click.prevent="deleteCourse(dataCard.id)"
         class="rounded-full p-1 px-2.5 bg-red-600 text-white hover:bg-red-900 font-bold"
         >X</a
       >
