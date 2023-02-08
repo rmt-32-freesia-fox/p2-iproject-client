@@ -24,4 +24,26 @@ const router = createRouter({
   ],
 });
 
+
+router.beforeEach((to, from, next) => {
+  
+  
+  var expiration = new Date(localStorage.getItem("expiration"));  
+  var currentTime = new Date().getTime();  
+  if (currentTime > expiration) { 
+    localStorage.removeItem("token"); // token will only available within 30 minutes
+    localStorage.removeItem("expiration");
+  }
+  
+  if(to.fullPath =='/' && !localStorage.getItem('token')){ 
+    return next('/login')
+  } 
+  // if(to.fullPath =='/login' && localStorage.getItem('token') || to.fullPath =='/register' && localStorage.getItem('token')  ){ 
+  //   return next('/')
+  // }  
+   
+  next() 
+})
+
+
 export default router;

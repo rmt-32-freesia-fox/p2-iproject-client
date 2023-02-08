@@ -1,27 +1,44 @@
 <script>
+import { mapActions, mapState, mapWritableState } from "pinia";
+import { useDataStore } from "../stores/counter";
+import { RouterLink, RouterView } from "vue-router";
+import router from '../router'
 
   export default {
     data() {
       return {
-        // url:  'https://accounts.spotify.com/authorize?client_id=29694d93e1d24518aec34551ed349c5e&response_type=code&redirect_uri=http://localhost:3000/redirect/&scope=user-top-read%20user-read-recently-played%20user-read-currently-playing'
-        url:  'https://accounts.spotify.com/authorize?client_id=29694d93e1d24518aec34551ed349c5e&response_type=code&redirect_uri=http://localhost:5173/auth/&scope=user-top-read%20user-read-recently-played%20user-read-currently-playing'
+        url:  `https://accounts.spotify.com/authorize?client_id=29694d93e1d24518aec34551ed349c5e&response_type=code&redirect_uri=http://localhost:3000/redirect/&scope=user-top-read%20user-read-recently-played%20user-read-currently-playing%20user-read-private`
+        // url:  'https://accounts.spotify.com/authorize?client_id=29694d93e1d24518aec34551ed349c5e&response_type=code&redirect_uri=http://localhost:5173/auth/&scope=user-top-read%20user-read-recently-played%20user-read-currently-playing'
       }
     },
     methods: {
+      ...mapActions(useDataStore, ["getClientId"]),
+
       popup(url) {
         return window.open(url)
       },
       login(){ 
-        const width = 600;
-        const height = 800;
-        const left = (screen.width - width) / 2;
-        const top = (screen.height - height) / 2;
-        window.open(this.url, "Login with Spotify", `width=${width}, height=${height}, left=${left}, top=${top}`);
+        // const width = 600;
+        // const height = 800;
+        // const left = (screen.width - width) / 2;
+        // const top = (screen.height - height) / 2;
+        // window.open(this.url, "Login with Spotify", `width=${width}, height=${height}, left=${left}, top=${top}`);
       }    
     } ,
     beforeMount() {
-      window.close()
-      console.log(this.$route.query.code);
+      if(this.$route.query.token) {
+        localStorage.setItem('token', this.$route.query.token)
+        // Set expiration time in milliseconds
+        var expirationTime = 30 * 60 * 1000; // 30 minutes 
+        var currentTime = new Date().getTime();  
+        var expirationDate = new Date(currentTime + expirationTime); 
+        localStorage.setItem("expiration", expirationDate);
+        this.$router.push("/") 
+      } else {
+        window.location.assign(this.url)
+      }
+      // window.close()
+      // console.log(this.$route.query.code);
     }
 }
 
