@@ -38,14 +38,14 @@ export default {
           <li class="flex items-center">
             <RouterLink to="/"
               class="hover:text-slate-900 text-slate-900 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
-              <span class="inline-block ml-2">Star</span>
+              <span class="inline-block ml-2">Events</span>
             </RouterLink>
           </li>
 
           <li class="flex items-center">
             <RouterLink to="/"
               class="hover:text-slate-900 text-slate-900 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
-              <span class="inline-block ml-2">Star</span>
+              <span class="inline-block ml-2">Recipes</span>
             </RouterLink>
           </li>
 
