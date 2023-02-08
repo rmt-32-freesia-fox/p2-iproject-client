@@ -226,7 +226,6 @@ export const useCounterStore = defineStore('counter', {
       }
     }, //DONE
 
-
     async currencyConvert(input) {
       console.log("Test handle currency converter");
       try {
@@ -248,12 +247,12 @@ export const useCounterStore = defineStore('counter', {
       console.log("Test handle search book");
       try {
         const { data } = await axios({
-          url: this.baseUrl + `/searchbook`,
+          url: this.baseUrl + `/searchbook?search=` + book,
           method: 'GET',
-          params: `${book}`
+          // params: { search: book }
         })
 
-        this.resultSearchBook = data
+        this.resultSearchBook = data.data
         console.log(this.resultSearchBook);
 
       } catch (error) {

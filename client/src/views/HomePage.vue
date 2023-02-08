@@ -16,6 +16,9 @@ export default {
   },
   computed: {
     ...mapState(useCounterStore, ["books", "resultSearchBook"]),
+    datum() {
+      return this.resultSearchBook[0];
+    },
   },
   methods: {
     ...mapActions(useCounterStore, ["fetchBooks", "searchBook"]),
@@ -61,7 +64,7 @@ export default {
     <div class="text-align:center">
       <form
         class="row g-2 text-align:center justify-content-center"
-        @submit.prevent="this.searchBook(book)"
+        @submit.prevent="searchBook(book)"
       >
         <div class="col-5">
           <input
@@ -78,9 +81,17 @@ export default {
     </div>
 
     <!-- RESULT SEARCH BOOK -->
-    <h6 class="text-center">
-      <strong> Result: </strong>{{ this.resultSearchBook.data }}
-    </h6>
+    <div class="text-left">
+      <h6><strong> Title: </strong>{{ datum?.name }}</h6>
+
+      <h6><strong> GoodReads: </strong>{{ datum?.url }}</h6>
+
+      <h6><strong> Author: </strong>{{ datum?.authors[0] }}</h6>
+
+      <h6><strong> Rating: </strong>{{ datum?.rating }}</h6>
+
+      <h6><strong> Year: </strong>{{ datum?.year }}</h6>
+    </div>
 
     <hr />
 
