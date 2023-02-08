@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { api } from '../helpers/axios'
+import { useUserStore } from './user'
 
 export const useProfileStore = defineStore('profile', {
   state: () => {
@@ -12,6 +13,11 @@ export const useProfileStore = defineStore('profile', {
     }
   },
   getters: {
+    isMe() {
+      const { user } = useUserStore()
+      if (!user || !this.profile) return false
+      return user.id === this.profile.id
+    },
     songTime() {
       const convert = (ms) => {
         const minutes = Math.floor(ms / 60000)
