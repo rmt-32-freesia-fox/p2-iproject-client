@@ -8,7 +8,7 @@ export default {};
     <div class="relative py-4 xl:pt-12 xl:pb-4">
       <div class="flex justify-center">
         <div>
-          <p class="font-bold text-4xl">Nusantara Post</p>
+          <p class="font-bold text-4xl">Nusantara Lounge</p>
           <p class="flex justify-center font-thin text-4xsxl">
             --- Indonesia News Lounge ---
           </p>

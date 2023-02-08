@@ -1,6 +1,14 @@
 <script>
+import { useFunctionStore } from "../stores/counter";
+import { mapActions, mapState } from "pinia";
 export default {
   props: ["news"],
+  methods: {
+    ...mapActions(useFunctionStore, ["fetchPodcast", "handlePodcastDetail"]),
+  },
+  computed: {
+    ...mapState(useFunctionStore, ["podcastAllData"]),
+  },
 };
 </script>
 
@@ -21,7 +29,7 @@ export default {
     "
   >
     <div class="flex flex-row sm:block hover-img">
-      <a :href="news?.link">
+      <a href="#" @click.prevent="handlePodcastDetail()">
         <img
           class="max-w-full w-full mx-auto"
           :src="news?.image"
@@ -33,7 +41,7 @@ export default {
           <a href="#">{{ news?.title }}</a>
         </h3>
         <p class="font-light hidden md:block text-gray-600 leading-tight mb-1">
-         duration : {{ news?.duration }}
+          duration : {{ news?.duration }}
         </p>
         <a class="text-gray-500" href="#"
           ><span class="inline-block h-3 border-l-2 border-red-600 mr-2"></span>

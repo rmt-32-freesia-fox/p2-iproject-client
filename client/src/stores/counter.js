@@ -8,6 +8,7 @@ export const useFunctionStore = defineStore('function', {
     heroData: [],
     sideData: [],
     podcastData: [],
+    podcastAllData: [],
     gamesData: [],
     isLogin: localStorage.access_token
   }),
@@ -30,10 +31,8 @@ export const useFunctionStore = defineStore('function', {
             password: dataLogin.password
           }
         })
-        this.isLogin = localStorage.access_token
         localStorage.access_token = data.access_token
         localStorage.currentUser = data.email
-        this.currentUser = data.email
         this.router.push('/')
       } catch (error) {
         console.log(error.response.data.message);
@@ -44,6 +43,7 @@ export const useFunctionStore = defineStore('function', {
       localStorage.clear()
       this.currentUser = ""
       this.isLogin = false
+      this.router.push('/login')
     },
 
     async handleRegister(dataLogin) {
@@ -63,6 +63,17 @@ export const useFunctionStore = defineStore('function', {
       }
     },
 
+    async handlePodcastDetail(url) {
+      try {
+        // const { data } = await axios({
+        //   url: this.baseUrl + `/news/podcast`,
+        // })
+        console.log(`handle podcast detail`);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     async fetchAll() {
       this.currentUser = localStorage.currentUserx
       this.fetchHeroData()
@@ -76,8 +87,7 @@ export const useFunctionStore = defineStore('function', {
           url: this.baseUrl + `/news`,
         })
         this.heroData = { big: data.articles[0], small: data.articles.slice(1, 5) }
-        this.sideData = data.articles.slice(6, 13)
-        console.log(this.sideData);
+        this.sideData = data.articles.slice(6, 16)
       } catch (error) {
         console.log(error);
       }
@@ -89,6 +99,7 @@ export const useFunctionStore = defineStore('function', {
           url: this.baseUrl + `/news/podcast`,
         })
         this.podcastData = data.podcast.slice(0, 6)
+        this.podcastAllData = data.podcast
         console.log(this.podcastData);
       } catch (error) {
         console.log(error);
@@ -101,7 +112,6 @@ export const useFunctionStore = defineStore('function', {
           url: this.baseUrl + `/news/games`,
         })
         this.gamesData = data.slice(0, 9)
-        console.log(this.gamesData);
       } catch (error) {
         console.log(error);
       }

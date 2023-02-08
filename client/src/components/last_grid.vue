@@ -25,9 +25,9 @@ export default {
         <!-- post -->
         <div class="flex-shrink max-w-full w-full lg:w-2/3 overflow-hidden">
           <div class="w-full py-3">
-            <h2 class=" text-2xl font-bold text-red-600">
+            <h2 class="text-2xl font-bold text-red-600">
               <span
-                class="inline-block h-5 border-l-3 border-red-600 mr-2 "
+                class="inline-block h-5 border-l-3 border-red-600 mr-2"
               ></span
               >Latest news
             </h2>
@@ -87,18 +87,21 @@ export default {
             order-first
           "
         >
+          
           <div class="text-sm py-6 sticky">
             <div class="w-full text-center">
-              <a class="uppercase" href="#">Advertisement</a>
+              <a class="uppercase py-3 font-bold text-2xl tracking-widest" href="#">Nusantara</a>
               <a href="#">
                 <img
                   class="mx-auto"
-                  src="src/img/ads/250.jpg"
+                  src="https://www.pngkit.com/png/detail/154-1542321_peta-indonesia-merah-putih.png"
                   alt="advertisement area"
                 />
               </a>
             </div>
           </div>
+        
+        
         </div>
       </div>
     </div>

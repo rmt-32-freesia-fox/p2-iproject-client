@@ -2,8 +2,13 @@
 import { mapState, mapActions } from "pinia";
 import { useFunctionStore } from "../stores/counter";
 export default {
+  data() {
+    return {
+      currentUser: localStorage.currentUser,
+    };
+  },
   computed: {
-    ...mapState(useFunctionStore, ["currentUser", "isLogin"]),
+    ...mapState(useFunctionStore, ["", "isLogin"]),
   },
   methods: {
     ...mapActions(useFunctionStore, ["handleLogout"]),
@@ -95,22 +100,23 @@ export default {
                 <li
                   class="
                     relative
-                    border-l border-gray-800 border-r border-gray-800
+                    border-l border-r border-gray-800
                     hover:bg-gray-900
                     text-white
                   "
                 >
                   <a
+                    @click.prevent="$router.push('/podcast')"
                     class="block py-3 px-6 border-b-2 border-transparent"
                     href="#"
-                    >Techno</a
+                    >Podcast</a
                   >
                 </li>
                 <li
                   class="relative border-l border-gray-800 hover:bg-gray-900"
                 ></li>
                 <li
-                  v-if="!isLogin"
+                  v-if="!currentUser"
                   class="relative border-gray-800 hover:bg-gray-900"
                 >
                   <a
@@ -122,13 +128,13 @@ export default {
                 </li>
 
                 <div
-                  v-if="isLogin || currentUser"
+                  v-if="currentUser"
                   class="relative px-8 text-xl text-white font-black"
                 >
                   {{ currentUser }}
                 </div>
                 <li
-                  v-if="isLogin || currentUser"
+                  v-if="currentUser"
                   class="border-gray-800 hover:bg-gray-900"
                 >
                   <a
