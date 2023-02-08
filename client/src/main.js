@@ -15,7 +15,7 @@ pinia.use(({ store }) => {
   store.$notify = notify
 })
 
-app.use(createPinia())
+app.use(pinia)
 app.use(Notifications)
 app.use(router)
 
