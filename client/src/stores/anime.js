@@ -5,11 +5,11 @@ import Swal from 'sweetalert2'
 
 export const useAnimeStore = defineStore('anime', {
   state: () => ({ 
-    animeSearchResult: [],
     baseUrl : 'http://localhost:3000',
     userId : localStorage.userId || '',
     isLogin : localStorage.isLogin || false,
     username : localStorage.username || '',
+    animeSearchResult : []
    }),
   // getters: {
   //   doubleCount: (state) => state.count * 2,
@@ -57,29 +57,19 @@ export const useAnimeStore = defineStore('anime', {
         title,
       });
     },
-    searchAnime(value) {
-      const options = {
-        method: 'GET',
-        url: 'https://anime-db.p.rapidapi.com/anime',
-        params: {
-          page: '1',
-          size: '10',
-          search: value,
-          // genres: 'Fantasy,Drama',
-          sortBy: 'ranking',
-          sortOrder: 'asc'
-        },
-        headers: {
-          'X-RapidAPI-Key': '179e0bdf60mshabb49e1432f32b9p194a9ejsn92b309969690',
-          'X-RapidAPI-Host': 'anime-db.p.rapidapi.com'
-        }
-      };
-      axios.request(options).then( (response)=> {
-        console.log(response.data);
-        this.animeSearchResult = response.data.data
-      }).catch(function (error) {
-        console.error(error);
-      });
+    async searchAnime(value) {
+     try {
+      let {data} = await axios({
+        method: "post",
+        url: `${this.baseUrl}/animefinder`,
+      data : {
+        name : value.name
+      }})
+        this.animeSearchResult = data.data;
+        console.log(data.data);
+     } catch (error) {
+      console.log(error);
+     }
     },
     async loginHandler(dataLogin) {
       try {
@@ -128,26 +118,6 @@ export const useAnimeStore = defineStore('anime', {
         this.swalError("Register Failed", error.response.data.message);
       }
     },
-    async createFavorite(jobId) {
-      try {
-        let { data } = await axios({
-          method: "post",
-          url: `${baseUrl}/pub/customers/${this.customerId}`,
-          data: {
-            jobId,
-          },
-          headers: {
-            access_token: localStorage.access_token,
-          },
-        });
-        console.log(data);
-        this.swalNotification("Job succesfully added to Favorite");
-        this.router.push("/favorites");
-      } catch (error) {
-        console.log(error);
-        this.swalError("Yu are not logged in","This feature need you to log in");
-      }
-    },
     async logoutHandler() {
       Swal.fire({
         title: 'Are you sure?',
@@ -174,6 +144,26 @@ export const useAnimeStore = defineStore('anime', {
         }
       })
      
+    },
+    async createFavorite(jobId) {
+      try {
+        let { data } = await axios({
+          method: "post",
+          url: `${baseUrl}/pub/customers/${this.customerId}`,
+          data: {
+            jobId,
+          },
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        console.log(data);
+        this.swalNotification("Job succesfully added to Favorite");
+        this.router.push("/favorites");
+      } catch (error) {
+        console.log(error);
+        this.swalError("Yu are not logged in","This feature need you to log in");
+      }
     },
   },
 })

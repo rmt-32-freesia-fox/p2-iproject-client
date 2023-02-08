@@ -16,6 +16,12 @@ export default {
     ...mapActions(useAnimeStore, ['searchAnime']),
     scrollToTop() {
       window.scrollTo(0, 0);
+    },
+    submitSearch(){
+      let data = {
+        name : this.inputSearch
+      }
+      this.searchAnime(data)
     }
   },
   computed: {
@@ -32,7 +38,7 @@ export default {
     <div class="flex flex-col lg:flex-row">
       <div class="w-1/3  mx-auto ">
         <div class="  py-4 px-4 pt-16 mb-4 w-full">
-          <form @submit.prevent="searchAnime(inputSearch)">
+          <form @submit.prevent="submitSearch">
             <div class="max-w-xl">
 
               <div class="flex space-x-4">
