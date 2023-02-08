@@ -10,7 +10,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(useCounterStore, ["loginHandler"]),
+    ...mapActions(useCounterStore, ["loginHandler", "googleLoginHandler"]),
 
     submitHandler() {
       const newInput = {
@@ -94,7 +94,7 @@ export default {
                   </form>
 
                   <!-- GOOGLE LOGIN -->
-                  <!-- <div
+                  <div
                     id="google-button"
                     style="
                       padding: 20px;
@@ -103,7 +103,7 @@ export default {
                     "
                   >
                     <GoogleLogin :callback="googleLoginHandler" />
-                  </div> -->
+                  </div>
 
                   <div
                     class="col-12"

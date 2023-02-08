@@ -42,7 +42,7 @@ export default {
       <a
         href="#"
         class="btn btn-success text-light mx-1"
-        @click.prevent="emailAfterPayment"
+        @click.prevent="checkout"
         >Checkout!</a
       >
     </div>

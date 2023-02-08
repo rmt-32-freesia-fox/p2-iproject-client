@@ -117,6 +117,39 @@ export const useCounterStore = defineStore('counter', {
       }
     }, //DONE
 
+    async googleLoginHandler(input) {
+      console.log("Test handle login by Google");
+
+      try {
+        const signinWithGoogle = await axios({
+          url: this.baseUrl + `/google-sign-in`,
+          method: "POST",
+          headers: {
+            "google-auth-token": input.credential,
+          },
+        });
+
+        const access_token = signinWithGoogle.data.access_token;
+        console.log(access_token);
+
+        localStorage.setItem("access_token", access_token);
+
+        this.router.push('/')
+
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Successfully log in",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+      } catch (error) {
+        console.log(error, '< Ini errornya test');
+        this.errorNotification(error);
+      }
+    },
+
     async fetchBooks() {
       console.log("Test handle fetch books");
 
@@ -261,6 +294,22 @@ export const useCounterStore = defineStore('counter', {
       }
     }, //DONE
 
+    async emailAfterPayment() {
+      console.log(`test handle email after payment`)
+      try {
+
+        const { data } = await axios({
+          url: this.baseUrl + `/send-email`,
+          method: 'GET',
+          headers: { access_token: localStorage.access_token },
+        })
+
+      } catch (error) {
+        console.log(error);
+      }
+
+    }, // DONE
+
     async checkout() {
       console.log(`test handle fitur checkout`)
       try {
@@ -271,11 +320,14 @@ export const useCounterStore = defineStore('counter', {
           headers: { access_token: localStorage.access_token },
         })
 
-        console.log(data);
+        // console.log(data);
+        const cb = this.emailAfterPayment
 
         window.snap.pay(data.token, {
           onSuccess: function (result) {
             /* You may add your own implementation here */
+
+            cb() // Untuk panggil si actions kirim email setelah bayar buku
 
             Swal.fire(
               'Your order is successfully paid',
@@ -302,20 +354,6 @@ export const useCounterStore = defineStore('counter', {
       }
     }, //DONE
 
-    async emailAfterPayment() {
-      console.log(`test handle email after payment`)
-      try {
 
-        const { data } = await axios({
-          url: this.baseUrl + `/send-email`,
-          method: 'GET',
-          headers: { access_token: localStorage.access_token },
-        })
-
-      } catch (error) {
-        console.log(error);
-      }
-
-    }
   },
 })
