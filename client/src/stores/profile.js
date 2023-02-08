@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { api } from '../helpers/axios'
 import { useUserStore } from './user'
 
+
 export const useProfileStore = defineStore('profile', {
   state: () => {
     return {
@@ -46,6 +47,7 @@ export const useProfileStore = defineStore('profile', {
 
     async init() {
       try {
+        if (!this.$router.currentRoute._value.params.username) return
         this.loading = true
         await this.getProfileData()
 
@@ -73,7 +75,7 @@ export const useProfileStore = defineStore('profile', {
         this.$notify({
           group: 'error',
           title: 'Error',
-          text: error.response,
+          text: error.response.data.message,
         })
       } finally {
         this.loading = false
@@ -82,6 +84,43 @@ export const useProfileStore = defineStore('profile', {
 
     clearPolling() {
       clearInterval(this.spotifyPooling)
+      this.song = null
+    },
+
+    async follow() {
+      try {
+        if (!this.profile) return
+        await api.post(`/profile/${this.profile.username}/follow`)
+        this.clearPolling()
+        this.init()
+      } catch (error) {
+        console.log(error)
+        this.$notify({
+          group: 'error',
+          title: 'Error',
+          text: error.response.data.message,
+        })
+      }
+    },
+    async unfollow() {
+      try {
+        if (!this.profile) return
+        await api.delete(`/profile/${this.profile.username}/follow`)
+        this.clearPolling()
+        this.init()
+      } catch (error) {
+        console.log(error)
+        this.$notify({
+          group: 'error',
+          title: 'Error',
+          text: error.response.data.message,
+        })
+      }
+    },
+
+    reload() {
+      this.clearPolling()
+      this.init()
     },
   },
 })

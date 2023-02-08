@@ -20,7 +20,7 @@ export default {
         song ? '' : 'md:translate-x-44'
       }`"
     >
-      <div class="w-24 rounded-full">
+      <div class="w-24 rounded-full hover:-rotate-6 hover:scale-110 transition-all">
         <img
           :src="
             profile.profilePicture ||

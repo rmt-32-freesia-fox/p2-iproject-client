@@ -16,7 +16,7 @@ export default {
     <div
       v-if="song?.is_playing"
       class="w-full h-full p-4 rounded-lg shadow-lg"
-      :style="`background: linear-gradient(to left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.9),  rgba(0, 0, 0, 0.7)), url(${song.item.album.images[0]?.url}); background-position: center; background-repeat: no-repeat; background-size: cover;`"
+      :style="`background: linear-gradient(to left, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7),  rgba(0, 0, 0, 0.9)), url(${song.item.album.images[0]?.url}); background-position: center; background-repeat: no-repeat; background-size: cover;`"
     >
       <div class="text-xs opacity-50">listening to</div>
       <div class="flex justify-between">
