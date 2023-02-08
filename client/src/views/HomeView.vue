@@ -3,6 +3,13 @@
 import { useDataStore } from "../stores/counter";
 import { RouterLink, RouterView } from "vue-router";
 import router from '../router'
+
+let SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition,
+recognition,
+recording = false;
+
+
 export default {
   components: {
     
@@ -10,7 +17,18 @@ export default {
   data() {
     return {
       token: '',
-      search:''
+      search:'',
+      languages: [
+        {
+          no: "16",
+          name: "English",
+          native: "English",
+          code: "en",
+        }
+      ],
+      selectedLanguage: "en",
+      texts: [],
+      // texts: '',
     };
   },
   beforeMount() {
@@ -52,19 +70,83 @@ export default {
     }, 
     join(arr) {
       return arr.join(',')
-    }
-    
+    },
+    speechToText() {
+      try {
+        recognition = new SpeechRecognition();
+        recognition.lang = this.selectedLanguage;
+        recognition.interimResults = true;
+        this.recording = true;
+        recognition.start();
+        recognition.onresult = (event) => {
+          const speechResult = event.results[0][0].transcript;
+          if (event.results[0].isFinal) {
+            this.texts.push(speechResult);
+            this.search +=   speechResult
+          } else {
+            document.querySelector(".interim").innerHTML = " " + speechResult;
+          }
+        };
+        recognition.onspeechend = () => {
+          this.speechToText();
+        };
+        recognition.onerror = (event) => {
+          this.stopRecording();
+          if (event.error === "no-speech") {
+            console.log("No speech was detected. Stopping...");
+          } else if (event.error === "audio-capture") {
+            console.log(
+              "No microphone was found. Ensure that a microphone is installed."
+            );
+          } else if (event.error === "not-allowed") {
+            console.log("Permission to use microphone is blocked.");
+          } else if (event.error === "aborted") {
+            console.log("Listening Stopped.");
+          } else {
+            console.log("Error occurred in recognition: " + event.error);
+          }
+        };
+      } catch (error) {
+        this.recording = false;
+        console.log(error);
+      }
+    }, 
+    toggleRecording() {
+      if (!this.recording) {
+        this.speechToText();
+      } else {
+        this.stopRecording();
+      }
+    },
+    stopRecording() {
+      this.searchSongs(this.search)
+      recognition.stop();
+      this.recording = false;
+    },
   },
 };
 
-
-
- 
 
 </script>
 
 
 <template>
+  
+  
+  <div>
+    <select v-model="selectedLanguage" id="language">
+      <option v-for="language in languages" :value="language.code">{{ language.name }}</option>
+    </select>
+    <button class="record" @click="toggleRecording">
+      <p>Start Listening</p>
+    </button>
+    <div class="result">
+      <p v-for="text in texts">{{ text }}</p>
+    </div>
+    <button class="download" :disabled="texts.length === 0" @click="download">Download</button>
+    <button class="clear" @click="clear">Clear</button>
+  </div>
+    
   <p>my code: {{ token }}</p>
   
   <h1>Hi, {{ spotifyProfile.spotify.display_name }}</h1>
@@ -75,7 +157,15 @@ export default {
   <button @click="download()" >downlaod</button>
   <br> 
   
-  <input  v-model="search" type="text" name="" id=""> <button @click="searchSongs(search)" >Search a song </button>
+  <input v-model="search"   id="search_spotify" type="text" name="" > <button @click="searchSongs(search)" >Search a song </button>
+  
+  <ul v-if="searchList" > 
+    <li v-for="each in searchList.tracks.items" > 
+      <img :src="each.album.images[1].url"  width="50" height="50" alt="">  
+      {{ each.name }} -  {{ each.artists[0].name }} -  {{ each.album.name }} -  {{ msToTimeFormat(each.duration_ms) }}
+      <button v-if="(spotifyProfile.isPaid)"  @click="getDownloadLink(each.track.id)" >{{ each.id }}</button>      
+    </li> 
+  </ul>
   
   <ul>
     <li>
@@ -89,14 +179,6 @@ export default {
     </li>
   </ul>
   
-  
-  <ul v-if="searchList" > 
-    <li v-for="each in searchList.tracks.items" > 
-      <img :src="each.album.images[1].url"  width="50" height="50" alt="">  
-      {{ each.name }} -  {{ each.artists[0].name }} -  {{ each.album.name }} -  {{ msToTimeFormat(each.duration_ms) }}
-      <button v-if="(spotifyProfile.isPaid)"  @click="getDownloadLink(each.track.id)" >{{ each.id }}</button>      
-    </li> 
-  </ul>
   
   <ul>
     <li>you favourite artists</li>
