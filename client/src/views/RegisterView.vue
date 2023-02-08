@@ -1,4 +1,27 @@
 <script>
+import { mapState, mapActions } from 'pinia'
+import { useAnimeStore } from '../stores/anime'
+export default {
+  data() {
+    return {
+      inputUsername: '',
+      inputEmail: '',
+      inputPassword: '',
+    }
+  },
+  methods: {
+    ...mapActions(useAnimeStore, ['registerHandler']),
+    submitRegister(){
+        let data = {
+            username : this.inputUsername,
+            email : this.inputEmail,
+            password : this.inputPassword,
+        }
+        this.registerHandler(data)
+    }
+  },
+
+}
 </script>
 
 <template>
@@ -27,10 +50,12 @@
                 <h3 class="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl">
                   Sign up for an account
                 </h3>
-                <form>
+                <form @submit.prevent="submitRegister">
                   <div class="mb-1 sm:mb-2">
                     <label for="firstName" class="inline-block mb-1 font-medium">Username</label>
                     <input
+                    v-model="inputUsername"
+
                       placeholder="Uchiha Itachi"
                       required
                       type="text"
@@ -40,6 +65,8 @@
                     <div class="mb-1 sm:mb-2">
                       <label for="email" class="inline-block mb-1 font-medium">E-mail</label>
                       <input
+                      v-model="inputEmail"
+
                         placeholder="akatsuki.itachi@example.org"
                         required
                         type="text"
@@ -49,9 +76,10 @@
                   <div class="mb-1 sm:mb-2">
                     <label for="lastName" class="inline-block mb-1 font-medium">Password</label>
                     <input
+                    v-model="inputPassword"
                       placeholder="*****"
                       required
-                      type="text"
+                      type="password"
                       class="flex-grow text-lg w-full h-12 px-4 mb-2 transition duration-200 bg-gray-800 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
                     />
                   </div>
