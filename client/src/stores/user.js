@@ -95,10 +95,26 @@ export const useUserStore = defineStore('user', {
       }
     },
 
-    async saveEdit() {
+    async saveEdit(e) {
       try {
         if (this.usernameStatus === 'notok') return
-        await api.put('/user', this.userToEdit)
+
+        const form = new FormData()
+        const profilePicture = e.target.profilePicture.files[0]
+        if (profilePicture) {
+          form.append('profilePicture', profilePicture, profilePicture.name)
+        }
+        
+        const background = e.target.background.files[0]
+        if (background) {
+          form.append('background', background, background.name)
+        }
+        
+        for (const key in this.userToEdit) {
+          form.append(key, this.userToEdit[key])
+        }
+
+        await api.put('/user', form)
         this.user = { ...this.userToEdit }
         this.myProfile()
       } catch (error) {

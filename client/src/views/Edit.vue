@@ -28,13 +28,13 @@ export default {
   components: { GithubIcon, SpotifyIcon, DiscordIcon },
   watch: {
     'userToEdit.username': function (newUsername) {
+      const fixedUsername = !newUsername
+        ? ''
+        : newUsername.match(/[a-zA-Z0-9\-\_]+/g).join('')
+      this.userToEdit.username = fixedUsername
       clearTimeout(this.timeout)
 
       this.timeout = setTimeout(() => {
-        const fixedUsername = !newUsername
-          ? ''
-          : newUsername.match(/[a-zA-Z0-9\-\_]+/g).join('')
-        this.userToEdit.username = fixedUsername
         this.checkUsername()
       }, 1000)
     },
@@ -43,14 +43,16 @@ export default {
 </script>
 
 <template>
-  {{ JSON.stringify(userToEdit, null, 4) }}
-  <div>
+  <div class="prose">
+    <h1>Edit Profile</h1>
     <form @submit.prevent="saveEdit" class="flex flex-col">
+      <div class="text-xl font-bold">Full Name</div>
       <input
         class="input max-w-xs input-bordered"
         type="text"
         v-model="userToEdit.name"
       />
+      <div class="text-xl font-bold mt-5 mb-3">Username</div>
       <div class="flex items-center gap-5">
         <input
           class="input input-bordered w-[320px]"
@@ -103,46 +105,59 @@ export default {
           </svg>
         </div>
       </div>
-      <input type="file" class="file-input file-input-bordered max-w-xs" />
+      <div class="text-xl font-bold mt-5 mb-3">Profile Picture</div>
+      <input
+        type="file"
+        name="profilePicture"
+        class="file-input file-input-bordered max-w-xs"
+      />
+      <div class="text-xl font-bold mt-5 mb-3">Cover</div>
+      <input
+        type="file"
+        name="background"
+        class="file-input file-input-bordered max-w-xs"
+      />
+      <br />
       <button type="submit" class="btn w-min">Save</button>
     </form>
+    <h2>Social</h2>
     <div class="flex flex-col gap-2">
-      <div class="flex gap-2">
+      <div class="flex gap-2 items-center">
         <div
           class="flex gap-2 items-center py-2 px-4 bg-base-300 w-min rounded-lg"
         >
           <GithubIcon /> {{ userToEdit.Github?.username || 'Github' }}
         </div>
         <a v-if="!userToEdit.Github" :href="baseURL + '/auth/github'">
-          <button class="btn btn-ghost">Link</button>
+          <button class="btn btn-sm btn-link">Link</button>
         </a>
-        <button v-else class="btn btn-ghost" @click="unlink('Github')">
+        <button v-else class="btn btn-sm btn-error" @click="unlink('Github')">
           Unlink
         </button>
       </div>
-      <div class="flex gap-2">
+      <div class="flex gap-2 items-center">
         <div
           class="flex gap-2 items-center py-2 px-4 bg-base-300 w-min rounded-lg"
         >
           <SpotifyIcon /> {{ userToEdit.Spotify?.username || 'Spotify' }}
         </div>
         <a v-if="!userToEdit.Spotify" :href="baseURL + '/auth/spotify'">
-          <button class="btn btn-ghost">Link</button>
+          <button class="btn btn-sm btn-link">Link</button>
         </a>
-        <button v-else class="btn btn-ghost" @click="unlink('Spotify')">
+        <button v-else class="btn btn-sm btn-error" @click="unlink('Spotify')">
           Unlink
         </button>
       </div>
-      <div class="flex gap-2">
+      <div class="flex gap-2 items-center">
         <div
           class="flex gap-2 items-center py-2 px-4 bg-base-300 w-min rounded-lg"
         >
           <DiscordIcon /> {{ discordUsername || 'Discord' }}
         </div>
         <a v-if="!userToEdit.Discord" :href="baseURL + '/auth/discord'">
-          <button class="btn btn-ghost">Link</button>
+          <button class="btn btn-sm btn-link">Link</button>
         </a>
-        <button v-else class="btn btn-ghost" @click="unlink('Discord')">
+        <button v-else class="btn btn-sm btn-error" @click="unlink('Discord')">
           Unlink
         </button>
       </div>
