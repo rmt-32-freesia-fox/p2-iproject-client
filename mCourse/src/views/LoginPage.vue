@@ -1,6 +1,7 @@
 <script>
 import { mapActions } from "pinia";
 import { useCounterStore } from "../stores/counter";
+import { GoogleLogin } from "vue3-google-login";
 
 export default {
   data() {
@@ -12,14 +13,19 @@ export default {
     };
   },
   methods: {
-    ...mapActions(useCounterStore, ["forLogin"]),
+    ...mapActions(useCounterStore, ["forLogin", "handleGoogleLogin"]),
     formLogin() {
       this.forLogin(this.dataInput);
+    },
+    callback(response) {
+      console.log(response);
+      this.handleGoogleLogin(response);
     },
   },
 };
 </script>
 <template>
+  <!-- <GoogleLogin :callback="callback" prompt /> -->
   <div class="container mx-auto">
     <div class="mx-auto">
       <h1 class="text-center font-bold text-xl mt-16">
@@ -35,11 +41,16 @@ export default {
         >
           <p class="text-center">
             <img
-              src="../assets/linkin.svg"
+              src="../assets/github.png"
               alt=""
-              class="object-fill h-4 mx-auto"
+              class="object-fill h-7 mx-auto"
             />
-            <span class="px-2"> Login With Linkedin</span>
+            <a
+              href="https://github.com/login/oauth/authorize?client_id=820861e553b218e64fcd"
+              class="px-2"
+            >
+              Login With Github</a
+            >
           </p>
         </button>
         <button
@@ -47,11 +58,13 @@ export default {
         >
           <p class="text-center">
             <img
-              src="../assets/google icon.svg"
+              src="../assets/GOOGLE.png"
               alt=""
               class="object-fill h-4 mx-auto"
             />
-            <span class="px-2"> Login With Google</span>
+            <GoogleLogin :callback="callback" prompt>
+              <span class="px-2"> Login With Google</span>
+            </GoogleLogin>
           </p>
         </button>
         <input
@@ -76,8 +89,8 @@ export default {
         <div class="m-2 p-2">
           <label for=""
             >If You Forgot Password
-            <a href="" class="font-bold hover:text-gray-600"
-              >Click Here</a
+            <RouterLink to="/forgot" class="font-bold hover:text-gray-600"
+              >Click Here</RouterLink
             ></label
           >
           <hr class="w-3/4 mx-auto" />

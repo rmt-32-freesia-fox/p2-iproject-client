@@ -3,6 +3,17 @@ import { mapActions, mapState } from "pinia";
 import { useCounterStore } from "../stores/counter";
 
 export default {
+  data() {
+    return {
+      dataInput: {
+        idCourse: this.dataCard ? this.dataCard.id.videoId : "",
+        imgUrl: this.dataCard ? this.dataCard.snippet?.thumbnails.high.url : "",
+        title: this.dataCard ? this.dataCard.snippet?.title : "",
+        channelTitle: this.dataCard ? this.dataCard.snippet?.channelTitle : "",
+        publishedAt: this.dataCard ? this.dataCard.snippet?.publishedAt : "",
+      },
+    };
+  },
   computed: {
     ...mapState(useCounterStore, ["detailPage"]),
     getRoute() {
@@ -17,6 +28,9 @@ export default {
     formatDate(data) {
       return new Date(data).toLocaleString("id-ID", { dateStyle: "full" });
     },
+    addFavorite() {
+      this.addCourse(this.dataInput);
+    },
   },
   created() {
     this.getVideoId(this.getRoute);
@@ -25,8 +39,8 @@ export default {
 </script>
 <template>
   <div class="container mx-auto mt-16 w-fit">
-    <div class="mx-auto p-2 border shadow bg-white w-fit">
-      <div class="grid grid-cols-2 gap-1">
+    <div class="mx-auto p-2 border shadow bg-white w-1/2 m-5">
+      <div>
         <div>
           <img
             :src="detailPage.items[0].snippet.thumbnails.high.url"
@@ -51,17 +65,8 @@ export default {
                 Publish At :
                 {{ formatDate(detailPage.items[0].snippet.publishedAt) }}
               </p>
-              <button
-                class="bg-black text-white p-2 m-2 mt-5 ml-2 font-bold border hover:bg-white hover:text-black hover:border hover:border-black"
-              >
-                Add Favorite
-              </button>
             </div>
           </div>
-        </div>
-
-        <div class="bg-slate-100 p-2">
-          {{ detailPage.items[0].snippet.description }}
         </div>
       </div>
     </div>

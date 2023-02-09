@@ -2,6 +2,11 @@
 import { mapActions } from "pinia";
 
 export default {
+  data() {
+    return {
+      name: localStorage.username,
+    };
+  },
   computed: {
     getName() {
       return this.$route.name;
@@ -12,6 +17,16 @@ export default {
       localStorage.clear();
       this.$router.push("/");
     },
+    check() {
+      if (localStorage.access_token) {
+        this.name = localStorage.username;
+      } else {
+        this.name = "";
+      }
+    },
+  },
+  updated() {
+    this.check();
   },
 };
 </script>
@@ -62,8 +77,11 @@ export default {
           </a>
         </div>
       </div>
-      <div class="flex row-auto m-2 flex-row-reverse">
-        <span class="px-2">Wahyudi</span>
+      <div
+        class="flex row-auto m-2 flex-row-reverse"
+        v-if="getName != 'login' && getName != 'register' && getName != 'home'"
+      >
+        <span class="px-2">{{ name }}</span>
         <span class="material-symbols-outlined"> account_circle </span>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { toast } from "vue3-toastify";
 import axios from "axios";
-const originUrl = "http://localhost:3000";
+const originUrl = "https://mcourse-production.up.railway.app";
 export const useCounterStore = defineStore("counter", {
   state: () => ({
     dataCourse: [],
@@ -10,11 +10,82 @@ export const useCounterStore = defineStore("counter", {
     detailPage: [],
     dataMyFavorites: [],
     dataWatch: [],
+    isLoader: false,
   }),
   getters: {
     doubleCount: (state) => state.count * 2,
   },
   actions: {
+    async forReset(value) {
+      try {
+        const { data } = await axios.post(originUrl + "/newpassword", {
+          token: value.token,
+          email: value.email,
+          password: value.password,
+        });
+        toast.success(data.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
+      } catch (error) {
+        toast.error(response.data.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
+      }
+    },
+    async forToken(value) {
+      try {
+        const { data } = await axios.post(originUrl + "/resetpassword", {
+          token: value.token,
+          email: value.email,
+        });
+        toast.success(data.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
+      } catch (error) {
+        toast.error(response.data.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
+      }
+    },
+    async githubLogin(value) {
+      this.isLoader = true;
+      try {
+        const { data } = await axios.post(
+          originUrl + "/github",
+          {},
+          {
+            params: {
+              code: value,
+            },
+          }
+        );
+        localStorage.access_token = data.access_token;
+        localStorage.username = data.username;
+        this.router.push("/courses");
+      } catch ({ response }) {
+        toast.error(response.data.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
+      } finally {
+        this.isLoader = false;
+      }
+    },
+    async handleGoogleLogin(response) {
+      try {
+        const { data } = await axios.post(originUrl + "/googlesign", {
+          code: response.code,
+        });
+
+        localStorage.access_token = data.access_token;
+        localStorage.username = data.username;
+        this.username = data.username;
+        this.router.push("/courses");
+      } catch (response) {
+        toast.error(response.data.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
+      }
+    },
     async statusSubsribe(id) {
       console.log(id);
       try {
@@ -28,9 +99,10 @@ export const useCounterStore = defineStore("counter", {
           }
         );
         this.getMyCourse();
-        console.log(data);
-      } catch (error) {
-        console.log(error);
+      } catch (response) {
+        toast.error(response.data.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
       }
     },
     async toSubsribe(value) {
@@ -48,26 +120,32 @@ export const useCounterStore = defineStore("counter", {
         window.snap.pay(data.token, {
           onSuccess: function (result) {
             /* You may add your own implementation here */
-            alert("payment success!");
             cb(value);
           },
         });
-      } catch (error) {
-        console.log(error);
+      } catch (response) {
+        toast.error(response.data.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
       }
     },
     async forWatch(id) {
+      this.isLoader = true;
       try {
         const { data } = await axios.get(originUrl + `/mycourses/${id}`, {
           headers: {
             access_token: localStorage.access_token,
           },
         });
-        console.log(data);
+
         this.dataWatch = data;
         this.router.push("/watch");
-      } catch (error) {
-        console.log(error);
+      } catch ({ response }) {
+        toast.error(response.data.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
+      } finally {
+        this.isLoader = false;
       }
     },
     async removeMyCourse(value) {
@@ -77,10 +155,14 @@ export const useCounterStore = defineStore("counter", {
             access_token: localStorage.access_token,
           },
         });
-        console.log(data);
         this.getMyCourse();
-      } catch (error) {
-        console.log(error);
+        toast.info(data.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
+      } catch ({ response }) {
+        toast.error(response.data.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
       }
     },
     async getMyCourse() {
@@ -91,12 +173,13 @@ export const useCounterStore = defineStore("counter", {
           },
         });
         this.dataMyFavorites = data;
-      } catch (error) {
-        console.log(error);
+      } catch ({ response }) {
+        toast.error(response.data.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
       }
     },
     async addCourse(value) {
-      console.log(value);
       try {
         const { data } = await axios.post(
           originUrl + "/mycourses",
@@ -115,7 +198,9 @@ export const useCounterStore = defineStore("counter", {
             },
           }
         );
-        console.log(data);
+        toast.success(data.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
       } catch ({ response }) {
         toast.error(response.data.message, {
           position: toast.POSITION.BOTTOM_CENTER,
@@ -123,7 +208,6 @@ export const useCounterStore = defineStore("counter", {
       }
     },
     async getVideoId(value) {
-      console.log(value);
       try {
         const { data } = await axios.get(originUrl + `/courses/data?`, {
           params: {
@@ -135,9 +219,10 @@ export const useCounterStore = defineStore("counter", {
         });
         this.detailPage = data;
         this.router.push(`/courses/${value}`);
-        console.log(data);
-      } catch (error) {
-        console.log(error);
+      } catch ({ response }) {
+        toast.error(response.data.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
       }
     },
     async getMotivate() {
@@ -147,19 +232,23 @@ export const useCounterStore = defineStore("counter", {
             access_token: localStorage.access_token,
           },
         });
-        console.log(data);
+
         this.motivation = data;
-      } catch (error) {
-        console.log(error);
+      } catch (response) {
+        toast.error(response.data.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
       }
     },
     async popCourse() {
       try {
         const { data } = await axios.get(originUrl + "/popcourse");
-        console.log(data);
+
         this.dataPop = data;
-      } catch (error) {
-        console.log(error);
+      } catch ({ response }) {
+        toast.error(response.data.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
       }
     },
     async forRegister(value) {
@@ -186,16 +275,20 @@ export const useCounterStore = defineStore("counter", {
           email: value.email,
           password: value.password,
         });
-        console.log(data);
+
         localStorage.access_token = data.access_token;
         localStorage.username = data.username;
         this.router.push("/courses");
-      } catch (error) {
-        console.log(data);
+        toast.success(`welcome again ${data.username}`, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
+      } catch ({ response }) {
+        toast.error(response.data.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
       }
     },
     async getCourse(value) {
-      console.log(value);
       try {
         const { data } = await axios.get(originUrl + "/courses/", {
           params: {
@@ -206,10 +299,12 @@ export const useCounterStore = defineStore("counter", {
             access_token: localStorage.access_token,
           },
         });
-        // console.log(data);
+
         this.dataCourse = data;
-      } catch (error) {
-        console.log(error);
+      } catch ({ response }) {
+        toast.error(response.data.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
       }
     },
   },

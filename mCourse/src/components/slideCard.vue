@@ -16,6 +16,7 @@ export default {
 </script>
 <template>
   <Splide
+    continue
     :options="{ rewind: true }"
     aria-label="My Favorite Images"
     class="shadow-lg rounded-md w-3/4"

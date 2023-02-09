@@ -7,6 +7,8 @@ import DetailPage from "../views/DetailPage.vue";
 import Favorite from "../views/favorite.vue";
 import errorPage from "../components/404.vue";
 import watch from "../components/watch.vue";
+import git from "../components/git.vue";
+import forgot from "../components/password.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -47,6 +49,16 @@ const router = createRouter({
       component: watch,
     },
     {
+      path: "/githublogin",
+      name: "githublogin",
+      component: git,
+    },
+    {
+      path: "/forgot",
+      name: "forgot",
+      component: forgot,
+    },
+    {
       path: "/:catchAll(.*)",
       name: "404page",
       component: errorPage,
@@ -64,7 +76,8 @@ router.beforeEach((to, from, next) => {
   } else if (
     (token && to.name == "login") ||
     (token && to.name == "register") ||
-    (token && to.name == "home")
+    (token && to.name == "home") ||
+    (token && to.name == "forgot")
   ) {
     next({ name: "courses" });
   } else {
