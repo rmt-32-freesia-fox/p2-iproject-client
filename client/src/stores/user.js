@@ -58,7 +58,7 @@ export const useUserStore = defineStore('user', {
         this.userToEdit = { ...data }
         this.user = data
       } catch (error) {
-        notif('error', error.response?.data?.message)
+        // notif('error', error.response?.data?.message)
         console.log(error)
       } finally {
         this.loading = false

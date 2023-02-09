@@ -32,7 +32,7 @@ export const useHomeStore = defineStore('home', {
         this.totalPage = Math.ceil(count / 10)
         this.page++
       } catch (error) {
-        notif('error', error.response?.data?.message)
+        // notif('error', error.response?.data?.message)
       } finally {
         this.loading = false
       }
