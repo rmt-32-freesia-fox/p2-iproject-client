@@ -4,8 +4,8 @@ import Toast from "awesome-toast-component";
 
 export const useCustomerStore = defineStore("customers", {
   state: () => ({
-    baseUrl: "http://localhost:3000",
-    // baseUrl: "https://easy-rent-production.up.railway.app",
+    // baseUrl: "http://localhost:3000",
+    baseUrl: "https://easy-rent-production.up.railway.app",
     isLogin: false,
     timeNow: "",
   }),

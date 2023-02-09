@@ -74,8 +74,11 @@ export default {
         <div class="space-y-2">
           <p class="text-gray-800 font-semibold space-x-2">
             <span>Status: </span>
-            <span class="text-green-600">
+            <span v-if="itemDetail.quantity > 0" class="text-green-600">
               {{ itemDetail.status }}
+            </span>
+            <span v-else-if="itemDetail.quantity <= 0" class="text-red-600">
+              <p>Fully rented</p>
             </span>
           </p>
           <p class="space-x-2">

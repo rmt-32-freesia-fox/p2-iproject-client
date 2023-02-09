@@ -2,11 +2,23 @@
 import Header from "../components/Header.vue";
 import Items from "../components/Items.vue";
 import Navbar from "../components/Navbar.vue";
+import { mapWritableState } from "pinia";
+
+import { useCustomerStore } from "../stores/customers";
+
 export default {
   components: {
     Header,
     Navbar,
     Items,
+  },
+  computed: {
+    ...mapWritableState(useCustomerStore, "isLogin"),
+  },
+  created() {
+    if (localStorage.access_token) {
+      this.isLogin = true;
+    }
   },
 };
 </script>
