@@ -19,7 +19,7 @@ export const useHomeStore = defineStore('home', {
     async getLogs() {
       this.loading = true
       try {
-        if (this.page > this.totalPage) return
+        // if (this.page > this.totalPage) return
         const {
           data: { rows, count },
         } = await api.get('/logs', { params: { page: this.page } })
