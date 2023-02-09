@@ -87,7 +87,7 @@ export default {
             <div class="navbar-nav">
               <a
                 href="index.html"
-                class="nav-item nav-link active"
+                class="nav-item nav-link"
                 @click.prevent="this.$router.push('/')"
                 >Home</a
               >
@@ -182,7 +182,11 @@ export default {
               <h1 class="display-2 text-white text-uppercase mb-md-4">
                 Grow Your Strength With Our Trainers
               </h1>
-              <a href="" class="btn btn-primary py-md-3 px-md-5 me-3"
+              <a
+                @click.prevent="handleSubscribe"
+                style="border-radius: 4rem"
+                href=""
+                class="btn btn-primary py-md-3 px-md-5 me-3"
                 >Join Us</a
               >
             </div>

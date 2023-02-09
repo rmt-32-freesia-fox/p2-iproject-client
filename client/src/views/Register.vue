@@ -33,7 +33,7 @@ export default {
           <div class="top_link">
             <a href="#" @click.prevent="this.$router.push('/')"
               ><img
-                src="hhttps://tse4.mm.bing.net/th?id=OIP.KXTSincaWupi7bPA2QwD9AHaE7&pid=Api&P=0"
+                src="https://tse4.mm.bing.net/th?id=OIP.KXTSincaWupi7bPA2QwD9AHaE7&pid=Api&P=0"
                 alt=""
               />Return home</a
             >
