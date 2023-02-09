@@ -5,18 +5,17 @@ import { useUserStore } from '../stores/user'
 import { useHomeStore } from '../stores/home'
 import LinkCard from '../components/molecules/LinkCard.vue'
 import { RouterLink } from 'vue-router'
+import Carousel from '../components/organisms/Carousel.vue'
 
 export default {
-  components: { LandingPage, LinkCard, RouterLink },
+  components: { LandingPage, LinkCard, RouterLink, Carousel },
   computed: {
     ...mapState(useUserStore, ['user']),
     ...mapState(useHomeStore, ['next', 'logs', 'loading']),
   },
-  methods: mapActions(useHomeStore, ['getLogs', 'convertTime']),
-  async created() {
-    try {
-      this.getLogs()
-    } catch (error) {}
+  methods: mapActions(useHomeStore, ['getLogs', 'convertTime', 'reset']),
+  created() {
+    this.getLogs(1)
   },
 }
 </script>
@@ -24,6 +23,10 @@ export default {
 <template>
   <LandingPage v-if="!user" />
   <div v-if="user" class="flex flex-col">
+    <h1 class="text-4xl font-bold">Discovers</h1>
+    <div class="divider"></div>
+    <Carousel />
+    <h1 class="text-4xl font-bold mt-10">New Update</h1>
     <div class="divider divider-vertical"></div>
     <div v-for="(log, i) of logs" :key="log.i" class="md:px-6">
       <div class="flex gap-2 md:gap-7 p-2 md:p-4">

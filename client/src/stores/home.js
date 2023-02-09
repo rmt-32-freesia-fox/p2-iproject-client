@@ -16,13 +16,17 @@ export const useHomeStore = defineStore('home', {
     convertTime(date) {
       return ms(Date.now() - new Date(date).getTime(), { long: true })
     },
-    async getLogs() {
+    async getLogs(page) {
       this.loading = true
       try {
         // if (this.page > this.totalPage) return
+        if (page === 1) {
+          this.page = page
+          this.logs = []
+        }
         const {
           data: { rows, count },
-        } = await api.get('/logs', { params: { page: this.page } })
+        } = await api.get('/logs', { params: { page: page || this.page } })
         this.logs.push(...rows)
         this.totalPage = Math.ceil(count / 10)
         this.page++
@@ -30,6 +34,17 @@ export const useHomeStore = defineStore('home', {
         console.log(error)
       } finally {
         this.loading = false
+      }
+    },
+    reset() {
+      this.page = 1
+    },
+    async getRandomProfiles() {
+      try {
+        const { data } = await api.get('/profile')
+        return data
+      } catch (error) {
+        return []
       }
     },
   },
