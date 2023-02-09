@@ -7,6 +7,7 @@ import { useProfileStore } from '../stores/profile'
 import ProfileLink from '../components/molecules/ProfileLink.vue'
 import Follow from '../components/molecules/Follow.vue'
 import LinkForm from '../components/molecules/LinkForm.vue'
+import SkeletonProfile from '../components/atoms/SkeletonProfile.vue'
 export default {
   components: {
     ProfilePicture,
@@ -15,9 +16,14 @@ export default {
     ProfileLink,
     Follow,
     LinkForm,
+    SkeletonProfile,
   },
-  computed: mapState(useProfileStore, ['followings', 'profile']),
-  methods: mapActions(useProfileStore, ['init', 'convertTime', 'getFollowings']),
+  computed: mapState(useProfileStore, ['followings', 'profile', 'loading']),
+  methods: mapActions(useProfileStore, [
+    'init',
+    'convertTime',
+    'getFollowings',
+  ]),
   async created() {
     await this.init()
     await this.getFollowings()
@@ -26,7 +32,10 @@ export default {
 </script>
 
 <template>
-  <div v-if="profile" class="flex flex-col items-center gap-4 transition-all">
+  <div
+    v-if="profile && !loading"
+    class="flex flex-col items-center gap-4 transition-all"
+  >
     <ProfilePicture />
     <ProfileName />
     <Follow />
@@ -47,4 +56,5 @@ export default {
       </RouterLink>
     </div>
   </div>
+  <SkeletonProfile v-if="loading" />
 </template>

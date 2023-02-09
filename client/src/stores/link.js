@@ -4,10 +4,10 @@ import { useProfileStore } from './profile'
 
 export const useLinkStore = defineStore('link', {
   state: () => {
-    return { link: '', label: '', id: null, show: false }
+    return { link: '', label: '', id: null, show: false, loading: false }
   },
   actions: {
-    edit({link, label, id}) {
+    edit({ link, label, id }) {
       this.link = link
       this.label = label
       this.id = id
@@ -23,6 +23,7 @@ export const useLinkStore = defineStore('link', {
     },
 
     async submit() {
+      this.loading = true
       const { reload } = useProfileStore()
       try {
         const payload = { link: this.link, label: this.label }
@@ -35,16 +36,21 @@ export const useLinkStore = defineStore('link', {
         reload()
       } catch (error) {
         console.log(error)
+      } finally {
+        this.loading = false
       }
     },
 
     async remove(id) {
+      this.loading = true
       const { reload } = useProfileStore()
       try {
         await api.delete('/link/' + id)
         reload()
       } catch (error) {
         console.log(error)
+      } finally {
+        this.loading = false
       }
     },
   },

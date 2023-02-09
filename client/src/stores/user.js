@@ -10,6 +10,7 @@ export const useUserStore = defineStore('user', {
       showLogin: false,
       baseURL: api.defaults.baseURL,
       usernameStatus: 'none',
+      loading: true,
     }
   },
   getters: {
@@ -23,6 +24,7 @@ export const useUserStore = defineStore('user', {
       this.showLogin = !this.showLogin
     },
     async login(provider, payload) {
+      this.loading = true
       try {
         let response
         if (!localStorage.access_token) {
@@ -42,16 +44,21 @@ export const useUserStore = defineStore('user', {
       } catch (error) {
         this.$router.push('/')
         console.log(error)
+      } finally {
+        this.loading = false
       }
     },
 
     async init() {
+      this.loading = true
       try {
         const { data } = await api.get('/user')
         this.userToEdit = { ...data }
         this.user = data
       } catch (error) {
         console.log(error)
+      } finally {
+        this.loading = false
       }
     },
 
@@ -67,16 +74,20 @@ export const useUserStore = defineStore('user', {
     },
 
     async unlink(provider) {
+      this.loading = true
       try {
         if (!this.user[provider]) throw provider + ' is not even linked'
         await api.delete('/auth/' + provider)
         this.init()
       } catch (error) {
         console.log(error)
+      } finally {
+        this.loading = true
       }
     },
 
     async checkUsername() {
+      this.loading = true
       try {
         if (!this.userToEdit.username) {
           this.usernameStatus = 'notok'
@@ -92,10 +103,13 @@ export const useUserStore = defineStore('user', {
         this.usernameStatus = 'notok'
       } catch (error) {
         this.usernameStatus = 'ok'
+      } finally {
+        this.loading = false
       }
     },
 
     async saveEdit(e) {
+      this.loading = true
       try {
         if (this.usernameStatus === 'notok') return
 
@@ -104,12 +118,12 @@ export const useUserStore = defineStore('user', {
         if (profilePicture) {
           form.append('profilePicture', profilePicture, profilePicture.name)
         }
-        
+
         const background = e.target.background.files[0]
         if (background) {
           form.append('background', background, background.name)
         }
-        
+
         for (const key in this.userToEdit) {
           form.append(key, this.userToEdit[key])
         }
@@ -119,6 +133,8 @@ export const useUserStore = defineStore('user', {
         this.myProfile()
       } catch (error) {
         console.log(error)
+      } finally {
+        this.loading = false
       }
     },
   },

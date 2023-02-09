@@ -44,10 +44,16 @@ export const useProfileStore = defineStore('profile', {
       return `${minutes}:${seconds < 10 ? 0 : ''}${seconds}`
     },
     async getProfileData() {
-      const { data } = await api.get(
-        '/profile/' + this.$router.currentRoute._value.params.username
-      )
-      this.profile = data
+      this.loading = true
+      try {
+        const { data } = await api.get(
+          '/profile/' + this.$router.currentRoute._value.params.username
+        )
+        this.profile = data
+      } catch (error) {
+      } finally {
+        this.loading = false
+      }
     },
 
     async init() {
@@ -96,6 +102,7 @@ export const useProfileStore = defineStore('profile', {
     },
 
     async follow() {
+      this.loading = true
       try {
         if (!this.profile) return
         await api.post(`/profile/${this.profile.username}/follow`)
@@ -108,9 +115,12 @@ export const useProfileStore = defineStore('profile', {
           title: 'Error',
           text: error.response.data.message,
         })
+      } finally {
+        this.loading = false
       }
     },
     async unfollow() {
+      this.loading = true
       try {
         if (!this.profile) return
         await api.delete(`/profile/${this.profile.username}/follow`)
@@ -123,6 +133,8 @@ export const useProfileStore = defineStore('profile', {
           title: 'Error',
           text: error.response.data.message,
         })
+      } finally {
+        this.loading = true
       }
     },
 
@@ -132,6 +144,7 @@ export const useProfileStore = defineStore('profile', {
     },
 
     async getFollowers() {
+      this.loading = true
       try {
         if (!this.profile) return
         const { data } = await api.get(
@@ -140,9 +153,12 @@ export const useProfileStore = defineStore('profile', {
         this.followers = data.Followers
       } catch (error) {
         console.log(error)
+      } finally {
+        this.loading = false
       }
     },
     async getFollowings() {
+      this.loading = true
       try {
         if (!this.profile) return
         const { data } = await api.get(
@@ -151,6 +167,8 @@ export const useProfileStore = defineStore('profile', {
         this.followings = data.Followings
       } catch (error) {
         console.log(error)
+      } finally {
+        this.loading = false
       }
     },
   },
