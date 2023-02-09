@@ -1,3 +1,21 @@
+<script>
+import { mapActions, mapState } from "pinia";
+import { useCounterStore } from "../stores/counter";
+
+export default {
+  computed: {
+    ...mapState(useCounterStore, ["qrCode"]),
+  },
+  methods: {
+    ...mapActions(useCounterStore, ["qrCodeLink"]),
+  },
+
+  created() {
+    this.qrCodeLink("/generate-midtrans-token");
+  },
+};
+</script>
+
 <template>
   <!-- Footer Start -->
   <div class="container-fluid bg-dark text-secondary px-5 mt-5">
@@ -78,12 +96,10 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-4 col-md-6">
-        <img
-          style="max-width: 65%; margin: 2rem 2rem"
-          src="http://cdn.i0.cz/public-data/ec/61/a45ad3f532a2a0a91d48558b2cc9_w608_h606_ga6a22b76bb0b11e39ca2002590604f2e.jpg?hash=c910611e0ec8eabad6b4c5890c2e0ddb"
-          alt=""
-        />
+      <div class="col-lg-4 col-md-8">
+        <div class="d-flex justify-content-center">
+          <img style="max-width: 55%; margin: 2rem 2rem" :src="qrCode" alt="" />
+        </div>
       </div>
     </div>
   </div>

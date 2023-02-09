@@ -81,10 +81,10 @@ export default {
             <span class="navbar-toggler-icon"></span>
           </button>
           <div
-            class="collapse navbar-collapse justify-content-between"
+            class="collapse navbar-collapse justify-content-end"
             id="navbarCollapse"
           >
-            <div class="navbar-nav mr-auto py-0">
+            <div class="navbar-nav">
               <a
                 href="index.html"
                 class="nav-item nav-link active"

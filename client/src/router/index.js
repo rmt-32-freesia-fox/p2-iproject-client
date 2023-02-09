@@ -2,9 +2,9 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import About from "../views/About.vue";
 import Exercise from "../views/Exercise.vue";
-import SignUp from "../views/SignUp.vue";
-import SignIn from "../views/SignIn.vue";
 import MyExercise from "../views/MyExercise.vue";
+import Login from "../views/Login.vue";
+import Register from "../views/Register.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,12 +17,12 @@ const router = createRouter({
     {
       path: "/register",
       name: "register",
-      component: SignUp,
+      component: Register,
     },
     {
       path: "/login",
       name: "login",
-      component: SignIn,
+      component: Login,
     },
     {
       path: "/about",

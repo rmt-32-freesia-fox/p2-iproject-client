@@ -22,6 +22,7 @@ export const useCounterStore = defineStore("counter", {
     exercise: [],
     myexercise: [],
     pagination: [],
+    qrCode: [],
     status: "",
     isLogin: "false",
   }),
@@ -30,6 +31,14 @@ export const useCounterStore = defineStore("counter", {
     doneLogin() {
       if (!localStorage.access_token) this.isLogin = "false";
       else this.isLogin = "true";
+    },
+
+    async qrCodeLink(data) {
+      try {
+        this.qrCode = `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${data}`;
+      } catch (error) {
+        console.log(error);
+      }
     },
 
     async register(data) {
@@ -53,7 +62,11 @@ export const useCounterStore = defineStore("counter", {
           timer: 1500,
         });
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
       }
     },
 
@@ -80,7 +93,6 @@ export const useCounterStore = defineStore("counter", {
 
         this.router.push("/");
       } catch (error) {
-        console.log(error);
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -136,9 +148,13 @@ export const useCounterStore = defineStore("counter", {
           },
         });
         this.bodyParts = bodyParts.data;
-        console.log(this.bodyParts);
       } catch (error) {
         console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
       }
     },
 
@@ -179,6 +195,11 @@ export const useCounterStore = defineStore("counter", {
         });
       } catch (error) {
         console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
       }
     },
 
@@ -217,7 +238,12 @@ export const useCounterStore = defineStore("counter", {
         });
         this.myexercise = myexercise.data;
       } catch (error) {
-        console.log(error);
+        // console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
       }
     },
 
@@ -267,7 +293,12 @@ export const useCounterStore = defineStore("counter", {
           timer: 1500,
         });
       } catch (error) {
-        console.log(error);
+        // console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
       }
     },
   },
