@@ -4,7 +4,7 @@ import { mapState, mapActions } from 'pinia';
 export default {
   props: ['item'],
   methods: {
-    ...mapActions(useAuthDota, ['fetchTeamById', 'buyStiker']),
+    ...mapActions(useAuthDota, ['fetchTeamById', 'buyStiker', 'sendMail']),
 
     buttonId(value) {
       this.fetchTeamById(value);

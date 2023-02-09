@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-// const baseUrl = 'http://localhost:3000';
-const baseUrl = 'https://dreary-receipt-production.up.railway.app';
+const baseUrl = 'http://localhost:3000';
+// const baseUrl = 'https://dreary-receipt-production.up.railway.app';
 export const useAuthDota = defineStore({
   id: 'useAuthDota',
   state: () => {
@@ -95,8 +95,25 @@ export const useAuthDota = defineStore({
             /* You may add your own implementation here */
             alert('payment success!');
             console.log(result);
+            useAuthDota().sendMail();
           },
         });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async sendMail() {
+      try {
+        const { data } = await axios({
+          url: `${baseUrl}/api/sendmail`,
+          method: 'POST',
+          headers: {
+            access_token: localStorage.getItem('access_token'),
+          },
+        });
+
+        console.log(data);
       } catch (error) {
         console.log(error);
       }
