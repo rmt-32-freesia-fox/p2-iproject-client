@@ -55,10 +55,6 @@ export default {
               />
               <button class="submit">SIGN UP</button>
               <br />
-              <GoogleLogin
-                style="margin-left: 2.5rem"
-                :callback="loginWithGoogle"
-              />
             </form>
           </div>
         </div>
