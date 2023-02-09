@@ -1,7 +1,9 @@
 import axios from 'axios'
 
 export const api = axios.create({
-  baseURL: 'https://hacktree-production.up.railway.app',
+  baseURL: import.meta.env.PROD
+    ? import.meta.env.VITE_BACKEND_URL
+    : import.meta.env.VITE_BACKEND_URL_LOCAL,
 })
 
 api.interceptors.request.use(
