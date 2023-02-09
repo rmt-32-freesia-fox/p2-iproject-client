@@ -18,6 +18,7 @@ export const useFunctionStore = defineStore('function', {
     //podcast detail data
     podcastAllData: [],
     podcastDetailData: [],
+    podcastQR: "",
 
     //favorite data
     playlistAllData: [],
@@ -210,7 +211,7 @@ export const useFunctionStore = defineStore('function', {
             Swal.fire('Congrats you are a premium member Now')
           }
         })
-        
+
         // this.router.push('/')
 
       } catch (error) {
@@ -348,6 +349,7 @@ export const useFunctionStore = defineStore('function', {
         // console.log(error);
       }
     },
+
 
 
   },

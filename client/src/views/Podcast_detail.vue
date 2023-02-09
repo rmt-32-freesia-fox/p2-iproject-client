@@ -3,6 +3,8 @@ import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 import { useFunctionStore } from "../stores/counter";
 import { mapActions, mapState } from "pinia";
+import axios from "axios";
+
 export default {
   components: {
     Navbar,
@@ -11,16 +13,23 @@ export default {
   data() {
     return {
       url: localStorage.url,
+      podcastQr: "",
     };
   },
   methods: {
     ...mapActions(useFunctionStore, ["handlePodcastDetail", "addToPlaylist"]),
+    async handleQR(audio) {
+      this.podcastQr = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${audio}`;
+    },
   },
   computed: {
     ...mapState(useFunctionStore, ["podcastDetailData"]),
   },
   beforeMount() {
     this.handlePodcastDetail(this.url);
+  },
+  created() {
+    this.handleQR(this.podcastDetailData.audio);
   },
 };
 </script>
@@ -69,7 +78,7 @@ export default {
                       alt="Image description"
                     />
                   </figure>
-
+                  
                   <h3
                     class="
                       text-2xl
@@ -128,7 +137,10 @@ export default {
                       <cite title="Source Title">{{
                         podcastDetailData?.published_at
                       }}</cite>
-                      <a href="#" @click.prevent="addToPlaylist(podcastDetailData)">
+                      <a
+                        href="#"
+                        @click.prevent="addToPlaylist(podcastDetailData)"
+                      >
                         <div class="flex px-5">
                           Add to Playlist
                           <svg
@@ -145,10 +157,17 @@ export default {
                               fill="red"
                             ></path>
                           </svg>
+                          
                         </div>
                       </a>
                     </footer>
                   </blockquote>
+                    <img
+                    class="max-w-full h-auto"
+                    :src="podcastQr"
+                    alt="Image description"
+                  />
+                  Mobile Device Access
                 </div>
               </div>
             </div>
