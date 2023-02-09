@@ -194,13 +194,16 @@ export const useCounterStore = defineStore('counter', {
       console.log("Test handle add to mybook button");
 
       try {
-        const { data } = await axios({
+        console.log('Ini sebelum');
+        await axios({
           url: this.baseUrl + `/mybooks/${bookId}`,
           method: 'POST',
           headers: {
             access_token: localStorage.access_token
           }
         })
+
+        console.log('Ini sesudah');
 
         Swal.fire({
           position: "top-end",
