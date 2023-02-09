@@ -18,7 +18,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(useFunctionStore, ["handleLogin", "handleRegister"]),
+    ...mapActions(useFunctionStore, ["handleLogin", "handleRegister","handleGoogleSign"]),
   },
   components: {
     Navbar,
@@ -284,6 +284,7 @@ export default {
                         </button>
                       </div>
                     </form>
+                    <GoogleLogin :callback="handleGoogleSign" />
                   </div>
                 </div>
               </div>

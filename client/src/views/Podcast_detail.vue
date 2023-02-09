@@ -14,7 +14,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(useFunctionStore, ["handlePodcastDetail"]),
+    ...mapActions(useFunctionStore, ["handlePodcastDetail", "addToPlaylist"]),
   },
   computed: {
     ...mapState(useFunctionStore, ["podcastDetailData"]),
@@ -120,52 +120,35 @@ export default {
                     </p>
                     <figure>
                       <figcaption>Listen :</figcaption>
-                      <audio
-                        controls
-                        :src="podcastDetailData?.audio"
-                      ></audio>
+                      <audio controls :src="podcastDetailData?.audio"></audio>
                     </figure>
-                    <footer class="ml-16 text-base">
+
+                    <footer class="flex ml-16 text-base">
                       released on :
                       <cite title="Source Title">{{
                         podcastDetailData?.published_at
                       }}</cite>
+                      <a href="#" @click.prevent="addToPlaylist(podcastDetailData)">
+                        <div class="flex px-5">
+                          Add to Playlist
+                          <svg
+                            style="color: red"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="25"
+                            height="25"
+                            fill="currentColor"
+                            class="bi bi-plus-circle-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"
+                              fill="red"
+                            ></path>
+                          </svg>
+                        </div>
+                      </a>
                     </footer>
                   </blockquote>
-
-                  <p class="mb-5">
-                    Mauris eget lectus et nisi commodo tristique. Aenean eget
-                    ornare dui. Maecenas bibendum lacus ante, vitae pellentesque
-                    ex elementum convallis.
-                  </p>
-                  <p class="mb-5">
-                    Mauris lobortis leo a neque congue, quis pretium libero
-                    efficitur. Sed congue ipsum ac mollis egestas. Sed venenatis
-                    nisl nibh, in blandit nisi varius sed. Pellentesque molestie
-                    lacus ut justo molestie tristique. Curabitur pretium ipsum
-                    ex, a rhoncus arcu tempus ut. Fusce elementum placerat
-                    tellus id blandit.
-                  </p>
-
-                  <p class="mb-5">
-                    Sed condimentum neque ligula, id dapibus enim ornare id.
-                    Duis porttitor, risus vehicula convallis sagittis, ligula
-                    nisi iaculis libero.
-                  </p>
-
-                  <p class="mb-5">
-                    Morbi at lacinia risus. Donec vitae justo sed augue
-                    sollicitudin dignissim ut vitae ipsum. Proin at imperdiet
-                    ante, non blandit mauris. Nullam eu lobortis justo.
-                  </p>
-                  <p class="mb-5">
-                    Fusce vestibulum blandit justo non rhoncus. Maecenas eget
-                    felis id orci ultricies frin gilla. Aliquam suscipit enim
-                    felis. Praesent arcu dui, rutrum et molestie sed, volutpat
-                    auctor lorem. Fusce sit amet libero odio. Integer sed nisl
-                    turpis. Integer mollis sed est eget convallis. Interdum et
-                    malesuada fames ac ante ipsum primis in faucibus.
-                  </p>
                 </div>
               </div>
             </div>
@@ -248,19 +231,6 @@ export default {
                     >
                   </li>
                 </ul>
-              </div>
-            </div>
-
-            <div class="text-sm py-6 sticky">
-              <div class="w-full text-center">
-                <a class="uppercase" href="#">Advertisement</a>
-                <a href="#">
-                  <img
-                    class="mx-auto"
-                    src="src/img/ads/250.jpg"
-                    alt="advertisement area"
-                  />
-                </a>
               </div>
             </div>
           </div>

@@ -12,14 +12,14 @@ export default {
     CardMedium,
   },
   methods: {
-    ...mapActions(useFunctionStore, ["fetchPodcast"]),
+    ...mapActions(useFunctionStore, ["fetchAll"]),
   },
   computed: {
-    ...mapState(useFunctionStore, ["podcastAllData"]),
+    ...mapState(useFunctionStore, ["podcastAllData","sideData"]),
   },
 
   created() {
-    this.fetchPodcast();
+    this.fetchAll();
   },
 };
 </script>
@@ -98,12 +98,15 @@ export default {
         >
           <div class="w-full bg-white">
             <div class="mb-6">
-              <div class="p-4 bg-gray-100">
-                <h2 class="text-lg font-bold">Most Popular</h2>
+              <div class="p-4 bg-gray-900">
+                <h2 class="text-lg font-bold text-white">Top Headline</h2>
               </div>
               <ul class="post-number">
-                <!-- list start -->
-                <li class="border-b border-gray-100 hover:bg-gray-50">
+                <li
+                  class="border-b border-gray-100 hover:bg-gray-50"
+                  v-for="(news, index) in sideData"
+                  :key="index"
+                >
                   <a
                     class="
                       text-lg
@@ -113,67 +116,10 @@ export default {
                       flex flex-row
                       items-center
                     "
-                    href="#"
-                    >Why the world would end without political polls</a
+                    :href="news.url"
+                    >{{ news.title }}</a
                   >
                 </li>
-                <li class="border-b border-gray-100 hover:bg-gray-50">
-                  <a
-                    class="
-                      text-lg
-                      font-bold
-                      px-6
-                      py-3
-                      flex flex-row
-                      items-center
-                    "
-                    href="#"
-                    >Why the world would end without political polls</a
-                  >
-                </li>
-                <li class="border-b border-gray-100 hover:bg-gray-50">
-                  <a
-                    class="
-                      text-lg
-                      font-bold
-                      px-6
-                      py-3
-                      flex flex-row
-                      items-center
-                    "
-                    href="#"
-                    >Why the world would end without political polls</a
-                  >
-                </li>
-                <li class="border-b border-gray-100 hover:bg-gray-50">
-                  <a
-                    class="
-                      text-lg
-                      font-bold
-                      px-6
-                      py-3
-                      flex flex-row
-                      items-center
-                    "
-                    href="#"
-                    >Why the world would end without political polls</a
-                  >
-                </li>
-                <li class="border-b border-gray-100 hover:bg-gray-50">
-                  <a
-                    class="
-                      text-lg
-                      font-bold
-                      px-6
-                      py-3
-                      flex flex-row
-                      items-center
-                    "
-                    href="#"
-                    >Why the world would end without political polls</a
-                  >
-                </li>
-                <!-- list end -->
               </ul>
             </div>
           </div>

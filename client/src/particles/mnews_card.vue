@@ -36,17 +36,25 @@ export default {
           alt="alt title"
         />
       </a>
+
       <div class="py-0 sm:py-3 pl-3 sm:pl-0">
         <h3 class="text-lg font-bold leading-tight mb-2">
-          <a href="#">{{ news?.title }}</a>
+          <div class="flex">
+            <a href="#">{{ news?.title }}</a>
+            
+          </div>
         </h3>
         <p class="font-light hidden md:block text-gray-600 leading-tight mb-1">
           duration : {{ news?.duration }}
         </p>
-        <a class="text-gray-500" href="#"
-          ><span class="inline-block h-3 border-l-2 border-red-600 mr-2"></span>
-          {{ news?.published_at }}
-        </a>
+        <div>
+          <a class="text-gray-500" href="#"
+            ><span
+              class="inline-block h-3 border-l-2 border-red-600 mr-2"
+            ></span>
+            {{ news?.published_at }}
+          </a>
+        </div>
       </div>
     </div>
   </div>

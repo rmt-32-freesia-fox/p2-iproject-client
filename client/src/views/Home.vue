@@ -1,7 +1,6 @@
 <script>
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
-import Ads from "../components/Ads_box.vue";
 import Hero_Grid from "../components/Hero-big.vue";
 import second_Grid from "../components/block_grid_2.vue";
 import third_Grid from "../components/block_grid_3.vue";
@@ -13,7 +12,6 @@ import { mapActions, mapState } from "pinia";
 export default {
   components: {
     Navbar,
-    Ads,
     Hero_Grid,
     second_Grid,
     third_Grid,

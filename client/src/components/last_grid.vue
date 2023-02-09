@@ -36,10 +36,10 @@ export default {
             <div class="flex-shrink max-w-full w-full px-3 pb-5">
               <div class="relative hover-img max-h-98 overflow-hidden">
                 <!--thumbnail-->
-                <a :href="sideData[4]?.url">
+                <a :href="sideData[2]?.url">
                   <img
                     class="max-w-full w-full mx-auto h-auto"
-                    :src="sideData[4]?.urlToImage"
+                    :src="sideData[2]?.urlToImage"
                     alt="Image description"
                   />
                 </a>
@@ -57,11 +57,11 @@ export default {
                   <!--title-->
                   <a href="#">
                     <h2 class="text-3xl font-bold capitalize text-white mb-3">
-                      {{ sideData[4]?.title }}
+                      {{ sideData[2]?.title }}
                     </h2>
                   </a>
                   <p class="text-gray-100 hidden sm:inline-block">
-                    {{ sideData[4]?.description }}
+                    {{ sideData[2]?.description }}
                   </p>
                   <!-- author and date -->
                   <div class="pt-2">
@@ -69,7 +69,7 @@ export default {
                       <div
                         class="inline-block h-3 border-l-2 border-red-600 mr-2"
                       ></div>
-                      {{ sideData[4]?.author }}
+                      {{ sideData[2]?.author }}
                     </div>
                   </div>
                 </div>
