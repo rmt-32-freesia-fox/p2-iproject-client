@@ -11,7 +11,9 @@ export default {
   },
 
   created() {
-    this.qrCodeLink("https://gymsterofficial.web.app/generate-midtrans-token");
+    this.qrCodeLink(
+      "Blok M Square Lantai 3A, Jalan Melawai V, RT.3/RW.1, Melawai, Kebayoran Baru RT.3/RW.1 Melawai Kebayoran Baru, Kebayoran Baru, RT.3/RW.1, Melawai, Kebayoran Baru, South Jakarta City, Jakarta 12160"
+    );
   },
 };
 </script>
