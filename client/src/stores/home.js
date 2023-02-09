@@ -27,7 +27,9 @@ export const useHomeStore = defineStore('home', {
         }
         const {
           data: { rows, count },
-        } = await api.get('/logs', { params: { page: page || this.page } })
+        } = await api.get('/logs', {
+          params: { page: page === 1 ? 1 : this.page },
+        })
         this.logs.push(...rows)
         this.totalPage = Math.ceil(count / 10)
         this.page++
