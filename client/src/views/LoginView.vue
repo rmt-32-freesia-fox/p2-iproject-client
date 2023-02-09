@@ -1,4 +1,25 @@
 <script>
+import { mapState, mapActions } from 'pinia'
+import { useAnimeStore } from '../stores/anime'
+export default {
+  data() {
+    return {
+      inputEmail: '',
+      inputPassword: '',
+    }
+  },
+  methods: {
+    ...mapActions(useAnimeStore, ['loginHandler']),
+    submitLogin(){
+        let data = {
+            email : this.inputEmail,
+            password : this.inputPassword,
+        }
+        this.loginHandler(data)
+    }
+  },
+
+}
 </script>
 
 <template>
@@ -35,16 +56,16 @@
                     with your registered account 
                 </h1>
            
-                <form action="" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
+                <form @submit.prevent="submitLogin" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
                     <div class="pb-2 pt-4">
-                        <input type="email" name="email" id="email" placeholder="Email" class="block w-full p-4 text-lg rounded-sm bg-black">
+                        <input v-model="inputEmail" type="email" name="email" id="email" placeholder="Email" class="block w-full p-4 text-lg rounded-sm bg-black">
                     </div>
                     <div class="pb-2 pt-4">
-                        <input class="block w-full p-4 text-lg rounded-sm bg-black" type="password" name="password" id="password" placeholder="Password">
+                        <input v-model="inputPassword" class="block w-full p-4 text-lg rounded-sm bg-black" type="password" name="password" id="password" placeholder="Password">
                     </div>
                 
                     <div class="px-4 pb-2 pt-4">
-                        <button class="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none">sign in</button>
+                        <button type="submit" class="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none">sign in</button>
                     </div>
 
                 </form>
