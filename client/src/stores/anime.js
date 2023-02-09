@@ -1,17 +1,17 @@
 import { defineStore } from "pinia";
-import axios from "axios"
-import Swal from 'sweetalert2'
+import axios from "axios";
+import Swal from "sweetalert2";
 
-
-export const useAnimeStore = defineStore('anime', {
-  state: () => ({ 
-    baseUrl : 'http://localhost:3000',
-    userId : localStorage.userId || '',
-    isLogin : localStorage.isLogin || false,
-    username : localStorage.username || '',
-    animeSearchResult : [],
-    playlistResult : [],
-   }),
+export const useAnimeStore = defineStore("anime", {
+  state: () => ({
+    baseUrl: "http://localhost:3000",
+    userId: localStorage.userId || "",
+    isLogin: localStorage.isLogin || false,
+    username: localStorage.username || "",
+    animeSearchResult: [],
+    playlistResult: [],
+    eventResult: [],
+  }),
   // getters: {
   //   doubleCount: (state) => state.count * 2,
   // },
@@ -59,18 +59,19 @@ export const useAnimeStore = defineStore('anime', {
       });
     },
     async searchAnime(value) {
-     try {
-      let {data} = await axios({
-        method: "post",
-        url: `${this.baseUrl}/animefinder`,
-      data : {
-        name : value.name
-      }})
+      try {
+        let { data } = await axios({
+          method: "post",
+          url: `${this.baseUrl}/animefinder`,
+          data: {
+            name: value.name,
+          },
+        });
         this.animeSearchResult = data.data;
         console.log(data.data);
-     } catch (error) {
-      console.log(error);
-     }
+      } catch (error) {
+        console.log(error);
+      }
     },
     async loginHandler(dataLogin) {
       try {
@@ -121,13 +122,13 @@ export const useAnimeStore = defineStore('anime', {
     },
     async logoutHandler() {
       Swal.fire({
-        title: 'Are you sure?',
+        title: "Are you sure?",
         text: "If You Log Out You Have No Access To Our best Features",
-        icon: 'warning',
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, Log out now!'
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Log out now!",
       }).then((result) => {
         if (result.isConfirmed) {
           try {
@@ -140,11 +141,13 @@ export const useAnimeStore = defineStore('anime', {
             this.isLogin = false;
           } catch (error) {
             console.log(error);
-            this.swalError(error.response.statusText, error.response.data.message);
+            this.swalError(
+              error.response.statusText,
+              error.response.data.message
+            );
           }
         }
-      })
-     
+      });
     },
     async createPlaylist(dataAnime) {
       try {
@@ -152,10 +155,10 @@ export const useAnimeStore = defineStore('anime', {
           method: "post",
           url: `${this.baseUrl}/animeplaylist`,
           data: {
-            AnimeId : Number(dataAnime.animeId),
-            title : dataAnime.title,
-            image : dataAnime.image,
-            episodes : dataAnime.episodes,
+            AnimeId: Number(dataAnime.animeId),
+            title: dataAnime.title,
+            image: dataAnime.image,
+            episodes: dataAnime.episodes,
           },
           headers: {
             access_token: localStorage.access_token,
@@ -163,10 +166,13 @@ export const useAnimeStore = defineStore('anime', {
         });
         console.log(data);
         this.swalNotification("Anime has been successfully added to playlist");
-        this.router.push("/playlist"); //! 
+        this.router.push("/playlist"); //!
       } catch (error) {
         console.log(error);
-        this.swalError("You are not logged in","This feature need you to log in");
+        this.swalError(
+          "You are not logged in",
+          "This feature need you to log in"
+        );
       }
     },
     async fetchPlaylist() {
@@ -181,20 +187,25 @@ export const useAnimeStore = defineStore('anime', {
         });
         console.log(data);
         this.swalNotification("Anime playlist has been loaded");
-        this.playlistResult = data 
-        this.router.push("/playlist"); //! 
+        this.playlistResult = data;
+        this.router.push("/playlist"); //!
       } catch (error) {
         console.log(error);
-        this.swalError("You are not logged in","This feature need you to log in");
+        this.swalError(
+          "You are not logged in",
+          "This feature need you to log in"
+        );
       }
     },
-    async updatePlaylist(AnimeId,watchedEpisodes) {
+    async updatePlaylist(AnimeId, watchedEpisodes) {
       try {
         let { data } = await axios({
           method: "patch",
           url: `${this.baseUrl}/animeplaylist`,
           data: {
-            UserId : this.userId,AnimeId,watchedEpisodes
+            UserId: this.userId,
+            AnimeId,
+            watchedEpisodes,
           },
           headers: {
             access_token: localStorage.access_token,
@@ -202,22 +213,25 @@ export const useAnimeStore = defineStore('anime', {
         });
         console.log(data);
         this.swalNotification("Anime has been updated");
-        this.fetchPlaylist()
-        this.router.push("/playlist"); //! 
+        this.fetchPlaylist();
+        this.router.push("/playlist"); //!
       } catch (error) {
         console.log(error);
-        this.swalError("You are not logged in","This feature need you to log in");
+        this.swalError(
+          "You are not logged in",
+          "This feature need you to log in"
+        );
       }
     },
     async deletePlaylist(AnimeId) {
       Swal.fire({
-        title: 'Are you sure?',
+        title: "Are you sure?",
         text: "Anime data will be deleted",
-        icon: 'warning',
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, Delete this Anime!'
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Delete this Anime!",
       }).then(async (result) => {
         if (result.isConfirmed) {
           try {
@@ -225,7 +239,8 @@ export const useAnimeStore = defineStore('anime', {
               method: "delete",
               url: `${this.baseUrl}/animeplaylist`,
               data: {
-                UserId : this.userId,AnimeId
+                UserId: this.userId,
+                AnimeId,
               },
               headers: {
                 access_token: localStorage.access_token,
@@ -233,15 +248,86 @@ export const useAnimeStore = defineStore('anime', {
             });
             console.log(data);
             this.swalNotification("Anime has been deleted");
-            this.fetchPlaylist()
-            this.router.push("/playlist"); //! 
+            this.fetchPlaylist();
+            this.router.push("/playlist"); //!
           } catch (error) {
             console.log(error);
-            this.swalError("You are not logged in","This feature need you to log in");
+            this.swalError(
+              "You are not logged in",
+              "This feature need you to log in"
+            );
           }
         }
-      })
-     
+      });
+    },
+    async fetchEvents() {
+      try {
+        let { data } = await axios({
+          method: "get",
+          url: `${this.baseUrl}/events`,
+        });
+        console.log(data);
+        this.swalNotification("Events has been loaded");
+        this.eventResult = data;
+        this.router.push("/events"); //!
+      } catch (error) {
+        console.log(error);
+        this.swalError(
+          "You are not logged in",
+          "This feature need you to log in"
+        );
+      }
+    },
+    async createMyEvent(EventId) {
+      try {
+        let { data } = await axios({
+          url: `${this.baseUrl}/generate-midtrans-token`,
+          method: "POST",
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        console.log(data);
+        let callback = this.createMyEventApproved
+        window.snap.pay(data.token, {
+          onSuccess: function (result) {
+            /* You may add your own implementation here */
+            // alert("payment success!");
+            callback(EventId)
+            console.log(result);
+          },
+        });
+        // this.router.push("/"); //!
+      } catch (error) {
+        console.log(error);
+        this.swalError(
+          "You are not logged in",
+          "This feature need you to log in"
+        );
+      }
+    },
+    async createMyEventApproved(EventId) {
+      try {
+        let { data } = await axios({
+          method: "post",
+          url: `${this.baseUrl}/myevents`,
+          data: {
+            EventId,
+            UserId: this.userId,
+          },
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        console.log(data);
+        this.swalNotification("Event has been successfully bought");
+      } catch (error) {
+        console.log(error);
+        this.swalError(
+          "You are not logged in",
+          "This feature need you to log in"
+        );
+      }
     },
   },
-})
+});

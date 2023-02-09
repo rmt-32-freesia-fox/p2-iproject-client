@@ -4,6 +4,7 @@ import HomeView from "../views/HomeView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import LoginView from "../views/LoginView.vue";
 import Playlist from "../views/Playlist.vue";
+import Events from "../views/Events.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: "/playlist",
       name: "playlist",
       component: Playlist,
+    },
+    {
+      path: "/events",
+      name: "events",
+      component: Events,
     },
   ],
 });

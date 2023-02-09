@@ -52,7 +52,7 @@ export default {
             </li>
             <li>
               <a href="/" aria-label="About us" title="About us"
-                class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400">Event</a>
+                class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"><RouterLink to="/events">Events</RouterLink></a>
             </li>
           </ul>
         </div>
