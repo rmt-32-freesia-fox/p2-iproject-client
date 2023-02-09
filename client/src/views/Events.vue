@@ -15,7 +15,10 @@ export default {
     ...mapActions(useEventStore, ['toggleModal', 'fetchEvent'])
   },
   computed: {
-    ...mapState(useEventStore, ['modal', 'events'])
+    ...mapState(useEventStore, ['modal', 'events']),
+    isAdmin() {
+      return localStorage.access_token && localStorage.role == 'admin'
+    }
   },
   created() {
     this.fetchEvent({ number: null })
@@ -30,7 +33,7 @@ export default {
       <div>
         <div class="flex justify-between">
           <h1 class="text-3xl font-semibold">Courses</h1>
-          <button @click="toggleModal()" type="button"
+          <button v-if="isAdmin" @click="toggleModal()" type="button"
             class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 ">Add
             Event</button>
         </div>

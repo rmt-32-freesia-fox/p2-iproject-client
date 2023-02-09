@@ -17,7 +17,9 @@ export default {
 <template>
   <div class="lg:overflow-hidden lg:flex-row flex-col-reverse flex lg:w-screen lg:h-screen">
     <div class="w-1/2 lg:block hidden bg-blur p-5">
-      <a href="/" class="text-[1.2rem]">I LIKE IT</a>
+      <RouterLink to="/">
+        <p class="text-[20px]">I LIKE IT</p>
+      </RouterLink>
       <div class="flex items-center justify-center h-[88vh]">
         <img src="../assets/register.svg" alt="" class="max-w-2xl" />
       </div>
@@ -45,8 +47,8 @@ export default {
                   placeholder="Password" required />
               </div>
               <div>
-                <textarea v-model="data.address" class="rounded-md p-3 resize-none border shadow w-full outline-none " placeholder="Address"
-                  required />
+                <textarea v-model="data.address" class="rounded-md p-3 resize-none border shadow w-full outline-none "
+                  placeholder="Address" required />
               </div>
             </div>
             <button type="submit"

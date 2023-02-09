@@ -5,13 +5,15 @@ import Card from '../components/Card.vue';
 import Pagination from '../components/Pagination.vue';
 import EventCard from '../components/EventCard.vue';
 import { useRecipeStore } from '../stores/recipes';
+import Chatgpt from '../components/chatgpt.vue';
 
 export default {
   components: {
     Card,
     EventCard,
     AddEvent,
-    Pagination
+    Pagination,
+    Chatgpt
   },
   data() {
     return {
@@ -24,7 +26,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(useRecipeStore, ['fetchRecipes',]),
+    ...mapActions(useRecipeStore, ['fetchRecipes', 'toggle']),
     paging(offset) {
       if (offset === 'next') this.query.offset++
       else if (offset === 'previous') this.query.offset--
@@ -32,7 +34,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(useRecipeStore, ['recipes', 'cusisines', 'count']),
+    ...mapState(useRecipeStore, ['recipes', 'cusisines', 'count', 'modal', 'loading']),
     countPage() {
       const total = Math.ceil(this.count / this.query.number)
       return total > 20 ? 20 : total
@@ -50,13 +52,14 @@ export default {
     }
   },
   created() {
-    // this.fetchRecipes(this.query)
+    this.fetchRecipes(this.query)
   }
 }
 </script>
 
 <template>
   <div class="pt-20 bg-[#8fcdff71] min-h-screen">
+    <Chatgpt v-if="modal" />
     <div class=" bg-white p-10 rounded-lg w-full  mx-auto max-w-7xl">
       <input v-model="query.query" type="search" id="default-search"
         class="block mb-10 w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500  dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none"
@@ -64,6 +67,9 @@ export default {
       <div class="flex">
         <div class="w-1/4">
           <div>
+            <button @click="toggle" class="text-primary mb-5">
+              Not found your recipe want?
+            </button>
             <h1 class="mb-4">
               Cuisine
             </h1>
@@ -75,7 +81,9 @@ export default {
           </div>
         </div>
         <div class="w-3/4 grid gap-7 grid-cols-3">
-          <Card v-for="recipe in recipes" :key="recipe.id" :item="recipe" />
+          <Card v-if="!loading" v-for="recipe in recipes" :key="recipe.id" :item="recipe" />
+          <div v-else v-for=" i in 24" class="w-full bg-slate-200 animate-pulse min-h-[250px] "></div>
+
         </div>
       </div>
       <Pagination :pages="countPage" @move="paging" :current="query.offset" />

@@ -13,7 +13,7 @@ export default {
     EventCard
   },
   computed: {
-    ...mapState(useRecipeStore, ['recipes']),
+    ...mapState(useRecipeStore, ['recipes', 'loading']),
     ...mapState(useEventStore, ['events']),
   },
   methods: {
@@ -22,7 +22,7 @@ export default {
   },
 
   created() {
-    // this.fetchRecipes({ number: 8 })
+    this.fetchRecipes({ number: 8 })
     this.fetchEvent({ number: 8 })
   }
 }
@@ -36,7 +36,8 @@ export default {
         class="mb-10 text-[2.5rem] sm:text-3xl xl:text-4xl text-center font-bold leading-tight capitalize sm:pr-8 xl:pr-10">
         Best Recipes</h1>
       <div class="grid lg:grid-cols-4 md:grid-cols-2 justify-between gap-10 mx-8">
-        <Card v-for="recipe in recipes" :key="recipe.id" :item="recipe" />
+        <Card v-if="!loading" v-for="recipe in recipes" :key="recipe.id" :item="recipe" />
+        <div v-else v-for=" i in 8" class="w-full bg-slate-200 animate-pulse min-h-[250px] "></div>
       </div>
     </div>
     <div class="bg-[#8fcdff71] py-36">
@@ -45,7 +46,7 @@ export default {
           class="mb-10 text-[2.5rem] sm:text-3xl xl:text-4xl text-center font-bold leading-tight capitalize sm:pr-8 xl:pr-10">
           Events Course</h1>
         <div class="grid lg:grid-cols-3 md:grid-cols-2 justify-between gap-10 mx-8">
-          <EventCard v-for="item in events" :key="item.id" :item="item" />
+          <EventCard  v-for="item in events" :key="item.id" :item="item" />
         </div>
       </div>
     </div>

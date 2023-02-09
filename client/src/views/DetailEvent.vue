@@ -23,7 +23,6 @@ export default {
     <div class="flex bg-white p-10 rounded-lg w-full gap-10 mx-auto max-w-7xl">
       <img src="https://webknox.com/recipeImages/716429-556x370.jpg" alt="">
       <div class="w-full">
-        {{ isSubsribe }}
         <h1 class="text-2xl mb-3 font-light">{{ event.title }} </h1>
         <p class="my-2 text-xl font-bold ">{{
           new Intl.NumberFormat("id-ID", {

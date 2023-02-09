@@ -16,7 +16,9 @@ export default {
 <template>
   <div class="overflow-hidden lg:flex-row flex-col-reverse flex lg:w-screen lg:h-screen">
     <div class="lg:w-1/2 p-5">
-      <p class="text-[20px]">I LIKE IT</p>
+      <RouterLink to="/">
+        <p class="text-[20px]">I LIKE IT</p>
+      </RouterLink>
       <form @submit.prevent="login(data)" class="h-[85vh] flex items-center justify-center lg:my-0 my-32">
         <div class="lg:mt-14 lg:my-0 lg:max-w-md max-w-md  w-full ">
           <div class="lg:shadow-none shadow p-5 rounded-md">
@@ -57,9 +59,8 @@ export default {
       <div class="text-secondary text-end text-base leading-5  ">
         <p>we have some awesome fetures</p>
         <p>for more info</p>
-        <button class="border-[#0E8CF2] mt-5 px-8 py-2 border text-[16px] rounded-md">Visit Us</button>
       </div>
-      <div class="flex items-center justify-center h-[70vh] ">
+      <div class="flex items-center justify-center h-[90vh] ">
         <img src="../assets/cook.svg" alt="" class="max-w-md  " />
       </div>
     </div>

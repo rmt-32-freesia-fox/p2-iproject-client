@@ -13,6 +13,7 @@ export const useEventStore = defineStore('event', {
   },
   actions: {
     async book({ id, price }) {
+      if(!localStorage.access_token) return toast('warning','You must sign in to book class ')
       try {
         const { data } = await axios.post(`${baseUrl}/payment-gateway`, { price }, {
           headers: {
