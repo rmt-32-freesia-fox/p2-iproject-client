@@ -2,13 +2,29 @@
 import Carousels from '../components/carousels.vue';
 import Card from '../components/Card.vue';
 import EventCard from '../components/EventCard.vue';
+import { mapActions, mapState } from 'pinia';
+import { useRecipeStore } from '../stores/recipes';
+import { useEventStore } from '../stores/event';
 
 export default {
   components: {
     Carousels,
     Card,
     EventCard
-}
+  },
+  computed: {
+    ...mapState(useRecipeStore, ['recipes']),
+    ...mapState(useEventStore, ['events']),
+  },
+  methods: {
+    ...mapActions(useRecipeStore, ['fetchRecipes']),
+    ...mapActions(useEventStore, ['fetchEvent']),
+  },
+
+  created() {
+    // this.fetchRecipes({ number: 8 })
+    this.fetchEvent({ number: 8 })
+  }
 }
 </script>
 
@@ -19,13 +35,8 @@ export default {
       <h1
         class="mb-10 text-[2.5rem] sm:text-3xl xl:text-4xl text-center font-bold leading-tight capitalize sm:pr-8 xl:pr-10">
         Best Recipes</h1>
-      <div class="grid lg:grid-cols-3 md:grid-cols-2 justify-between gap-10 mx-8">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+      <div class="grid lg:grid-cols-4 md:grid-cols-2 justify-between gap-10 mx-8">
+        <Card v-for="recipe in recipes" :key="recipe.id" :item="recipe" />
       </div>
     </div>
     <div class="bg-[#8fcdff71] py-36">
@@ -34,10 +45,7 @@ export default {
           class="mb-10 text-[2.5rem] sm:text-3xl xl:text-4xl text-center font-bold leading-tight capitalize sm:pr-8 xl:pr-10">
           Events Course</h1>
         <div class="grid lg:grid-cols-3 md:grid-cols-2 justify-between gap-10 mx-8">
-          <EventCard />
-          <EventCard />
-          <EventCard />
-          <EventCard />
+          <EventCard v-for="item in events" :key="item.id" :item="item" />
         </div>
       </div>
     </div>

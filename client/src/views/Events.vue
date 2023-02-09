@@ -18,7 +18,7 @@ export default {
     ...mapState(useEventStore, ['modal', 'events'])
   },
   created() {
-    this.fetchEvent()
+    this.fetchEvent({ number: null })
   }
 }
 </script>

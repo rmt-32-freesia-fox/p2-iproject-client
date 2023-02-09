@@ -23,7 +23,6 @@ export default {
   <div
     class="fixed h-screen left-0 top-0 z-50 w-full p-4 flex items-center justify-center bg-black bg-opacity-50 overflow-x-hidden overflow-y-auto md:inset-0  md:h-full">
     <div class=" w-screen  md:max-w-md  md:h-auto">
-      <!-- Modal content -->
       <div class="relative bg-white rounded-lg shadow">
         <button type="button" @click="toggleModal()"
           class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center ">
@@ -68,7 +67,7 @@ export default {
               <label for="desc" class="block mb-2 text-sm font-medium text-gray-900 ">
                 Price
               </label>
-              <input v-model="data.price" type="number" placeholder="Price"
+              <input v-model="data.price" type="number" placeholder="Price" max="9999999" 
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 required>
             </div>

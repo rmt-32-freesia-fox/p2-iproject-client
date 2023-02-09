@@ -4,6 +4,8 @@ import Register from '../views/Register.vue'
 import Home from '../views/Home.vue'
 import Events from '../views/Events.vue'
 import Recipes from '../views/Recipes.vue'
+import DetailEvent from '../views/DetailEvent.vue'
+import Detail from '../views/Detail.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +34,16 @@ const router = createRouter({
       path: '/events',
       name: 'events',
       component: Events
+    },
+    {
+      path: '/detail/:id',
+      name: 'Detail',
+      component: Detail
+    },
+    {
+      path: '/events/:id',
+      name: 'detailEvent',
+      component: DetailEvent
     }
   ]
 })

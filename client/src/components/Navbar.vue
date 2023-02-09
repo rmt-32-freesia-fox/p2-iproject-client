@@ -37,14 +37,14 @@ export default {
         <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
 
           <li class="flex items-center">
-            <RouterLink to="/"
+            <RouterLink to="/events"
               class="hover:text-slate-900 text-slate-900 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
               <span class="inline-block ml-2">Events</span>
             </RouterLink>
           </li>
 
           <li class="flex items-center">
-            <RouterLink to="/"
+            <RouterLink to="/recipes"
               class="hover:text-slate-900 text-slate-900 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
               <span class="inline-block ml-2">Recipes</span>
             </RouterLink>

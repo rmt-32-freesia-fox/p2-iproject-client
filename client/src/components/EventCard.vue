@@ -1,20 +1,42 @@
 <script>
+import { mapActions, mapState } from 'pinia';
+import { RouterLink } from 'vue-router';
+import { useEventStore } from '../stores/event';
+
+
 export default {
-  props: ['item']
+  props: ["item"],
+  components: { RouterLink },
+  methods: {
+    ...mapActions(useEventStore, ['deleteEvent']),
+  },
 }
 </script>
 <template>
-  <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow -800 -700">
-    <img class="rounded-t-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="product image" />
-    <div class="px-5 pb-5 space-y-5 mt-2">
-      <h5 class="text-md font-semibold tracking-tight text-gray-900 ">{{ item?.title }}</h5>
-      <span class="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Default</span>
+  <div
+    class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow -800 -700">
+    <RouterLink :to="`/events/${item.id}`">
+      <img class="rounded-t-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="product image" />
+    </RouterLink>
+    <div class="px-5 pb-5  mt-2">
+      <div class="flex">
+        <h5 class="mr-2 text-md font-semibold tracking-tight text-gray-900 ">{{ item?.title }}</h5>
+        <!-- <span
+          class="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Default</span> -->
+      </div>
+      <button @click="deleteEvent(item.id)"
+        class="bg-red-500  p-1 my-2 z-50 text-white  text-xs font-bold uppercase  rounded shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150"
+        type="button">
+        Delete
+      </button>
 
       <div class="flex items-center justify-between">
-        <span class="text-1xl font-bold text-gray-900 ">Rp{{ item?.price }}</span>
-        <a href="#"
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center -600 -blue-700 -blue-800">Add
-          to cart</a>
+        <span class="text-1xl font-bold text-gray-900 ">{{
+          new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR"
+          }).format(item.price)
+        }}</span>
       </div>
     </div>
   </div>
