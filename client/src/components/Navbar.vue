@@ -44,11 +44,11 @@ export default {
             </li>
             <li>
               <a href="/" aria-label="Our product" title="Our product"
-                class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400">News</a>
+                class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"><RouterLink to="/myevents">My Events</RouterLink></a>
             </li>
             <li>
               <a href="/" aria-label="Product pricing" title="Product pricing"
-                class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400">Product</a>
+                class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"><RouterLink to="/news">News</RouterLink></a>
             </li>
             <li>
               <a href="/" aria-label="About us" title="About us"

@@ -11,6 +11,8 @@ export const useAnimeStore = defineStore("anime", {
     animeSearchResult: [],
     playlistResult: [],
     eventResult: [],
+    myEventResult: [],
+    newsResult: [],
   }),
   // getters: {
   //   doubleCount: (state) => state.count * 2,
@@ -278,6 +280,27 @@ export const useAnimeStore = defineStore("anime", {
         );
       }
     },
+    async fetchMyEvent() {
+      try {
+        let { data } = await axios({
+          method: "get",
+          url: `${this.baseUrl}/myevents`,
+          headers : {
+            access_token : localStorage.access_token
+          }
+        });
+        console.log(data);
+        this.swalNotification("My Events has been loaded");
+        this.myEventResult = data;
+        this.router.push("/myevents"); //!
+      } catch (error) {
+        console.log(error);
+        this.swalError(
+          "You are not logged in",
+          "This feature need you to log in"
+        );
+      }
+    },
     async createMyEvent(EventId) {
       try {
         let { data } = await axios({
@@ -291,13 +314,14 @@ export const useAnimeStore = defineStore("anime", {
         let callback = this.createMyEventApproved
         window.snap.pay(data.token, {
           onSuccess: function (result) {
-            /* You may add your own implementation here */
-            // alert("payment success!");
+      
             callback(EventId)
             console.log(result);
           },
         });
-        // this.router.push("/"); //!
+        
+        this.fetchMyEvent(); //!
+        this.router.push("/myevent"); //!
       } catch (error) {
         console.log(error);
         this.swalError(
@@ -326,6 +350,24 @@ export const useAnimeStore = defineStore("anime", {
         this.swalError(
           "You are not logged in",
           "This feature need you to log in"
+        );
+      }
+    },
+    async fetchNews() {
+      try {
+        let { data } = await axios({
+          method: "get",
+          url: `${this.baseUrl}/news`,
+        });
+        console.log(data);
+
+        this.newsResult=data.data
+        this.swalNotification("News has loaded");
+      } catch (error) {
+        console.log(error);
+        this.swalError(
+          "News failed to be loaded",
+          "News failed to be loaded"
         );
       }
     },

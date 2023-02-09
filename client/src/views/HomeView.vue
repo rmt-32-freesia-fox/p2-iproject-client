@@ -1,3 +1,7 @@
+<script>
+import { RouterLink, RouterView } from "vue-router";
+
+</script>
 <template>
   <section
     class="relative bg-[url(https://pic-bstarstatic.akamaized.net/ugc/425325d18f3d9eeecc9a2e34ed99819e.jpeg@960w_540h_1e_1c_1f.webp)] bg-cover bg-center bg-no-repeat">
@@ -19,15 +23,19 @@
         </p>
 
         <div class="mt-8 flex flex-wrap gap-4 text-center">
-          <a href="#"
+          <RouterLink to="/login">
+            <a href="#"
             class="block w-full rounded bg-rose-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-rose-700 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto">
-            Get Started
+            Get Started, Sign in
           </a>
-
+        </RouterLink>
+        
+        <RouterLink to="/animefinder">
           <a href="#"
-            class="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-rose-600 shadow hover:text-rose-700 focus:outline-none focus:ring active:text-rose-500 sm:w-auto">
-            Learn More
-          </a>
+          class="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-rose-600 shadow hover:text-rose-700 focus:outline-none focus:ring active:text-rose-500 sm:w-auto">
+          Find Anime
+        </a>
+      </RouterLink>
         </div>
       </div>
     </div>
@@ -47,55 +55,61 @@
 
       <ul class="grid grid-cols-1 gap-4 mt-8 lg:grid-cols-3">
         <li>
-          <a href="#" class="relative block group">
-            <video autoplay loop muted src="../assets/comicon.mp4" alt=""
+          <RouterLink to="/events">
+            <a href="#" class="relative block group">
+              <video autoplay loop muted src="../assets/comicon.mp4" alt=""
               class="object-cover w-full transition duration-500 aspect-square group-hover:opacity-90">Your browser does
               not support the video tag.
             </video>
-
+            
             <div class="absolute inset-0 flex flex-col items-start justify-end p-6">
               <h3 class="text-xl font-medium text-white">Events</h3>
-
+              
               <span
-                class="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">
-                Explore More
-              </span>
-            </div>
-          </a>
+              class="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">
+              Explore More
+            </span>
+          </div>
+        </a>
+      </RouterLink>
         </li>
 
         <li>
-          <a href="#" class="relative block group">
-            <img src="https://i.pinimg.com/736x/00/a7/81/00a781cc93f26bc0b753e18b240673e2.jpg" alt=""
+          <RouterLink to="/news">
+            <a href="#" class="relative block group">
+              <img src="https://i.pinimg.com/736x/00/a7/81/00a781cc93f26bc0b753e18b240673e2.jpg" alt=""
               class="object-cover w-full transition duration-500 aspect-square group-hover:opacity-90" />
-
-            <div class="absolute inset-0 flex flex-col items-start justify-end p-6">
-              <h3 class="text-xl font-medium text-white">Popular Manga</h3>
-
-              <span
+              
+              <div class="absolute inset-0 flex flex-col items-start justify-end p-6">
+                <h3 class="text-xl font-medium text-white"> Manga and Anime News</h3>
+                
+                <span
                 class="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">
                 Explore More
               </span>
             </div>
           </a>
+        </RouterLink>
         </li>
 
         <li class="lg:col-span-2 lg:col-start-2 lg:row-span-2 lg:row-start-1">
-          <a href="#" class="relative block group">
-            <video autoplay loop muted src="../assets/aot.mp4" alt=""
+          <RouterLink to="/animefinder">
+            <a href="#" class="relative block group">
+              <video autoplay loop muted src="../assets/aot.mp4" alt=""
               class="object-cover w-full transition duration-500 aspect-square group-hover:opacity-90">Your browser does
               not support the video tag.
             </video>
-
+            
             <div class="absolute inset-0 flex flex-col items-start justify-end p-6">
-              <h3 class="text-xl font-medium text-white ">Latest Anime </h3>
-
+              <h3 class="text-xl font-medium text-white ">Find Anime </h3>
+              
               <span
-                class="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">
-                Explore More
-              </span>
-            </div>
-          </a>
+              class="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">
+              Explore More
+            </span>
+          </div>
+        </a>
+      </RouterLink>
         </li>
       </ul>
     </div>

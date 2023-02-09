@@ -22,8 +22,8 @@ export default {
             alt="pic"
             class=" w-56 h-48 rounded-md shadow-2xl border-gray-300 shadow-lg"
           />      
-          <div class="text-xs">
-              <button @click.prevent="createMyEvent(data.id)" type="button" class="border border-gray-400 text-gray-400 rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-gray-900 focus:outline-none focus:shadow-outline">BUY TICKET</button>
+          <div class="mt-2 ml-8 justufy-center text-md">
+              <button @click.prevent="createMyEvent(data.id)" type="button" class="bg-red-400 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-700 focus:outline-none focus:shadow-outline">BUY TICKET</button>
             </div>     
           </div>
 

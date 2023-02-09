@@ -1,109 +1,21 @@
+<script>
+import { RouterLink, RouterView } from "vue-router";
+
+</script>
 <template>
   <div class="bg-gray-900">
     <div class="px-4 pt-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
       <div class="grid row-gap-10 mb-8 lg:grid-cols-6">
-        <div class="grid grid-cols-2 gap-5 row-gap-8 lg:col-span-4 md:grid-cols-4">
-          <div>
-            <p class="font-medium tracking-wide text-gray-300">Category</p>
-            <ul class="mt-2 space-y-2">
-              <li>
-                <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200">News</a>
-              </li>
-              <li>
-                <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200">World</a>
-              </li>
-              <li>
-                <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200">Games</a>
-              </li>
-              <li>
-                <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200">References</a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <p class="font-medium tracking-wide text-gray-300">Apples</p>
-            <ul class="mt-2 space-y-2">
-              <li>
-                <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200">Web</a>
-              </li>
-              <li>
-                <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200">eCommerce</a>
-              </li>
-              <li>
-                <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200">Business</a>
-              </li>
-              <li>
-                <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200">Entertainment</a>
-              </li>
-              <li>
-                <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200">Portfolio</a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <p class="font-medium tracking-wide text-gray-300">Cherry</p>
-            <ul class="mt-2 space-y-2">
-              <li>
-                <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200">Media</a>
-              </li>
-              <li>
-                <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200">Brochure</a>
-              </li>
-              <li>
-                <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200">Nonprofit</a>
-              </li>
-              <li>
-                <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200">Educational</a>
-              </li>
-              <li>
-                <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200">Projects</a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <p class="font-medium tracking-wide text-gray-300">Business</p>
-            <ul class="mt-2 space-y-2">
-              <li>
-                <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200">Infopreneur</a>
-              </li>
-              <li>
-                <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200">Personal</a>
-              </li>
-              <li>
-                <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200">Wiki</a>
-              </li>
-              <li>
-                <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200">Forum</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="md:max-w-md lg:col-span-2">
-          <span class="text-base font-medium tracking-wide text-gray-300">Subscribe for updates</span>
-          <form class="flex flex-col mt-4 md:flex-row">
-            <input
-              placeholder="Email"
-              required
-              type="text"
-              class="flex-grow w-full h-12 px-4 mb-3 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none md:mr-2 md:mb-0 focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
-            />
-            <button
-              type="submit"
-              class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-            >
-              Subscribe
-            </button>
-          </form>
-          <p class="mt-4 text-sm text-gray-500">
-            Bacon ipsum dolor amet short ribs pig sausage prosciuto chicken spare ribs salami.
-          </p>
-        </div>
+     
+   
       </div>
       <div class="flex flex-col justify-between pt-5 pb-10 border-t border-gray-800 sm:flex-row">
         <p class="text-sm text-gray-500">
-          © Copyright 2020 Lorem Inc. All rights reserved.
+          © Copyright 2020 ANIMIX Inc. All rights reserved.
         </p>
         <div class="flex items-center mt-4 space-x-4 sm:mt-0">
+          <RouterLink to="/">
+
           <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-teal-accent-400">
             <svg viewBox="0 0 24 24" fill="currentColor" class="h-5">
               <path
@@ -111,21 +23,27 @@
               ></path>
             </svg>
           </a>
-          <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-teal-accent-400">
-            <svg viewBox="0 0 30 30" fill="currentColor" class="h-6">
-              <circle cx="15" cy="15" r="4"></circle>
-              <path
+        </RouterLink>
+
+          <RouterLink to="/">
+            <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-teal-accent-400">
+              <svg viewBox="0 0 30 30" fill="currentColor" class="h-6">
+                <circle cx="15" cy="15" r="4"></circle>
+                <path
                 d="M19.999,3h-10C6.14,3,3,6.141,3,10.001v10C3,23.86,6.141,27,10.001,27h10C23.86,27,27,23.859,27,19.999v-10   C27,6.14,23.859,3,19.999,3z M15,21c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S18.309,21,15,21z M22,9c-0.552,0-1-0.448-1-1   c0-0.552,0.448-1,1-1s1,0.448,1,1C23,8.552,22.552,9,22,9z"
-              ></path>
-            </svg>
-          </a>
+                ></path>
+              </svg>
+            </a>
+          </RouterLink>
+          <RouterLink to="/">
           <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-teal-accent-400">
             <svg viewBox="0 0 24 24" fill="currentColor" class="h-5">
               <path
-                d="M22,0H2C0.895,0,0,0.895,0,2v20c0,1.105,0.895,2,2,2h11v-9h-3v-4h3V8.413c0-3.1,1.893-4.788,4.659-4.788 c1.325,0,2.463,0.099,2.795,0.143v3.24l-1.918,0.001c-1.504,0-1.795,0.715-1.795,1.763V11h4.44l-1,4h-3.44v9H22c1.105,0,2-0.895,2-2 V2C24,0.895,23.105,0,22,0z"
+              d="M22,0H2C0.895,0,0,0.895,0,2v20c0,1.105,0.895,2,2,2h11v-9h-3v-4h3V8.413c0-3.1,1.893-4.788,4.659-4.788 c1.325,0,2.463,0.099,2.795,0.143v3.24l-1.918,0.001c-1.504,0-1.795,0.715-1.795,1.763V11h4.44l-1,4h-3.44v9H22c1.105,0,2-0.895,2-2 V2C24,0.895,23.105,0,22,0z"
               ></path>
             </svg>
           </a>
+        </RouterLink>
         </div>
       </div>
     </div>
