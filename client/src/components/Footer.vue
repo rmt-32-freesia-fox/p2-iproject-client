@@ -11,9 +11,7 @@ export default {
   },
 
   created() {
-    this.qrCodeLink(
-      "https://gymster-production.up.railway.app/generate-midtrans-token"
-    );
+    this.qrCodeLink("https://gymsterofficial.web.app/generate-midtrans-token");
   },
 };
 </script>

@@ -17,8 +17,8 @@ const swalConfirm = (cb) => {
 
 export const useCounterStore = defineStore("counter", {
   state: () => ({
-    baseurl: "http://localhost:3000",
-    // baseurl: "https://gymster-production.up.railway.app",
+    // baseurl: "http://localhost:3000",
+    baseurl: "https://gymster-production.up.railway.app",
     bodyParts: [],
     exercise: [],
     myexercise: [],
