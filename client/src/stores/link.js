@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { api } from '../helpers/axios'
+import { notif } from '../helpers/notif'
 import { useProfileStore } from './profile'
 
 export const useLinkStore = defineStore('link', {
@@ -36,6 +37,7 @@ export const useLinkStore = defineStore('link', {
         reload()
       } catch (error) {
         console.log(error)
+        notif('error', error.response?.data?.message)
       } finally {
         this.loading = false
       }
@@ -49,6 +51,7 @@ export const useLinkStore = defineStore('link', {
         reload()
       } catch (error) {
         console.log(error)
+        notif('error', error.response?.data?.message)
       } finally {
         this.loading = false
       }

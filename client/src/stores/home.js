@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { api } from '../helpers/axios'
 import ms from 'ms'
+import { notif } from '../helpers/notif'
 
 export const useHomeStore = defineStore('home', {
   state: () => {
@@ -31,7 +32,7 @@ export const useHomeStore = defineStore('home', {
         this.totalPage = Math.ceil(count / 10)
         this.page++
       } catch (error) {
-        console.log(error)
+        notif('error', error.response?.data?.message)
       } finally {
         this.loading = false
       }

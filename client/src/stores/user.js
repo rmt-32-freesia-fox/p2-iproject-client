@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { api } from '../helpers/axios'
+import { notif } from '../helpers/notif'
 import { useProfileStore } from './profile'
 
 export const useUserStore = defineStore('user', {
@@ -43,6 +44,7 @@ export const useUserStore = defineStore('user', {
         )
       } catch (error) {
         this.$router.push('/')
+        notif('error', error.response?.data?.message)
         console.log(error)
       } finally {
         this.loading = false
@@ -56,6 +58,7 @@ export const useUserStore = defineStore('user', {
         this.userToEdit = { ...data }
         this.user = data
       } catch (error) {
+        notif('error', error.response?.data?.message)
         console.log(error)
       } finally {
         this.loading = false
@@ -80,6 +83,7 @@ export const useUserStore = defineStore('user', {
         await api.delete('/auth/' + provider)
         this.init()
       } catch (error) {
+        notif('error', error.response?.data?.message)
         console.log(error)
       } finally {
         this.loading = true
@@ -132,6 +136,7 @@ export const useUserStore = defineStore('user', {
         this.user = { ...this.userToEdit }
         this.myProfile()
       } catch (error) {
+        notif('error', error.response?.data?.message)
         console.log(error)
       } finally {
         this.loading = false

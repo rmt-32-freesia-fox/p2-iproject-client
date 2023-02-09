@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { api } from '../helpers/axios'
 import { useUserStore } from './user'
 import ms from 'ms'
+import { notif } from '../helpers/notif'
 
 export const useProfileStore = defineStore('profile', {
   state: () => {
@@ -51,6 +52,7 @@ export const useProfileStore = defineStore('profile', {
         )
         this.profile = data
       } catch (error) {
+        notif('error', error.response?.data?.message)
       } finally {
         this.loading = false
       }
@@ -81,16 +83,12 @@ export const useProfileStore = defineStore('profile', {
         }, 1000)
         this.spotifyPooling = spotifyPooling
       } catch (error) {
+        notif('error', error.response?.data?.message)
         console.log(error)
         if (error.status === 404) {
           this.notFound = true
           return
         }
-        this.$notify({
-          group: 'error',
-          title: 'Error',
-          text: error.response.data.message,
-        })
       } finally {
         this.loading = false
       }
@@ -109,12 +107,12 @@ export const useProfileStore = defineStore('profile', {
         this.clearPolling()
         this.init()
       } catch (error) {
-        console.log(error)
-        this.$notify({
-          group: 'error',
-          title: 'Error',
-          text: error.response.data.message,
-        })
+        notif('error', error.response?.data?.message)
+        // this.$notify({
+        //   group: 'error',
+        //   title: 'Error',
+        //   text: error.response.data.message,
+        // })
       } finally {
         this.loading = false
       }
@@ -128,11 +126,12 @@ export const useProfileStore = defineStore('profile', {
         this.init()
       } catch (error) {
         console.log(error)
-        this.$notify({
-          group: 'error',
-          title: 'Error',
-          text: error.response.data.message,
-        })
+        notif('error', error.response?.data?.message)
+        // this.$notify({
+        //   group: 'error',
+        //   title: 'Error',
+        //   text: error.response.data.message,
+        // })
       } finally {
         this.loading = true
       }
@@ -152,6 +151,7 @@ export const useProfileStore = defineStore('profile', {
         )
         this.followers = data.Followers
       } catch (error) {
+        notif('error', error.response?.data?.message)
         console.log(error)
       } finally {
         this.loading = false
@@ -166,6 +166,7 @@ export const useProfileStore = defineStore('profile', {
         )
         this.followings = data.Followings
       } catch (error) {
+        notif('error', error.response?.data?.message)
         console.log(error)
       } finally {
         this.loading = false
