@@ -196,7 +196,7 @@ export const useDataStore = defineStore('data', {
             access_token: localStorage.getItem('token'), 
           }
         })  
-        alert(req.data)
+        // alert(req.data)
           console.log(req.data);        
           return req.data
       } catch (error) {
