@@ -18,7 +18,7 @@ export default {
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <RouterLink class="nav-link active" aria-current="page" to="courses">Courses</RouterLink>
+          <RouterLink class="nav-link active" aria-current="page" to="/courses">Courses</RouterLink>
         </li>
         <li class="nav-item">
             <RouterLink class="nav-link active" aria-current="page" to="/categories">Categories</RouterLink>
@@ -41,17 +41,13 @@ export default {
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><RouterLink class="dropdown-item" to="/login-std">Sign In As Student</RouterLink></li>
-            <li><RouterLink class="dropdown-item" to="/login">Sign In As Teacher</RouterLink></li>
+            <!-- <li><RouterLink class="dropdown-item" to="/login">Sign In As Teacher</RouterLink></li> -->
             <li><RouterLink class="dropdown-item" to="/register">Sign Up</RouterLink></li>
           </ul>
         </li>
 
 
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search Course..." aria-label="Search">
-        <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
-      </form>
     </div>
   </div>
 </nav>

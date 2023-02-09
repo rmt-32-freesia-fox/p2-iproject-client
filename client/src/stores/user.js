@@ -4,10 +4,12 @@ import Swall from 'sweetalert2'
 export const useUserStore = defineStore('user', {
     state:()=>{
         return {
-            apiUrl:'http://localhost:3000',
+            apiUrl:'https://sparta-course-server.up.railway.app',
             username:localStorage.username?localStorage.username:'',
             email:'',
             password:'',
+            id:'',
+            role:'',
             isLogin:localStorage.access_token?true:false,
             errMsg:'dasdasda'
         }
@@ -27,6 +29,7 @@ export const useUserStore = defineStore('user', {
                         password:this.password
                     }
                 })
+                this.login('students')
                 this.password = ''
                 Swall.fire({
                     position: 'top-end',
@@ -56,6 +59,8 @@ export const useUserStore = defineStore('user', {
                 localStorage.role = response.data.role
                 this.isLogin = true
                 this.username = response.data.username
+                this.id = response.data.id
+                this.role = response.data.role
                 this.password = ''
                 Swall.fire({
                     position: 'top-end',

@@ -8,9 +8,20 @@ export default {
     ...mapStores(useCourseStore, usePublitioStore),
   },
   created() {
-      this.courseStore.fetchCourseById(this.$route.params.id);
-      this.publitioStore.getVideo();
+    this.courseStore.getOwnCourse().then((Response) => {
+      if (Response.data.some((e) => e.CourseId === +this.$route.params.id)) {
+        this.courseStore.fetchCourseById(this.$route.params.id);
+        this.publitioStore.getVideo();
+      } else {
+        this.$router.push("/courses");
+        this.courseStore.fetchCourses();
+        this.courseStore.fetchCategories();
+      }
+    });
+
+    // this.courseStore.myCourses
   },
+  mounted() {},
 };
 </script>
 
@@ -18,7 +29,7 @@ export default {
   <div class="container-fluid">
     <div class="row">
       <div class="col">
-        <div>
+        <div class="bg-dark">
           <div
             style="
               left: 0;
@@ -42,7 +53,7 @@ export default {
               "
             >
               <iframe
-                id="pv_64AgV9TW"
+                :id="publitioStore.file.id"
                 :src="publitioStore.file.url_stream"
                 scrolling="no"
                 style="
@@ -61,9 +72,9 @@ export default {
             </figure>
           </div>
         </div>
-        <h4 class="p-2">Material 2 part 1</h4>
+        <hr />
         <span>
-            <small>@</small>{{courseStore.courseById.Teacher.username  }}
+          <small>@</small>{{ courseStore.courseById.Teacher.username }}
         </span>
       </div>
       <div class="col-4">
@@ -74,8 +85,9 @@ export default {
           <!-- --------------- -->
           <li
             class="list-group-item py-3"
-            style="cursor:pointer"
+            style="cursor: pointer"
             v-for="(material, index) in courseStore.courseById.Materials"
+            @click="publitioStore.getVideo(material.videoId)"
           >
             <span class="fs-5">#{{ index + 1 }}- </span>
             <i class="bi bi-play-circle-fill"></i>
@@ -88,7 +100,7 @@ export default {
 </template>
 
 <style>
-.list-group-item:hover{
-    background-color: wheat;
+.list-group-item:hover {
+  background-color: wheat;
 }
 </style>

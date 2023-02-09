@@ -11,7 +11,10 @@ export default {
       <div class="card-body">
         <h5 class="card-title">{{course.name}}</h5>
         <p class="card-text">{{course.description}}</p>
-        <small>#web development</small>
+        <hr>
+            <small class="col-5"><i class="bi bi-tag"></i> {{course.Category.name}}</small><br>
+            <small class="col-2 text-right"><i class="bi bi-file-earmark"></i> {{course.Materials.length}} Lectures</small>
+        
       </div>
     </div>
 </RouterLink>

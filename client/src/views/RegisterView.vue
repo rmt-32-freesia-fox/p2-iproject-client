@@ -19,7 +19,7 @@ export default {
 <template>
   <div class="login-page bg-light">
     <div class="container">
-      <div class="row" v-if="toggle">
+      <div class="row">
         <div class="col-lg-10 offset-lg-1">
           <h3 class="">Register First Learn Next</h3>
           <div class="bg-white shadow rounded">
@@ -27,7 +27,7 @@ export default {
               <div class="col-md-7 pe-0">
                 <div class="form-left h-100 py-5 px-5">
                   <form
-                    @submit.prevent="() => (toggle = false)"
+                    @submit.prevent="userStore.register('students')"
                     class="row g-4"
                   >
                     <div class="col-12">
@@ -110,23 +110,6 @@ export default {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="" v-else>
-        <h5 class="text-center">You Want Register As:</h5>
-        <div class="row justify-content-center">
-          <div
-            @click="userStore.register('students')"
-            class="alert alert-primary col-2 m-4 text-center"
-          >
-            AS STUDENT
-          </div>
-          <div
-            @click="userStore.register('teachers')"
-            class="alert alert-primary col-2 m-4 text-center"
-          >
-            AS TEACHER
           </div>
         </div>
       </div>

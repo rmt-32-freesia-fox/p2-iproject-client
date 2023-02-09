@@ -89,7 +89,23 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/YourCourseView.vue')
     },
+    {
+      path: '/upload',
+      name: 'upload',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/UploadView.vue')
+    },
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.name === 'login' && localStorage.access_token) next({ name: 'home' })
+  else if (to.name === 'loginStd' && localStorage.access_token) next({ name: 'home' })
+  else if (to.name === 'yourCourse' && !localStorage.access_token) next({ name: 'login' })
+  else if (to.name === 'player' && !localStorage.access_token) next({ name: 'login' })
+  else next()
 })
 
 export default router
