@@ -5,6 +5,7 @@ import MyPlant from "../views/MyPlant.vue"
 import NotFound from "../views/NotFound.vue"
 import Home from "../views/Home.vue"
 import LoginAdmin from "../views/LoginAdmin.vue"
+import Register from "../views/Register.vue"
 
 
 const router = createRouter({
@@ -24,6 +25,11 @@ const router = createRouter({
       path: "/loginAdmin",
       name: "loginAdmin",
       component: LoginAdmin,
+    },
+    {
+      path: "/register",
+      name: "register",
+      component: Register,
     },
     {
       path: "/mycarts",

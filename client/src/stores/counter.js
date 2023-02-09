@@ -4,7 +4,9 @@ import Swal from "sweetalert2";
 
 
 import axios from "axios";
-const baseUrl = "http://localhost:3000";
+
+const baseUrl ="https://arinandagarden-production.up.railway.app"
+// const baseUrl = "http://localhost:3000";
 
 export const useCounterStore = defineStore('counter', {
   state: () => ({ 
@@ -149,8 +151,9 @@ export const useCounterStore = defineStore('counter', {
             quantity
           }
         })
+        // console.log(data);
         this.carts = data
-        console.log(this.carts);
+        // console.log(this.carts);
         this.router.push('/mycarts')
         this.MYPLANT()
         
@@ -160,7 +163,7 @@ export const useCounterStore = defineStore('counter', {
   },
 
   MYPLANT(){
-    axios({
+    return axios({
       url:baseUrl+`/MyArinandaPlants`,
       method:"get",
       headers:{
@@ -168,7 +171,9 @@ export const useCounterStore = defineStore('counter', {
         },
     })
     .then(({data})=>{
+
       this.carts=data
+      console.log(this.carts);
     })
     .catch((error)=>{
       console.log(error);
@@ -187,6 +192,8 @@ export const useCounterStore = defineStore('counter', {
 
 
       })
+      this.GATEAWAY()
+    
       this.MYPLANT()
       this.carts=[]
       this.router.push('/')
@@ -208,6 +215,7 @@ export const useCounterStore = defineStore('counter', {
         }
       })
       const cb= this.CHECKOUT
+      console.log(data);
       window.snap.pay(data.midtransToken.token, {
           onSuccess: function (result) {
             Swal.fire({
@@ -242,7 +250,7 @@ export const useCounterStore = defineStore('counter', {
   async DELETEMY(plantId){
     try {
       await axios({
-        url:baseUrl+`//MyArinandaPlants/${plantId}`,
+        url:baseUrl+`/MyArinandaPlants/${plantId}`,
         method:`delete`,
         headers:{
           access_token:localStorage.access_token
@@ -254,7 +262,33 @@ export const useCounterStore = defineStore('counter', {
       console.log(error);
       
     }
-  }
+  },
+
+  REGIST(data){
+     axios({
+        url:baseUrl+'/register',
+        method:'post',
+        data:{
+          
+          email:data.email,
+          password:data.password,
+          
+        },
+      })
+      .then((result)=>{
+        
+        this.router.push("/login")
+      })
+      .catch((error)=>{
+
+        console.log(error);
+    
+        
+      })
+    },
+
+
+
 
 
 

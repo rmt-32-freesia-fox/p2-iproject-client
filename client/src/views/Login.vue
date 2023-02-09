@@ -66,6 +66,14 @@ export default {
 
                             </router-link>
 
+                            or regist for customer?
+                            <router-link to="register"
+                                class="font-medium text-primary-600 hover:underline dark:text-primary-500">
+                                Regist
+
+
+                            </router-link>
+
 
                         </p>
                     </form>

@@ -12,7 +12,7 @@ export default {
         },
 
         checkout() {
-            this.checkout()
+            this.CHECKOUT()
 
         },
 
@@ -22,7 +22,10 @@ export default {
         ...mapWritableState(useCounterStore, ['carts'])
     },
     created() {
-        this.MYPLANT()
+        this.MYPLANT().then(() => {
+            console.log(this.carts);
+        })
+
     },
     // mounted() {
     //     this.MYPLANT()
@@ -33,6 +36,9 @@ export default {
 
 
 <template>
+
+    <!-- {{ carts.ALLMY }} -->
+
 
 
 
@@ -52,25 +58,30 @@ export default {
                     <!-- <h3 class="font-semibold text-start pl-6 text-gray-600 text-xs uppercase w-1/5 text-center">Total
                     </h3> -->
                 </div>
-                <div v-for="(item, i) in carts" class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
-                    <div class="flex w-2/5"> <!-- product -->
+                <div v-for="(cart, i) of carts.ALLMY" :key="cart.id"
+                    class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
+                    <div class="flex w-2/5"> <!-- plant -->
                         <div class="w-20">
-                            <img class="h-24" :src="item.ALLMY.Plant.imageUrl" alt="">
+                            <img class="h-24" :src="cart.Plant.imageUrl" alt="">
                         </div>
                         <div class="flex flex-col justify-between ml-4 flex-grow">
-                            <span class="font-bold text-sm">{{ item.ALLMY.Plant.name }}</span>
+                            <span class="font-bold text-sm">{{ cart.Plant.name }}</span>
 
 
                         </div>
                     </div>
                     <div class="flex justify-center w-1/5">
 
-                        {{ item.ALLMY.Plant.quantity }}
+                        {{ cart.quantity }}
+
+                        <!-- frgrwefrwefrr -->
+
+
 
                     </div>
-                    <span class="text-center w-1/5 font-semibold text-sm">Rp {{ item.ALLMY.Plant.price }}</span>
+                    <span class="text-center w-1/5 font-semibold text-sm">Rp {{ cart.Plant.price }}</span>
 
-                    <button @click="deleteCart(item.ALLMY.id)"
+                    <button @click="deletelist(cart.id)"
                         class="font-semibold hover:text-red-500 text-gray-500 text-xs">Remove</button>
 
 
@@ -92,35 +103,35 @@ export default {
             <div class="w-full md:w-4/12 lg:w-1/4 px-4">
                 <div>
                     <h2 class="mb-7 lg:mt-6 text-3xl font-heading font-medium">Order summary</h2>
-                    <!-- <div
+                    <div
                         class="flex items-center justify-between py-4 px-10 mb-3 leading-8 bg-white bg-opacity-50 font-heading font-medium rounded-3xl">
-                        <span>Subtotal</span>
+                        <!-- <span>Subtotal</span>
                         <span class="flex items-center text-xl">
                             <span class="mr-2 text-base">Rp</span>
                             <span>{{ carts.total }}</span>
-                        </span>
-                    </div> -->
-                    <!-- <div
+                        </span> -->
+                    </div>
+                    <div
                         class="flex items-center justify-between py-4 px-10 mb-3 leading-8 bg-white bg-opacity-50 font-heading font-medium rounded-3xl">
-                        <span>Shipping</span>
+                        <!-- <span>Shipping</span>
                         <span class="flex items-center text-xl">
                             <span class="mr-2 text-base">Rp</span>
                             <span>{{ carts.total * 20 / 100 }}</span>
-                        </span>
-                    </div> -->
+                        </span> -->
+                    </div>
                     <div
                         class="flex items-center justify-between py-4 px-10 mb-14 leading-8 bg-white font-heading font-medium rounded-3xl">
                         <span>Total</span>
                         <span class="flex items-center text-xl text-blue-500">
                             <span class="mr-2 text-base">Rp</span>
                             <!-- <span>{{ carts.total + (carts.total * 20 / 100) }}</span> -->
-                            <span>{{ item.total }}</span>
+                            <span>{{ carts.total }}</span>
                         </span>
                     </div>
 
                     <div class="relative mb-3 lg:mb-10">
 
-                        <a @click="checkout"
+                        <a @click.prevent="checkout"
                             class="absolute top-1/2 transform -translate-y-1/2 right-1 -translate-x-px w-auto xl:w-auto py-3 px-8 text-lg leading-7 text-white font-medium tracking-tighter font-heading text-center bg-blue-500 hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 rounded-xl"
                             href="#">Checkout</a>
 
