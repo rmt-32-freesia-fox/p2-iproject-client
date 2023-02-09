@@ -11,7 +11,7 @@ export default {
   },
 
   created() {
-    this.qrCodeLink("https://gymsterofficial.web.app/generate-midtrans-token");
+    this.qrCodeLink("https://gymsterofficial.web.app");
   },
 };
 </script>
@@ -98,7 +98,7 @@ export default {
       </div>
       <div class="col-lg-4 col-md-8">
         <div class="d-flex justify-content-center">
-          <img style="max-width: 55%; margin: 2rem 2rem" :src="qrCode" alt="" />
+          <img style="max-width: 45%; margin: 2rem 2rem" :src="qrCode" alt="" />
         </div>
       </div>
     </div>
