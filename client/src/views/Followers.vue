@@ -7,6 +7,7 @@ import { useProfileStore } from '../stores/profile'
 import ProfileLink from '../components/molecules/ProfileLink.vue'
 import Follow from '../components/molecules/Follow.vue'
 import LinkForm from '../components/molecules/LinkForm.vue'
+import SkeletonProfile from '../components/atoms/SkeletonProfile.vue'
 export default {
   components: {
     ProfilePicture,
@@ -15,8 +16,9 @@ export default {
     ProfileLink,
     Follow,
     LinkForm,
+    SkeletonProfile,
   },
-  computed: mapState(useProfileStore, ['followers', 'profile']),
+  computed: mapState(useProfileStore, ['followers', 'profile', 'loading']),
   methods: mapActions(useProfileStore, ['getFollowers', 'init', 'convertTime']),
   async created() {
     await this.init()
@@ -35,7 +37,10 @@ export default {
 </script>
 
 <template>
-  <div v-if="profile" class="flex flex-col items-center gap-4 transition-all">
+  <div
+    v-if="profile && !loading"
+    class="flex flex-col items-center gap-4 transition-all"
+  >
     <ProfilePicture />
     <ProfileName />
     <Follow />
@@ -51,9 +56,10 @@ export default {
             <div class="text-xl font-bold">{{ f.name }}</div>
             <div class="text-sm opacity-50">@{{ f.username }}</div>
           </div>
-          <div>Joined {{ convertTime(f.createdAt )}} ago</div>
+          <div>Joined {{ convertTime(f.createdAt) }} ago</div>
         </div>
       </RouterLink>
     </div>
   </div>
+  <SkeletonProfile v-if="loading" />
 </template>

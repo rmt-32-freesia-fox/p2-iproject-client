@@ -10,16 +10,13 @@ export default {
   components: { LandingPage, LinkCard, RouterLink },
   computed: {
     ...mapState(useUserStore, ['user']),
-    ...mapState(useHomeStore, ['next', 'logs']),
+    ...mapState(useHomeStore, ['next', 'logs', 'loading']),
   },
   methods: mapActions(useHomeStore, ['getLogs', 'convertTime']),
   async created() {
     try {
       this.getLogs()
-      
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   },
 }
 </script>
@@ -73,11 +70,13 @@ export default {
           </div>
         </div>
       </div>
-      <div v-if="logs[i+1]?.User?.id !== log.User.id" class="divider divider-vertical"></div>
+      <div
+        v-if="logs[i + 1]?.User?.id !== log.User.id"
+        class="divider divider-vertical"
+      ></div>
     </div>
   </div>
   <div class="flex justify-center">
-
     <button v-if="next && user" class="btn btn-sm" @click="getLogs">
       Load More
     </button>

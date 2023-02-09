@@ -7,6 +7,7 @@ import { useProfileStore } from '../stores/profile'
 import ProfileLink from '../components/molecules/ProfileLink.vue'
 import Follow from '../components/molecules/Follow.vue'
 import LinkForm from '../components/molecules/LinkForm.vue'
+import SkeletonProfile from '../components/atoms/SkeletonProfile.vue'
 export default {
   components: {
     ProfilePicture,
@@ -14,9 +15,10 @@ export default {
     ProfileSocial,
     ProfileLink,
     Follow,
-    LinkForm
+    LinkForm,
+    SkeletonProfile
 },
-  computed: mapState(useProfileStore, ['profile', 'song', 'songTime']),
+  computed: mapState(useProfileStore, ['profile', 'song', 'songTime', 'loading']),
   methods: mapActions(useProfileStore, ['init', 'clearPolling']),
   created() {
     this.init()
@@ -34,7 +36,7 @@ export default {
 </script>
 
 <template>
-  <div v-if="profile" class="flex flex-col items-center gap-4 transition-all">
+  <div v-if="profile && !loading" class="flex flex-col items-center gap-4 transition-all">
     <ProfilePicture />
     <ProfileName />
     <Follow />
@@ -42,4 +44,5 @@ export default {
     <ProfileLink />
     <LinkForm />
   </div>
+  <SkeletonProfile v-if="loading" />
 </template>
