@@ -25,7 +25,7 @@ app.use(VueAwesomePaginate);
 app.use(
   new VueSocketIO({
     debug: true,
-    connection: SocketIO("http://localhost:3000"), //options object is Optional
+    connection: SocketIO("https://hlr-auction.up.railway.app"), //options object is Optional
   })
 );
 

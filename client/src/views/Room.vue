@@ -186,7 +186,7 @@ export default {
           </div>
           <div
             class="text-center"
-            v-if="detailAuction.auction?.status != 'active'"
+            v-if="detailAuction.auction?.status != 'available'"
           >
             <span class="font-bold text-red-700">
               bid session has been closed !
@@ -198,7 +198,7 @@ export default {
           <div
             data-style="clean"
             class="flex items-end mb-3"
-            v-if="detailAuction.auction?.status == 'active'"
+            v-if="detailAuction.auction?.status == 'available'"
           >
             <div
               data-element="fields"

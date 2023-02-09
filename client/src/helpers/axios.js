@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://hlr-auction.up.railway.app",
 });
 
 api.interceptors.request.use(
@@ -13,7 +13,6 @@ api.interceptors.request.use(
   }
 );
 
-// Add a response interceptor
 api.interceptors.response.use(
   function (response) {
     return response;
