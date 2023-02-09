@@ -42,7 +42,7 @@ export default {
         <a
           href="#"
           class="btn btn-success text-light mx-1 mt-auto"
-          @click.prevent="checkout"
+          @click.prevent="checkout(perMyBook.Book.price)"
           >Checkout!</a
         >
       </div>

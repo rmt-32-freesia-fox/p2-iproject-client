@@ -135,7 +135,7 @@ export default {
           <h5>Publisher</h5>
           <p class="lead">{{ booksById.publisher }}</p>
 
-          <h5>Price</h5>
+          <h5>Price (In USD)</h5>
           <p class="lead">{{ booksById.price }}</p>
 
           <h5>Review</h5>

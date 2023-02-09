@@ -122,7 +122,7 @@ export const useCounterStore = defineStore('counter', {
 
       try {
         const signinWithGoogle = await axios({
-          url: this.baseUrl + `/google-sign-in`,
+          url: this.baseUrl + `/login-by-google`,
           method: "POST",
           headers: {
             "google-auth-token": input.credential,
@@ -310,17 +310,20 @@ export const useCounterStore = defineStore('counter', {
 
     }, // DONE
 
-    async checkout() {
+    async checkout(price) {
       console.log(`test handle fitur checkout`)
       try {
-
+        console.log(price, '<--- INI PRICENYAAAA');
         const { data } = await axios({
           url: this.baseUrl + `/generate-midtrans-token`,
           method: 'POST',
-          headers: { access_token: localStorage.access_token },
+          headers: {
+            access_token: localStorage.access_token,
+            amount: price * 15000
+          },
         })
 
-        // console.log(data);
+        // console.log(this.booksById, 'Ini datanya');
         const cb = this.emailAfterPayment
 
         window.snap.pay(data.token, {

@@ -62,9 +62,9 @@ export default {
 
     <!-- SEARCH BOOK -->
     <div class="text-align:center">
-      <h5 class="text-justify text-align:center text-center">
+      <h4 class="text-justify text-align:center text-center">
         Search Trivia About Your Favorite Book Here
-      </h5>
+      </h4>
       <p class="text-justify text-align:center text-center">
         Tips: search with combination of full title and author
       </p>
@@ -90,7 +90,10 @@ export default {
     <div class="text-justify text-align:center text-center">
       <h6><strong> Title: </strong>{{ datum?.name }}</h6>
 
-      <h6><strong> GoodReads URL: </strong> {{ datum?.url }}</h6>
+      <h6>
+        <strong> Goodreads URL: </strong>
+        <a :href="datum?.url" target="_blank">Click here</a>
+      </h6>
 
       <h6><strong> Author Name: </strong>{{ datum?.authors[0] }}</h6>
 
