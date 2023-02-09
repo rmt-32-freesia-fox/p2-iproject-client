@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 export const useCartStore = defineStore("carts", {
   state: () => ({
     baseUrl: "http://localhost:3000",
+    // baseUrl: "https://easy-rent-production.up.railway.app",
     carts: [],
     cartDetail: {},
     histories: [],

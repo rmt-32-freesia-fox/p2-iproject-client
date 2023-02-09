@@ -62,10 +62,17 @@ export default {
         :key="history.id"
         :history="history"
       />
-      <div class="w-1/3">
-        <div class="flex flex-row-reverse">
-          <div class="text-lg font-semibold">{{ histories.totalPrice }}</div>
+      <div
+        class="flex items-center justify-between gap-6 p-4 border-gray-200 rounded"
+      >
+        <div class="w-28"></div>
+        <div class="w-1/3"></div>
+        <div>
+          <div class="text-primary text-lg font-semibold">
+            Total: {{ histories.totalPrice }}
+          </div>
         </div>
+        <div class="text-gray-600 cursor-pointer hover:text-primary"></div>
       </div>
     </div>
     <!-- ./histories -->

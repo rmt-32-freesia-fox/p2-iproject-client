@@ -4,6 +4,7 @@ import axios from "axios";
 export const useItemStore = defineStore("items", {
   state: () => ({
     baseUrl: "http://localhost:3000",
+    // baseUrl: "https://easy-rent-production.up.railway.app",
     items: [],
     categories: [],
     itemDetail: {},

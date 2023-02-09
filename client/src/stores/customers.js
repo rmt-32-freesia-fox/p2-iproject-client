@@ -5,6 +5,7 @@ import Toast from "awesome-toast-component";
 export const useCustomerStore = defineStore("customers", {
   state: () => ({
     baseUrl: "http://localhost:3000",
+    // baseUrl: "https://easy-rent-production.up.railway.app",
     isLogin: false,
     timeNow: "",
   }),
@@ -45,7 +46,6 @@ export const useCustomerStore = defineStore("customers", {
         this.success("Success Register");
         this.router.push("/login");
       } catch (err) {
-        console.log(err);
         this.error(err.response.data.message);
       }
     },
@@ -66,7 +66,6 @@ export const useCustomerStore = defineStore("customers", {
         this.success(`Welcome, ${data.email}!`);
         this.router.push("/");
       } catch (err) {
-        console.log(err);
         this.error(err.response.data.message);
       }
     },
