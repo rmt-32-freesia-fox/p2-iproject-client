@@ -11,7 +11,7 @@ export default {
   },
 
   created() {
-    this.qrCodeLink("https://gymsterofficial.web.app");
+    this.qrCodeLink("https://gymsterofficial.web.app/generate-midtrans-token");
   },
 };
 </script>
