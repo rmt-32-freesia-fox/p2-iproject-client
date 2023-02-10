@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
+    <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vite App</title>
+    <title>macSpotify</title>
     <!-- @TODO: replace SET_YOUR_CLIENT_KEY_HERE with your client key -->
     <script type="text/javascript"
       src="https://app.sandbox.midtrans.com/snap/snap.js"
@@ -57,7 +56,7 @@
         </button>
       </div>
     </div> -->
-    <h1>Pick an episode...</h1>
+    <!-- <h1>Pick an episode...</h1>
     <ul id="episodes">
       <li>
         <button data-spotify-id="spotify:episode:7makk4oTQel546B0PZlDM5">
@@ -75,14 +74,34 @@
         </button>
       </li>
     </ul>
-    <div id="embed-iframe"></div>
-    
+    <div id="embed-iframe"></div> -->  
+
     <div id="app"></div>    
     <script type="module" src="/src/main.js"></script> 
     <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
     <script src="https://open.spotify.com/embed-podcast/iframe-api/v1" async>
     </script>
-    <script type="text/javascript">
+    
+    <script>
+      
+    //   window.onSpotifyIframeApiReady = (IFrameAPI) => {
+    //   let element = document.getElementById('embed-iframe');
+    //   let options = {
+    //       width: '100%',
+    //       height: '200',
+    //       uri: "spotify:episode:43cbJh4ccRD7lzM2730YK3"
+    //     };
+    //   let callback = (EmbedController) => {
+    //     document.querySelector('#button').addEventListener('click', () => {
+    //       EmbedController.loadUri("spotify:episode:43cbJh4ccRD7lzM2730YK3")
+    //     }); 
+    //   };
+    //   IFrameAPI.createController(element, options, callback);
+    // }; 
+      
+    </script>
+    
+    <!-- <script type="text/javascript">
       window.onSpotifyIframeApiReady = (IFrameAPI) => {
         let element = document.getElementById('embed-iframe');
         let options = {
@@ -100,7 +119,7 @@
         };
         IFrameAPI.createController(element, options, callback);
       };
-    </script>
+    </script> -->
     <script>
       
 //       const languages = [
@@ -569,7 +588,6 @@
     </script>
   </body>
 </html>
-
 
 
 

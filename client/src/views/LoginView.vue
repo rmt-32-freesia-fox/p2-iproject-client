@@ -8,6 +8,7 @@ import router from '../router'
     data() {
       return {
         url:  `https://accounts.spotify.com/authorize?client_id=29694d93e1d24518aec34551ed349c5e&response_type=code&redirect_uri=http://localhost:3000/redirect/&scope=user-top-read%20user-read-recently-played%20user-read-currently-playing%20user-read-private`
+        // url:  `https://accounts.spotify.com/authorize?client_id=29694d93e1d24518aec34551ed349c5e&response_type=code&redirect_uri=https://macspotify-production.up.railway.app/redirect/&scope=user-top-read%20user-read-recently-played%20user-read-currently-playing%20user-read-private`
         // url:  'https://accounts.spotify.com/authorize?client_id=29694d93e1d24518aec34551ed349c5e&response_type=code&redirect_uri=http://localhost:5173/auth/&scope=user-top-read%20user-read-recently-played%20user-read-currently-playing'
       }
     },

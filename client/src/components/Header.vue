@@ -29,9 +29,7 @@ export default {
   },
   beforeMount() {
     const token = localStorage.getItem('token')
-    if (token) { 
-      
-    }
+    this.getProfile()
   },
   created() {
 
@@ -76,10 +74,14 @@ export default {
       <div class="w-20 h-6  border border-green-800 text-green-800  rounded-sm flex justify-center items-center ">
         <p>{{ (spotifyProfile.isPaid) ? "Premium" : "Free" }}</p>
       </div>
-      <div class="w-12 h-12 rounded-full border border-black overflow-hidden ">
-        <img :src="spotifyProfile?.spotify?.images[0]?.url" width="100" height="100" alt="">
+      <div v-if="!spotifyProfile.isPaid"  @click="snap()"  class="px-3 h-6  border border-green-800 bg-green-800 hover:bg-green-600 text-white font-bold cursor-pointer rounded-sm flex justify-center items-center ">
+        Upgrade Plan
       </div>
-    </div>
+      <div class="w-12 h-12 rounded-full border border-black overflow-hidden ">
+        <img v-if="spotifyProfile.spotify?.images?.length"  :src="spotifyProfile?.spotify?.images[0]?.url" width="100" height="100" alt="">
+        <img v-else  src="https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255710-stock-illustration-avatar-vector-male-profile-gray.jpg" width="100" height="100" alt="">
+      </div>
+    </div>  
 
   </header>
   

@@ -1,121 +1,120 @@
 <script>
   import { mapActions, mapState, mapWritableState } from "pinia";
-import { useDataStore } from "../stores/counter";
-import { RouterLink, RouterView } from "vue-router";
-import router from '../router'
+  import { useDataStore } from "../stores/counter";
+  import { RouterLink, RouterView } from "vue-router";
+  import router from '../router'
 
-let SpeechRecognition =
+  let SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition,
-recognition,
-recording = false;
+  recognition,
+  recording = false;
 
 
-export default {
-  components: {
-    
-  },
-  data() {
-    return {
-      token: '',
-      search:'',
-      languages: [
-        {
-          no: "16",
-          name: "English",
-          native: "English",
-          code: "en",
+  export default {
+    components: {
+      
+    },
+    data() {
+      return {
+        token: '',
+        search:'',
+        languages: [
+          {
+            no: "16",
+            name: "English",
+            native: "English",
+            code: "en",
+          }
+        ],
+        selectedLanguage: "en",
+        texts: [], 
+        iframeSrc: ''
+      };
+    }, 
+    created() {
+      
+    },
+    watch: {
+      
+    },
+    computed: {
+      ...mapState(useDataStore, ["spotifyProfile", "spotifyTopTracks", "recentlyPlayed", "topArtists", "searchList", "topGlobal"]),
+      // ...mapWritableState(useDataStore, ["access_token"]),
+    },
+    methods: {
+      ...mapActions(useDataStore, ["login", "getProfile", "getTopTracks", "getTopArtists", "getRecentlyPlayed", "searchSongs", "getTopGlobal", "snap", "getDownloadLink"]),
+      tes() {  
+      },
+        msToTimeFormat(milliseconds) {
+        var minutes = Math.floor(milliseconds / (1000 * 60));
+        var seconds = Math.floor((milliseconds % (1000 * 60)) / 1000);
+        return minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
+      },
+      playSong(id) {
+        this.iframeSrc = `https://open.spotify.com/embed/track/${id}?utm_source=generator`
+        // document.getElementById('spotify-iframe').contentWindow.postMessage('play', 'https://open.spotify.com');
+      },
+      async download(id) { 
+        const link = await this.getDownloadLink(id)
+        window.location.href = link;
+      }, 
+      join(arr) {
+        return arr.join(',')
+      },
+      speechToText() {
+        try {
+          recognition = new SpeechRecognition();
+          recognition.lang = this.selectedLanguage;
+          recognition.interimResults = true;
+          this.recording = true;
+          recognition.start();
+          recognition.onresult = (event) => {
+            const speechResult = event.results[0][0].transcript;
+            if (event.results[0].isFinal) {
+              this.texts.push(speechResult);
+              this.search +=   speechResult
+            } else {
+              document.querySelector(".interim").innerHTML = " " + speechResult;
+            }
+          };
+          recognition.onspeechend = () => {
+            this.speechToText();
+          };
+          recognition.onerror = (event) => {
+            this.stopRecording();
+            if (event.error === "no-speech") {
+              console.log("No speech was detected. Stopping...");
+            } else if (event.error === "audio-capture") {
+              console.log(
+                "No microphone was found. Ensure that a microphone is installed."
+              );
+            } else if (event.error === "not-allowed") {
+              console.log("Permission to use microphone is blocked.");
+            } else if (event.error === "aborted") {
+              console.log("Listening Stopped.");
+            } else {
+              console.log("Error occurred in recognition: " + event.error);
+            }
+          };
+        } catch (error) {
+          this.recording = false;
+          console.log(error);
         }
-      ],
-      selectedLanguage: "en",
-      texts: [],
-      // texts: '',
-      iframeSrc: ''
-    };
-  }, 
-  created() {
-    
-  },
-  watch: {
-    
-  },
-  computed: {
-    ...mapState(useDataStore, ["spotifyProfile", "spotifyTopTracks", "recentlyPlayed", "topArtists", "searchList", "topGlobal"]),
-    // ...mapWritableState(useDataStore, ["access_token"]),
-  },
-  methods: {
-    ...mapActions(useDataStore, ["login", "getProfile", "getTopTracks", "getTopArtists", "getRecentlyPlayed", "searchSongs", "getTopGlobal", "snap", "getDownloadLink"]),
-    tes() {  
-    },
-      msToTimeFormat(milliseconds) {
-      var minutes = Math.floor(milliseconds / (1000 * 60));
-      var seconds = Math.floor((milliseconds % (1000 * 60)) / 1000);
-      return minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
-    },
-    playSong(id) {
-      this.iframeSrc = `https://open.spotify.com/embed/track/${id}?utm_source=generator`
-      // document.getElementById('spotify-iframe').contentWindow.postMessage('play', 'https://open.spotify.com');
-    },
-     async download(id) { 
-      const link = await this.getDownloadLink(id)
-      window.location.href = link;
-    }, 
-    join(arr) {
-      return arr.join(',')
-    },
-    speechToText() {
-      try {
-        recognition = new SpeechRecognition();
-        recognition.lang = this.selectedLanguage;
-        recognition.interimResults = true;
-        this.recording = true;
-        recognition.start();
-        recognition.onresult = (event) => {
-          const speechResult = event.results[0][0].transcript;
-          if (event.results[0].isFinal) {
-            this.texts.push(speechResult);
-            this.search +=   speechResult
-          } else {
-            document.querySelector(".interim").innerHTML = " " + speechResult;
-          }
-        };
-        recognition.onspeechend = () => {
+      }, 
+      toggleRecording() {
+        if (!this.recording) {
           this.speechToText();
-        };
-        recognition.onerror = (event) => {
+        } else {
           this.stopRecording();
-          if (event.error === "no-speech") {
-            console.log("No speech was detected. Stopping...");
-          } else if (event.error === "audio-capture") {
-            console.log(
-              "No microphone was found. Ensure that a microphone is installed."
-            );
-          } else if (event.error === "not-allowed") {
-            console.log("Permission to use microphone is blocked.");
-          } else if (event.error === "aborted") {
-            console.log("Listening Stopped.");
-          } else {
-            console.log("Error occurred in recognition: " + event.error);
-          }
-        };
-      } catch (error) {
+        }
+      },
+      stopRecording() {
+        this.searchSongs(this.search)
+        recognition.stop();
         this.recording = false;
-        console.log(error);
-      }
-    }, 
-    toggleRecording() {
-      if (!this.recording) {
-        this.speechToText();
-      } else {
-        this.stopRecording();
-      }
+      },
     },
-    stopRecording() {
-      this.searchSongs(this.search)
-      recognition.stop();
-      this.recording = false;
-    },
-  },
-};
+  };
 
 
 </script>
@@ -140,7 +139,7 @@ export default {
     <button class="clear" @click="clear">Clear</button>
   </div>
   
-  <form  @submit.prevent="searchSongs(search)" class="flex items-center">   
+  <form  @submit.prevent="searchSongs(search)" class="flex items-center mt-10 w-[60vw] m-auto ">   
     <label for="voice-search" class="sr-only">Search</label>
     <div class="relative w-full">
         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -156,25 +155,65 @@ export default {
     </button>
 </form>
  
+   
+  <div v-if="searchList" class="relative overflow-x-auto mt-10 ">
+    <table class="w-full text-sm text-left text-black">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr>
+                <th scope="col" class="px-6 py-3 w-5 ">
+                    #
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Song
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Album
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Duration
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="each, index in searchList.tracks.items" class="bg-white border-b">
+                <th scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap">
+                    {{ ++index }}
+                </th>
+                <td class="px-6 py-2 flex ">
+                  <img :src="each.album.images[1].url" width="50" height="50" alt="">
+                  <div class="ml-2 p-0  grid  " >
+                    <p class="font-bold top-0 text-[1.1rem] flex " >{{ each.name }}</p>
+                    <p class="self-end" >{{ each.artists[0].name }}</p>
+                  </div>
+                </td>
+                <td class="px-6 py-2">
+                  {{ each.album.name }}
+                </td>
+                <td class="px-6 py-2">
+                    {{ msToTimeFormat(each.duration_ms) }}
+                </td>
+                <td>
+                  <button @click="playSong(each.id)" type="button" class=" mt-4 focus:outline-none text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Play</button>        
+                  <button v-if="(spotifyProfile.isPaid)" @click="download(each.id)" class=" mt-4 focus:outline-none text-white bg-cyan-700 hover:bg-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2" >Download</button>   
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
   
-
-  <header v-if="searchList" v-for="each in searchList.tracks.items" class="w-full h-20 shadow-xl border border-black  rounded-3xl grid grid-flow-col justify-evenly items-center " >
-    <div class="w-12 h-12 rounded-sm border border-black overflow-hidden " >
-      <img :src="each.album.images[1].url" width="100" height="100" alt="">
-    </div> 
-    <div class="">
-      <p> <b>{{ each.name }} </b> </p>
-      <p>{{ each.artists[0].name }}  </p> 
-    </div> 
-    <div class="">
-      <p>{{ msToTimeFormat(each.duration_ms) }}</p>
-      <button   @click="playSong(each.id)" >Play</button>
-      <button v-if="(spotifyProfile.isPaid)"  @click="download(each.id)" >Download</button>  
-    </div> 
   
+  
+<header v-if="iframeSrc" class=" h-20 shadow-xl  w-[] rounded-3xl grid grid-flow-col justify-evenly items-center fixed bottom-5 ">
+    <iframe style="border-radius:12px" :src="iframeSrc" class="w-[90vw]" frameborder="0" allowtransparency="true"
+      allow="encrypted-media" autoplay></iframe>
+    <!-- <iframe id="spotify-iframe" :src="iframeSrc" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe> -->
+    <!-- <button onclick="">Play</button> -->
   </header>
-
-
+  
+  
  <!-- <ul v-if="searchList" > 
     <li v-for="each in searchList.tracks.items" > 
       <img :src="each.album.images[1].url"  width="50" height="50" alt="">  
