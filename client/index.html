@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
+    <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vite App</title>
+    <title>macSpotify</title>
     <!-- @TODO: replace SET_YOUR_CLIENT_KEY_HERE with your client key -->
     <script type="text/javascript"
       src="https://app.sandbox.midtrans.com/snap/snap.js"
       data-client-key="SB-Mid-client-B_2ETf165eixvZ4l"></script>
     <!-- Note: replace with src="https://app.midtrans.com/snap/snap.js" for Production environment -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <style>
+      * {
+        font-family: raleway;
+      }
+    </style>
   </head>
-  <body> 
+  <body class="pt-8 px-12 " > 
     
     <!-- <div class="container">
       <p class="heading">Speech to Text</p>
@@ -48,10 +56,70 @@
         </button>
       </div>
     </div> -->
-    
+    <!-- <h1>Pick an episode...</h1>
+    <ul id="episodes">
+      <li>
+        <button data-spotify-id="spotify:episode:7makk4oTQel546B0PZlDM5">
+          My Path to Spotify: Women in Engineering
+        </button>
+      </li>
+      <li>
+        <button data-spotify-id="spotify:episode:43cbJh4ccRD7lzM2730YK3">
+          What is Backstage?
+        </button>
+      </li>
+      <li>
+        <button data-spotify-id="spotify:episode:6I3ZzCxRhRkNqnQNo8AZPV">
+          Introducing Nerd Out@Spotify
+        </button>
+      </li>
+    </ul>
+    <div id="embed-iframe"></div> -->  
+
     <div id="app"></div>    
     <script type="module" src="/src/main.js"></script> 
     <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+    <script src="https://open.spotify.com/embed-podcast/iframe-api/v1" async>
+    </script>
+    
+    <script>
+      
+    //   window.onSpotifyIframeApiReady = (IFrameAPI) => {
+    //   let element = document.getElementById('embed-iframe');
+    //   let options = {
+    //       width: '100%',
+    //       height: '200',
+    //       uri: "spotify:episode:43cbJh4ccRD7lzM2730YK3"
+    //     };
+    //   let callback = (EmbedController) => {
+    //     document.querySelector('#button').addEventListener('click', () => {
+    //       EmbedController.loadUri("spotify:episode:43cbJh4ccRD7lzM2730YK3")
+    //     }); 
+    //   };
+    //   IFrameAPI.createController(element, options, callback);
+    // }; 
+      
+    </script>
+    
+    <!-- <script type="text/javascript">
+      window.onSpotifyIframeApiReady = (IFrameAPI) => {
+        let element = document.getElementById('embed-iframe');
+        let options = {
+            width: '100%',
+            height: '200',
+            uri: 'spotify:episode:7makk4oTQel546B0PZlDM5'
+          };
+        let callback = (EmbedController) => {
+          document.querySelectorAll('ul#episodes > li > button').forEach(
+            episode => {
+              episode.addEventListener('click', () => {
+                EmbedController.loadUri(episode.dataset.spotifyId)
+              });
+            })
+        };
+        IFrameAPI.createController(element, options, callback);
+      };
+    </script> -->
     <script>
       
 //       const languages = [
@@ -520,6 +588,8 @@
     </script>
   </body>
 </html>
+
+
 
 
 

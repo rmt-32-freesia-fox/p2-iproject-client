@@ -8,6 +8,7 @@ export const useDataStore = defineStore('data', {
   state: () => ({
     name: '',
     baseUrl: 'http://localhost:3000',
+    // baseUrl: 'https://macspotify-production.up.railway.app',
     clientId: '',
     paymentToken: '',
     spotifyProfile: {},
@@ -196,7 +197,7 @@ export const useDataStore = defineStore('data', {
             access_token: localStorage.getItem('token'), 
           }
         })  
-        alert(req.data)
+        // alert(req.data)
           console.log(req.data);        
           return req.data
       } catch (error) {
@@ -213,19 +214,19 @@ export const useDataStore = defineStore('data', {
           onSuccess: function(result){
             /* You may add your own implementation here */
             flagging(payment_token)
-            alert("payment success!"); console.log(result);
+             console.log(result);
           },
           onPending: function(result){
             /* You may add your own implementation here */
-            alert("wating your payment!"); console.log(result);
+            console.log("wating your payment!", result);
           },
           onError: function(result){
             /* You may add your own implementation here */
-            alert("payment failed!"); console.log(result);
+            console.log("payment failed!", result);
           },
           onClose: function(){
             /* You may add your own implementation here */
-            alert('you closed the popup without finishing the payment');
+            console.log('you closed the popup without finishing the payment');
           }
         })
       
