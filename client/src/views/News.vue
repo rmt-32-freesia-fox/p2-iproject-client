@@ -4,11 +4,11 @@ import { useAnimeStore } from '../stores/anime'
 import MyEventCard from '../components/MyEventCard.vue'
 export default {
   components: { MyEventCard },
-  data(){
-    return{
-      thisPage : 1
-    }
-  },
+  // data(){
+  //   return{
+  //     thisPage : 1
+  //   }
+  // },
   methods: {
     ...mapActions(useAnimeStore, ['fetchNews']),
   },
@@ -16,11 +16,11 @@ export default {
     ...mapWritableState(useAnimeStore, ['newsResult']),
     ...mapWritableState(useAnimeStore, ['newsPagination']),
   },
-  watch: {
-    thisPage(){
-      this.fetchNews(this.thisPage)
-    },
-  },
+  // watch: {
+  //   thisPage(){
+  //     this.fetchNews(this.thisPage)
+  //   },
+  // },
   created() {
     this.fetchNews()
   }
@@ -134,12 +134,12 @@ export default {
   <nav aria-label="Page navigation example">
     <ul class="flex list-style-none">
       <li v-show="newsPagination.current_page>1" class="page-item"><a
-          class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 focus:shadow-none"
+        @click.prevent="fetchNews(newsPagination.current_page-1)" class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 focus:shadow-none"
           href="#">Previous</a></li>
-      <li  v-for="page in newsPagination.last_visible_page" class="page-item" @click.prevent="thisPage=page" ><a 
+      <li  v-for="page in newsPagination.last_visible_page" class="page-item" @click.prevent="fetchNews(page)" ><a 
           class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
           href="#">{{ page }}</a></li>
-      <li v-show="newsPagination.has_next_page==true" class="page-item"><a
+      <li v-show="newsPagination.has_next_page==true" @click.prevent="fetchNews(newsPagination.current_page+1)" class="page-item"><a
           class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
           href="#">Next</a></li>
     </ul>
