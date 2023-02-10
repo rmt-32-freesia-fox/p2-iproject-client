@@ -14,7 +14,7 @@ export default {
 
 <div class=" grid place-items-center font-mono bg-gray-900">
       
-      <div class="bg-white h-64 rounded-md bg-gray-800 shadow-lg">
+      <div class=" h-64 rounded-md bg-gray-800 shadow-lg">
         <div class="md:flex px-4 leading-none max-w-4xl">
           <div class="flex-none ">
            <img

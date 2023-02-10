@@ -17,7 +17,7 @@ export default {
 </script>
 
 <template>
-    <section class="bg-gray-900">
+    <section class=" bg-gray-900">
         <div class="mx-auto max-w-screen-xl pt-24  lg:flex  lg:items-center">
             <div class="mx-auto max-w-xl text-center">
                 <h1 class="text-4xl text-gray-50 font-extrabold">

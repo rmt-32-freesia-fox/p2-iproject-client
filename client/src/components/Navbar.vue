@@ -1,5 +1,4 @@
 <script>
-import router from '../router';
 import { RouterLink, RouterView } from "vue-router";
 import { mapState, mapActions } from 'pinia'
 import { useAnimeStore } from '../stores/anime'
@@ -11,7 +10,6 @@ export default {
     ...mapState(useAnimeStore, ['isLogin']),
   }
 };
-
 </script>
 
 
@@ -22,7 +20,6 @@ export default {
         <div class="flex items-center">
           <a href="/" aria-label="Company" title="Company" class="inline-flex items-center mr-8 flex gap-5">
             <RouterLink to="/">
-
               <img src="../assets/navbarimg.png" style="height: 60px;" />
             </RouterLink>
             <span class="ml-2 text-xl font-bold tracking-wide text-gray-100 uppercase">

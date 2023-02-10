@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 
 export const useAnimeStore = defineStore("anime", {
   state: () => ({
+    // baseUrl: "https://animix-production.up.railway.app",
     baseUrl: "http://localhost:3000",
     userId: localStorage.userId || "",
     isLogin: localStorage.isLogin || false,
@@ -13,10 +14,9 @@ export const useAnimeStore = defineStore("anime", {
     eventResult: [],
     myEventResult: [],
     newsResult: [],
+    newsPagination: {},
   }),
-  // getters: {
-  //   doubleCount: (state) => state.count * 2,
-  // },
+ 
   actions: {
     swalSuccess(title, message) {
       Swal.fire(title, message, "success");
@@ -312,16 +312,15 @@ export const useAnimeStore = defineStore("anime", {
         });
         console.log(data);
         let callback = this.createMyEventApproved
+
         window.snap.pay(data.token, {
           onSuccess: function (result) {
       
             callback(EventId)
+    
             console.log(result);
           },
         });
-        
-        this.fetchMyEvent(); //!
-        this.router.push("/myevent"); //!
       } catch (error) {
         console.log(error);
         this.swalError(
@@ -344,6 +343,8 @@ export const useAnimeStore = defineStore("anime", {
           },
         });
         console.log(data);
+        this.fetchMyEvent(); //!
+        // this.router.push("/myevents"); //!
         this.swalNotification("Event has been successfully bought");
       } catch (error) {
         console.log(error);
@@ -353,15 +354,20 @@ export const useAnimeStore = defineStore("anime", {
         );
       }
     },
-    async fetchNews() {
+    async fetchNews(page) {
       try {
+        console.log(page);
         let { data } = await axios({
           method: "get",
           url: `${this.baseUrl}/news`,
+          params : {
+            page
+          }
         });
         console.log(data);
 
         this.newsResult=data.data
+        this.newsPagination=data.pagination
         this.swalNotification("News has loaded");
       } catch (error) {
         console.log(error);
