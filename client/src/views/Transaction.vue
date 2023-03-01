@@ -19,7 +19,7 @@ export default {
 </script>
 
 <template>
-  <div class="bg-gray-300 h-screen">
+  <div class="bg-gray-300">
     <div class="mt-[150px] flex justify-center gap-5 flex-wrap">
       <TransactionCard
         v-for="transaction in transactions"
