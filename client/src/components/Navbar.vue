@@ -4,7 +4,7 @@ import { useCounterStore } from "../stores/counter";
 
 export default {
   computed: {
-    ...mapState(useCounterStore, ["isLogin"]),
+    ...mapState(useCounterStore, ["isLogin", "status", "statusPatch"]),
   },
   data() {
     return {
@@ -17,7 +17,7 @@ export default {
       "doneLogin",
       "handleLogout",
       "subscribe",
-      "patchStatus",
+      "doneSubscribe",
     ]),
 
     handleSubscribe() {
@@ -30,6 +30,8 @@ export default {
   },
   created() {
     this.doneLogin();
+    this.doneSubscribe();
+    this.statusPatch;
   },
 };
 </script>
@@ -58,9 +60,16 @@ export default {
             </div>
           </div>
           <div class="col-lg-5 px-5 text-end">
-            <div class="d-inline-flex align-items-center py-2">
-              <h5 v-if="isLogin == 'true'">
+            <div
+              class="d-inline-flex align-items-center py-2"
+              v-if="isLogin == 'true'"
+            >
+              <h5 v-if="this.status == 'false'">
                 hi,
+                {{ username }}
+              </h5>
+              <h5 v-if="this.status == 'true'" style="color: #fb5b21">
+                hi, {{ statusPatch }}
                 {{ username }}
               </h5>
             </div>
@@ -86,6 +95,7 @@ export default {
           >
             <div class="navbar-nav">
               <a
+                v-if="this.isLogin == 'true'"
                 href="index.html"
                 class="nav-item nav-link"
                 @click.prevent="this.$router.push('/')"
@@ -103,7 +113,14 @@ export default {
                 href="class.html"
                 class="nav-item nav-link"
                 @click.prevent="this.$router.push('/exercise')"
-                >Classes</a
+                >Exercise</a
+              >
+              <a
+                v-if="this.isLogin == 'true'"
+                href="class.html"
+                class="nav-item nav-link"
+                @click.prevent="this.$router.push('/bmi')"
+                >BMI calculator</a
               >
               <a
                 v-if="this.isLogin == 'true'"
@@ -113,14 +130,28 @@ export default {
                 >Favorite</a
               >
               <a
-                v-if="isLogin == 'true'"
+                v-if="this.isLogin == 'true'"
                 href="class.html"
                 class="nav-item nav-link"
                 @click.prevent="logout"
                 >Logout</a
               >
+              <a
+                v-if="this.isLogin == 'false'"
+                href="class.html"
+                class="nav-item nav-link"
+                @click.prevent="this.$router.push('/register')"
+                >Sign Up</a
+              >
+              <a
+                v-if="this.isLogin == 'false'"
+                href="class.html"
+                class="nav-item nav-link"
+                @click.prevent="this.$router.push('/login')"
+                >Sign In</a
+              >
             </div>
-            <a
+            <!-- <a
               v-if="isLogin == 'false'"
               @click.prevent="this.$router.push('/register')"
               class="btn btn-primary py-md-3 px-md-5 d-none d-lg-block"
@@ -131,7 +162,7 @@ export default {
               class="btn btn-primary py-md-3 px-md-5 d-none d-lg-block"
               style="margin-left: 1rem"
               >Sign In</a
-            >
+            > -->
           </div>
         </nav>
       </div>
@@ -152,19 +183,22 @@ export default {
               <h1 class="display-2 text-white text-uppercase mb-md-4">
                 Build Your Body Strong With Gymster
               </h1>
-              <a
-                v-if="isLogin == 'true'"
-                @click.prevent="handleSubscribe"
-                style="border-radius: 4rem"
-                class="btn btn-primary py-md-3 px-md-5 me-3"
-                >Join Us</a
-              >
-              <h2
-                v-if="this.status == 'Member'"
-                class="text-white text-uppercase"
-              >
-                Thanks For Subscribe
-              </h2>
+              <div v-if="isLogin == 'true'">
+                <a
+                  v-if="this.status == 'false'"
+                  @click.prevent="handleSubscribe"
+                  style="border-radius: 4rem"
+                  class="btn btn-primary py-md-3 px-md-5 me-3"
+                  >Join Member</a
+                >
+                <br />
+                <h2
+                  v-if="this.status == 'true'"
+                  class="text-white text-uppercase"
+                >
+                  You are Member Now
+                </h2>
+              </div>
             </div>
           </div>
         </div>
@@ -183,12 +217,20 @@ export default {
                 Grow Your Strength With Our Trainers
               </h1>
               <a
+                v-if="isLogin == 'true' && status == 'false'"
                 @click.prevent="handleSubscribe"
                 style="border-radius: 4rem"
                 href=""
                 class="btn btn-primary py-md-3 px-md-5 me-3"
-                >Join Us</a
+                >Join Member</a
               >
+              <br />
+              <h2
+                v-if="isLogin == 'true' && status == 'true'"
+                class="text-white text-uppercase"
+              >
+                You are Member Now
+              </h2>
             </div>
           </div>
         </div>

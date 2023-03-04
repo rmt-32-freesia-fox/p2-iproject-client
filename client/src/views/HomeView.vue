@@ -16,10 +16,13 @@ export default {
   },
 
   computed: {
-    ...mapState(useCounterStore, ["bodyParts"]),
+    ...mapState(useCounterStore, ["bodyParts", "isLogin"]),
   },
   methods: {
-    ...mapActions(useCounterStore, ["getBodyPart"]),
+    ...mapActions(useCounterStore, ["getBodyPart", "subscribe"]),
+    handleSubscribe() {
+      this.subscribe();
+    },
   },
   created() {
     this.getBodyPart();
@@ -42,10 +45,19 @@ export default {
         Equipment
       </h2>
       <CardBody v-for="item in bodyParts" :key="item.id" :item="item" />
-      <div class="col-lg-12 col-md-6 text-center">
+      <div class="col-lg-12 col-md-6 text-center" v-if="isLogin == 'true'">
         <h1 class="text-uppercase text-light mb-4" style="margin-top: 2rem">
-          Click the join button above if you want join the member
+          Click the button below if you want to access the step-by-step video
+          <br />
+          tutorial and gym schedule at our place
         </h1>
+        <a
+          @click.prevent="handleSubscribe"
+          style="border-radius: 4rem"
+          href=""
+          class="btn btn-primary py-md-3 px-md-5 me-3"
+          >Subscribe</a
+        >
       </div>
     </div>
   </div>

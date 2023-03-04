@@ -18,20 +18,29 @@ const swalConfirm = (cb) => {
 export const useCounterStore = defineStore("counter", {
   state: () => ({
     // baseurl: "http://localhost:3000",
-    baseurl: "https://gymster-production.up.railway.app",
+    baseurl: "https://gymster.rhazzid.site",
     bodyParts: [],
     exercise: [],
     myexercise: [],
+    bmi: [],
     pagination: [],
     qrCode: [],
-    status: "",
+    status: "false",
+    statusPatch: "",
     isLogin: "false",
+    isBMI: "false",
   }),
 
   actions: {
     doneLogin() {
       if (!localStorage.access_token) this.isLogin = "false";
       else this.isLogin = "true";
+    },
+
+    doneSubscribe() {
+      if (localStorage.status == "UnMember" || this.statusPatch == "UnMember")
+        this.status = "false";
+      else this.status = "true";
     },
 
     async qrCodeLink(data) {
@@ -114,7 +123,8 @@ export const useCounterStore = defineStore("counter", {
         localStorage.access_token = google.data.access_token;
         localStorage.setItem("id", google.data.id);
         localStorage.setItem("username", google.data.username);
-
+        localStorage.setItem("status", google.data.status);
+        this.statusPatch = google.data.status;
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -124,6 +134,7 @@ export const useCounterStore = defineStore("counter", {
         });
         this.router.push("/");
       } catch (error) {
+        console.log(error);
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -186,6 +197,10 @@ export const useCounterStore = defineStore("counter", {
             access_token: localStorage.access_token,
           },
         });
+        this.statusPatch = user.data.users.status;
+        localStorage.setItem("status", google.data.status);
+
+        console.log(user);
         this.router.push("/");
         Swal.fire({
           position: "top-end",
@@ -300,6 +315,27 @@ export const useCounterStore = defineStore("counter", {
           title: "Oops...",
           text: error.response.data.message,
         });
+      }
+    },
+
+    async getBmi(data) {
+      try {
+        const bmi = await axios({
+          method: "get",
+          url: `${this.baseurl}/bmi?`,
+          headers: {
+            access_token: localStorage.access_token,
+          },
+          params: {
+            weight: data.weight ? data.weight : "",
+            height: data.height ? data.height : "",
+          },
+        });
+        console.log(bmi.data);
+        this.bmi = bmi.data;
+        this.isBMI = "true";
+      } catch (error) {
+        console.log(error);
       }
     },
   },

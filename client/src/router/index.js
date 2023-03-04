@@ -5,6 +5,7 @@ import Exercise from "../views/Exercise.vue";
 import MyExercise from "../views/MyExercise.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
+import BMI from "../views/BMI.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,11 @@ const router = createRouter({
       path: "/myexercise",
       name: "myexercise",
       component: MyExercise,
+    },
+    {
+      path: "/bmi",
+      name: "bmi",
+      component: BMI,
     },
   ],
 });

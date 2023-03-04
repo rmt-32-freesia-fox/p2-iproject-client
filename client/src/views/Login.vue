@@ -36,6 +36,7 @@ export default {
               <h3>SIGN IN</h3>
               <input type="text" placeholder="EMAIL" v-model="email" />
               <input
+                maxlength="8"
                 type="password"
                 placeholder="PASSWORD"
                 v-model="password"

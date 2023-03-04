@@ -44,11 +44,13 @@ export default {
               <input type="text" placeholder="USERNAME" v-model="username" />
               <input type="text" placeholder="EMAIL" v-model="email" />
               <input
+                maxlength="8"
                 type="password"
                 placeholder="PASSWORD"
                 v-model="password"
               />
               <input
+                maxlength="14"
                 type="text"
                 placeholder="PHONENUMBER"
                 v-model="phoneNumber"
